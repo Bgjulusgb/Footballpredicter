@@ -1,0 +1,1511 @@
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fußball Vorhersage App</title>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/recharts/2.2.0/Recharts.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --card-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --transition-speed: 0.3s;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        
+        .App {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary-color), #0056b3);
+            color: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .header h1 {
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            transition: transform var(--transition-speed);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-card h3 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        .chart-container {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+        }
+        
+        .chart-container h2 {
+            margin-bottom: 20px;
+            color: var(--dark-color);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: var(--card-shadow);
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: var(--light-color);
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+        
+        tr:hover {
+            background-color: rgba(0,0,0,0.02);
+        }
+        
+        .prediction-table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            padding: 20px;
+        }
+        
+        .prediction-table h2 {
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+        
+        .highlight {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .highlight-danger {
+            color: var(--danger-color);
+            font-weight: bold;
+        }
+        
+        .highlight-success {
+            color: var(--success-color);
+            font-weight: bold;
+        }
+        
+        .highlight-warning {
+            color: var(--warning-color);
+            font-weight: bold;
+        }
+        
+        .match-header {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .match-teams {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .team-logo {
+            width: 50px;
+            height: 50px;
+            background-color: #eee;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .vs {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+        }
+        
+        .match-info {
+            text-align: right;
+        }
+        
+        .match-date {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            background: #f0f0f0;
+            border: none;
+            flex: 1;
+            text-align: center;
+            transition: all var(--transition-speed);
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+        
+        .tab:hover {
+            background: #e0e0e0;
+        }
+        
+        .tab.active {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .filters {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-select {
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            background-color: white;
+            font-size: 1rem;
+            color: var(--dark-color);
+            min-width: 200px;
+            cursor: pointer;
+        }
+        
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+        }
+        
+        .confidence-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .confidence-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        
+        .confidence-high {
+            background-color: var(--success-color);
+        }
+        
+        .confidence-medium {
+            background-color: var(--warning-color);
+        }
+        
+        .confidence-low {
+            background-color: var(--danger-color);
+        }
+        
+        .loading-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 200px;
+        }
+        
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary-color);
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .probability-bar {
+            height: 10px;
+            border-radius: 5px;
+            background-color: #e9ecef;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+        
+        .probability-fill {
+            height: 100%;
+            background-color: var(--primary-color);
+        }
+        
+        .form-pill {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            color: white;
+            text-align: center;
+            line-height: 25px;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        
+        .form-W {
+            background-color: var(--success-color);
+        }
+        
+        .form-D {
+            background-color: var(--warning-color);
+        }
+        
+        .form-L {
+            background-color: var(--danger-color);
+        }
+        
+        .team-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+        }
+        
+        .search-bar {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        
+        .search-bar:focus {
+            border: 2px solid var(--primary-color);
+            outline: none;
+        }
+        
+        .section-title {
+            margin: 30px 0 15px 0;
+            color: var(--dark-color);
+            border-left: 4px solid var(--primary-color);
+            padding-left: 10px;
+        }
+        
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #0069d9;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .input-group {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        
+        .input-group .search-bar {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            margin: 0;
+        }
+        
+        .input-group .btn {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+        
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+        
+        input:focus + .slider {
+            box-shadow: 0 0 1px var(--primary-color);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .dark-mode {
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+        }
+        
+        .dark-mode .stat-card,
+        .dark-mode .chart-container,
+        .dark-mode .match-header,
+        .dark-mode table,
+        .dark-mode .prediction-table {
+            background-color: #2c2c2c;
+            color: #f0f0f0;
+        }
+        
+        .dark-mode th {
+            background-color: #3c3c3c;
+            color: #f0f0f0;
+        }
+        
+        .dark-mode td {
+            border-bottom: 1px solid #3c3c3c;
+        }
+        
+        .dark-mode .tab {
+            background-color: #3c3c3c;
+            color: #f0f0f0;
+        }
+        
+        .dark-mode .tab:hover {
+            background-color: #4c4c4c;
+        }
+        
+        .dark-mode .filter-select,
+        .dark-mode .search-bar {
+            background-color: #3c3c3c;
+            color: #f0f0f0;
+            border-color: #4c4c4c;
+        }
+        
+        .dark-mode h2, 
+        .dark-mode h3, 
+        .dark-mode .section-title {
+            color: #f0f0f0;
+        }
+        
+        .dark-mode tr:hover {
+            background-color: rgba(255,255,255,0.05);
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .stat-card {
+                padding: 15px;
+            }
+            
+            .chart-container {
+                padding: 15px;
+                overflow-x: auto;
+            }
+            
+            .match-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .match-teams {
+                justify-content: center;
+            }
+            
+            .match-info {
+                text-align: center;
+            }
+            
+            th, td {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .prediction-table {
+                overflow-x: auto;
+            }
+            
+            .team-stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filters {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // Extrahieren der Recharts-Komponenten für bessere Lesbarkeit
+        const {
+            BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar,
+            LineChart, Line, ResponsiveContainer, PieChart, Pie, Cell,
+            AreaChart, Area, RadarChart, PolarGrid, PolarAngleAxis,
+            PolarRadiusAxis, Radar, Sector, ScatterChart, Scatter,
+            ComposedChart
+        } = Recharts;
+        
+        // Erweiterte Mock-Daten mit mehr Informationen
+        const predictions = [
+            {
+                id: 1,
+                source: 'Quelle A',
+                homeTeam: 'Bayern München',
+                awayTeam: 'Borussia Dortmund',
+                homeWinProbability: 45,
+                drawProbability: 20,
+                awayWinProbability: 35,
+                expectedGoals: 2.5,
+                expectedHomeGoals: 1.3,
+                expectedAwayGoals: 1.2,
+                recommendation: 'Heimsieg',
+                confidence: 'hoch',
+                lastUpdate: '2023-11-20T15:30:00',
+                category: 'Statistisch',
+                tags: ['Bundesliga', 'Top-Spiel']
+            },
+            {
+                id: 2,
+                source: 'Quelle B',
+                homeTeam: 'Bayern München',
+                awayTeam: 'Borussia Dortmund',
+                homeWinProbability: 50,
+                drawProbability: 20,
+                awayWinProbability: 30,
+                expectedGoals: 2.2,
+                expectedHomeGoals: 1.3, 
+                expectedAwayGoals: 0.9,
+                recommendation: 'Heimsieg',
+                confidence: 'mittel',
+                lastUpdate: '2023-11-20T14:45:00',
+                category: 'KI-Basiert',
+                tags: ['Bundesliga', 'Favoriten-Duell']
+            },
+            {
+                id: 3,
+                source: 'Quelle C',
+                homeTeam: 'Bayern München',
+                awayTeam: 'Borussia Dortmund',
+                homeWinProbability: 40,
+                drawProbability: 25,
+                awayWinProbability: 35,
+                expectedGoals: 2.8,
+                expectedHomeGoals: 1.5,
+                expectedAwayGoals: 1.3,
+                recommendation: 'Unter 3.5 Tore',
+                confidence: 'sehr hoch',
+                lastUpdate: '2023-11-20T14:15:00',
+                category: 'Experten',
+                tags: ['Bundesliga', 'Torwett']
+            },
+            {
+                id: 4,
+                source: 'Quelle D',
+                homeTeam: 'Bayern München',
+                awayTeam: 'Borussia Dortmund',
+                homeWinProbability: 55,
+                drawProbability: 25,
+                awayWinProbability: 20,
+                expectedGoals: 3.0,
+                expectedHomeGoals: 2.0,
+                expectedAwayGoals: 1.0,
+                recommendation: 'Heimsieg & Über 2.5 Tore',
+                confidence: 'hoch',
+                lastUpdate: '2023-11-20T16:00:00',
+                category: 'Community',
+                tags: ['Bundesliga', 'Kombiwette']
+            },
+            {
+                id: 5,
+                source: 'Quelle E',
+                homeTeam: 'Bayern München',
+                awayTeam: 'Borussia Dortmund',
+                homeWinProbability: 48,
+                drawProbability: 22,
+                awayWinProbability: 30,
+                expectedGoals: 2.7,
+                expectedHomeGoals: 1.6,
+                expectedAwayGoals: 1.1,
+                recommendation: 'Heimsieg',
+                confidence: 'hoch',
+                lastUpdate: '2023-11-20T17:15:00',
+                category: 'Statistisch',
+                tags: ['Bundesliga', 'Datenanalyse']
+            }
+        ];
+
+        // Zusätzliche Trend-Daten für die letzten 7 Tage
+        const trendData = [
+            { tag: 'Tag 1', heimsieg: 45, unentschieden: 25, auswärtssieg: 30 },
+            { tag: 'Tag 2', heimsieg: 47, unentschieden: 23, auswärtssieg: 30 },
+            { tag: 'Tag 3', heimsieg: 48, unentschieden: 22, auswärtssieg: 30 },
+            { tag: 'Tag 4', heimsieg: 50, unentschieden: 20, auswärtssieg: 30 },
+            { tag: 'Tag 5', heimsieg: 49, unentschieden: 21, auswärtssieg: 30 },
+            { tag: 'Tag 6', heimsieg: 52, unentschieden: 18, auswärtssieg: 30 },
+            { tag: 'Tag 7', heimsieg: 55, unentschieden: 20, auswärtssieg: 25 },
+        ];
+
+        // Mannschaftsstatistiken
+        const teamStats = {
+            'Bayern München': {
+                form: ['W', 'W', 'D', 'W', 'L'],
+                goalsScored: 28,
+                goalsConceded: 12,
+                xGFor: 29.5,
+                xGAgainst: 10.8,
+                homeAdvantage: 1.2,
+                injuries: ['Kimmich (Mittelfeld)', 'Coman (Flügel)'],
+                avgPossession: 65,
+                shotsPerGame: 17.5,
+                passingAccuracy: 88,
+                headToHead: {
+                    played: 10,
+                    won: 6,
+                    drawn: 2,
+                    lost: 2,
+                    goalsFor: 22,
+                    goalsAgainst: 14
+                }
+            },
+            'Borussia Dortmund': {
+                form: ['W', 'L', 'W', 'W', 'D'],
+                goalsScored: 24,
+                goalsConceded: 15,
+                xGFor: 23.2,
+                xGAgainst: 14.5,
+                homeAdvantage: 1.1,
+                injuries: ['Hummels (Verteidigung)', 'Reus (Mittelfeld)'],
+                avgPossession: 58,
+                shotsPerGame: 15.2,
+                passingAccuracy: 83,
+                headToHead: {
+                    played: 10,
+                    won: 2,
+                    drawn: 2,
+                    lost: 6,
+                    goalsFor: 14,
+                    goalsAgainst: 22
+                }
+            }
+        };
+
+        // Wettervorhersage für das Spiel
+        const weatherForecast = {
+            temperature: 8,
+            precipitation: 20,
+            windSpeed: 12,
+            condition: 'Leicht bewölkt'
+        };
+
+        // Schiedsrichterstatistiken
+        const refereeStats = {
+            name: 'Felix Brych',
+            yellowCardsPerGame: 3.2,
+            redCardsPerGame: 0.1,
+            penaltiesPerGame: 0.3,
+            homeTeamBias: -0.1
+        };
+
+        // Ergebnisvorhersagen
+        const scoresPredictions = [
+            { score: '2:0', probability: 12 },
+            { score: '2:1', probability: 15 },
+            { score: '1:0', probability: 10 },
+            { score: '1:1', probability: 12 },
+            { score: '3:1', probability: 8 },
+            { score: '0:0', probability: 7 },
+            { score: '2:2', probability: 6 },
+            { score: '3:0', probability: 5 },
+            { score: '0:1', probability: 4 },
+            { score: '1:2', probability: 5 },
+            { score: 'Andere', probability: 16 }
+        ];
+
+        // Verschiedene Wettquoten
+        const oddsSources = [
+            { source: 'Anbieter A', homeWin: 1.75, draw: 3.6, awayWin: 4.5, over25: 1.6, BTTS: 1.9 },
+            { source: 'Anbieter B', homeWin: 1.8, draw: 3.75, awayWin: 4.3, over25: 1.65, BTTS: 1.85 },
+            { source: 'Anbieter C', homeWin: 1.72, draw: 3.5, awayWin: 4.6, over25: 1.55, BTTS: 1.95 },
+            { source: 'Anbieter D', homeWin: 1.78, draw: 3.7, awayWin: 4.4, over25: 1.62, BTTS: 1.88 },
+            { source: 'Anbieter E', homeWin: 1.77, draw: 3.65, awayWin: 4.5, over25: 1.58, BTTS: 1.92 }
+        ];
+
+        // Hauptkomponente der App
+        function App() {
+            const [activeTab, setActiveTab] = React.useState('vorhersagen');
+            const [darkMode, setDarkMode] = React.useState(false);
+            const [selectedSource, setSelectedSource] = React.useState('Alle');
+            const [selectedCategory, setSelectedCategory] = React.useState('Alle');
+            const [isLoading, setIsLoading] = React.useState(false);
+            const [searchQuery, setSearchQuery] = React.useState('');
+
+            // Dummy-Funktion für das Laden der Daten
+            const fetchData = () => {
+                setIsLoading(true);
+                setTimeout(() => {
+                    setIsLoading(false);
+                }, 1500);
+            };
+
+            // Beim ersten Laden Daten abrufen
+            React.useEffect(() => {
+                fetchData();
+                
+                // Dark Mode Listener
+                if (darkMode) {
+                    document.body.classList.add('dark-mode');
+                } else {
+                    document.body.classList.remove('dark-mode');
+                }
+            }, [darkMode]);
+
+            // Gefilterte Prognosen basierend auf den Auswahlkriterien
+            const filteredPredictions = predictions.filter(pred => {
+                // Überprüfe Quelle
+                if (selectedSource !== 'Alle' && pred.source !== selectedSource) return false;
+                
+                // Überprüfe Kategorie
+                if (selectedCategory !== 'Alle' && pred.category !== selectedCategory) return false;
+                
+                // Überprüfe Suchfilter
+                if (searchQuery && !(
+                    pred.homeTeam.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    pred.awayTeam.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    pred.recommendation.toLowerCase().includes(searchQuery.toLowerCase())
+                )) return false;
+                
+                return true;
+            });
+
+            // Berechnung der Durchschnittswerte
+            const calcAverage = (property) => {
+                if (filteredPredictions.length === 0) return 0;
+                return filteredPredictions.reduce((sum, pred) => sum + pred[property], 0) / filteredPredictions.length;
+            };
+
+            const averageHomeWin = calcAverage('homeWinProbability');
+            const averageDraw = calcAverage('drawProbability');
+            const averageAwayWin = calcAverage('awayWinProbability');
+            const averageExpectedGoals = calcAverage('expectedGoals');
+
+            // Aggregierte Daten für Visualisierungen
+            const aggregatedData = [
+                { name: 'Heimsieg', value: averageHomeWin },
+                { name: 'Unentschieden', value: averageDraw },
+                { name: 'Auswärtssieg', value: averageAwayWin }
+            ];
+
+            // Tab-Wechsel-Handler
+            const handleTabChange = (tab) => {
+                setActiveTab(tab);
+            };
+
+            // Dark Mode Toggle Handler
+            const toggleDarkMode = () => {
+                setDarkMode(!darkMode);
+            };
+
+            // Such-Handler
+            const handleSearch = (e) => {
+                setSearchQuery(e.target.value);
+            };
+
+            // Quellen-Filter-Handler
+            const handleSourceChange = (e) => {
+                setSelectedSource(e.target.value);
+            };
+
+            // Kategorie-Filter-Handler
+            const handleCategoryChange = (e) => {
+                setSelectedCategory(e.target.value);
+            };
+
+            // Farben für die Charts
+            const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#A4DE6C'];
+
+            return (
+                <div className="App">
+                    <div className="header">
+                        <h1>Fußball Vorhersage App</h1>
+                        <p>Analysiere Spielvorhersagen, Statistiken und Trends</p>
+                        <div style={{ marginTop: '20px' }}>
+                            <label className="switch">
+                                <input type="checkbox" checked={darkMode} onChange={toggleDarkMode} />
+                                <span className="slider"></span>
+                            </label>
+                            <span style={{ marginLeft: '10px', verticalAlign: 'super' }}>
+                                {darkMode ? 'Dunkelmodus' : 'Hellmodus'}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div className="match-header">
+                        <div className="match-teams">
+                            <div>
+                                <div className="team-logo">FCB</div>
+                                <div>Bayern München</div>
+                            </div>
+                            <div className="vs">vs</div>
+                            <div>
+                                <div className="team-logo">BVB</div>
+                                <div>Borussia Dortmund</div>
+                            </div>
+                        </div>
+                        <div className="match-info">
+                            <div className="match-date">22.11.2023, 18:30 Uhr</div>
+                            <div>Allianz Arena, München</div>
+                        </div>
+                    </div>
+
+                    <div className="tabs">
+                        <button 
+                            className={`tab ${activeTab === 'vorhersagen' ? 'active' : ''}`}
+                            onClick={() => handleTabChange('vorhersagen')}
+                        >
+                            Vorhersagen
+                        </button>
+                        <button 
+                            className={`tab ${activeTab === 'statistiken' ? 'active' : ''}`}
+                            onClick={() => handleTabChange('statistiken')}
+                        >
+                            Teamstatistiken
+                        </button>
+                        <button 
+                            className={`tab ${activeTab === 'trends' ? 'active' : ''}`}
+                            onClick={() => handleTabChange('trends')}
+                        >
+                            Trends
+                        </button>
+                        <button 
+                            className={`tab ${activeTab === 'wettquoten' ? 'active' : ''}`}
+                            onClick={() => handleTabChange('wettquoten')}
+                        >
+                            Wettquoten
+                        </button>
+                    </div>
+
+                    {/* Vorhersagen Tab */}
+                    <div className={`tab-content ${activeTab === 'vorhersagen' ? 'active' : ''}`}>
+                        <div className="filters">
+                            <div>
+                                <select 
+                                    className="filter-select" 
+                                    value={selectedSource}
+                                    onChange={handleSourceChange}
+                                >
+                                    <option value="Alle">Alle Quellen</option>
+                                    {predictions.map(pred => 
+                                        <option key={pred.source} value={pred.source}>{pred.source}</option>
+                                    )}
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <select 
+                                    className="filter-select"
+                                    value={selectedCategory}
+                                    onChange={handleCategoryChange}
+                                >
+                                    <option value="Alle">Alle Kategorien</option>
+                                    <option value="Statistisch">Statistisch</option>
+                                    <option value="KI-Basiert">KI-Basiert</option>
+                                    <option value="Experten">Experten</option>
+                                    <option value="Community">Community</option>
+                                </select>
+                            </div>
+
+                            <div className="input-group">
+                                <input 
+                                    type="text" 
+                                    className="search-bar" 
+                                    placeholder="Suche nach Teams oder Wettarten..." 
+                                    value={searchQuery}
+                                    onChange={handleSearch}
+                                />
+                                <button className="btn btn-primary">
+                                    <i className="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="stats-grid">
+                            <div className="stat-card">
+                                <h3>Durchschnittliche Siegwahrscheinlichkeiten</h3>
+                                <div style={{ textAlign: 'center' }}>
+                                    <div>
+                                        <strong>Heimsieg:</strong> <span className="highlight">{averageHomeWin.toFixed(1)}%</span>
+                                        <div className="probability-bar">
+                                            <div className="probability-fill" style={{ width: `${averageHomeWin}%` }}></div>
+                                        </div>
+                                    </div>
+                                    <div style={{ margin: '10px 0' }}>
+                                        <strong>Unentschieden:</strong> <span className="highlight">{averageDraw.toFixed(1)}%</span>
+                                        <div className="probability-bar">
+                                            <div className="probability-fill" style={{ width: `${averageDraw}%` }}></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <strong>Auswärtssieg:</strong> <span className="highlight">{averageAwayWin.toFixed(1)}%</span>
+                                        <div className="probability-bar">
+                                            <div className="probability-fill" style={{ width: `${averageAwayWin}%` }}></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="stat-card">
+                                <h3>Expected Goals</h3>
+                                <div style={{ textAlign: 'center' }}>
+                                    <div>
+                                        <strong>Gesamt:</strong> <span className="highlight">{averageExpectedGoals.toFixed(2)}</span>
+                                    </div>
+                                    <div style={{ margin: '10px 0' }}>
+                                        <strong>Bayern München:</strong> <span className="highlight">
+                                            {calcAverage('expectedHomeGoals').toFixed(2)}
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <strong>Borussia Dortmund:</strong> <span className="highlight">
+                                            {calcAverage('expectedAwayGoals').toFixed(2)}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="chart-container">
+                            <h2>Siegwahrscheinlichkeiten</h2>
+                            <ResponsiveContainer width="100%" height={300}>
+                                <PieChart>
+                                    <Pie
+                                        data={aggregatedData}
+                                        cx="50%"
+                                        cy="50%"
+                                        labelLine={true}
+                                        outerRadius={120}
+                                        fill="#8884d8"
+                                        dataKey="value"
+                                        label={({name, value}) => `${name}: ${value.toFixed(1)}%`}
+                                    >
+                                        {aggregatedData.map((entry, index) => (
+                                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                        ))}
+                                    </Pie>
+                                    <Tooltip formatter={(value) => `${value.toFixed(1)}%`} />
+                                    <Legend />
+                                </PieChart>
+                            </ResponsiveContainer>
+                        </div>
+
+                        <div className="chart-container">
+                            <h2>Vorhergesagte Ergebnisse</h2>
+                            <ResponsiveContainer width="100%" height={300}>
+                                <BarChart
+                                    data={scoresPredictions}
+                                    margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                                >
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="score" />
+                                    <YAxis />
+                                    <Tooltip formatter={(value) => `${value}%`} />
+                                    <Bar dataKey="probability" fill="#8884d8" />
+                                </BarChart>
+                            </ResponsiveContainer>
+                        </div>
+
+                        <h2 className="section-title">Prognosen</h2>
+                        
+                        {isLoading ? (
+                            <div className="loading-container">
+                                <div className="loading-spinner"></div>
+                            </div>
+                        ) : (
+                            <div className="prediction-table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Quelle</th>
+                                            <th>Kategorie</th>
+                                            <th>Empfehlung</th>
+                                            <th>Wahrscheinlichkeit</th>
+                                            <th>Vertrauen</th>
+                                            <th>Zuletzt aktualisiert</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {filteredPredictions.map(pred => (
+                                            <tr key={pred.id}>
+                                                <td>{pred.source}</td>
+                                                <td>{pred.category}</td>
+                                                <td className="highlight">{pred.recommendation}</td>
+                                                <td>
+                                                    {pred.recommendation.includes('Heimsieg') ? 
+                                                        `${pred.homeWinProbability}%` : 
+                                                        pred.recommendation.includes('Auswärtssieg') ? 
+                                                        `${pred.awayWinProbability}%` : 
+                                                        pred.recommendation.includes('Unentschieden') ? 
+                                                   `${pred.drawProbability}%` :
+                                                        `${pred.homeWinProbability}%`
+                                                    }
+                                                </td>
+                                                <td>
+                                                    <div className="confidence-indicator">
+                                                        <span className={`confidence-dot confidence-${
+                                                            pred.confidence === 'hoch' || pred.confidence === 'sehr hoch' ? 'high' : 
+                                                            pred.confidence === 'mittel' ? 'medium' : 'low'
+                                                        }`}></span>
+                                                        {pred.confidence}
+                                                    </div>
+                                                </td>
+                                                <td>{new Date(pred.lastUpdate).toLocaleString('de-DE')}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                                {filteredPredictions.length === 0 && (
+                                    <div style={{ textAlign: 'center', padding: '20px' }}>
+                                        Keine Prognosen gefunden, die den Filterkriterien entsprechen.
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Teamstatistiken Tab */}
+                    <div className={`tab-content ${activeTab === 'statistiken' ? 'active' : ''}`}>
+                        <div className="team-stats-grid">
+                            <div className="stat-card">
+                                <h3>Bayern München</h3>
+                                <div>
+                                    <p><strong>Form:</strong> 
+                                        {teamStats['Bayern München'].form.map((result, index) => (
+                                            <span key={index} className={`form-pill form-${result}`}>
+                                                {result}
+                                            </span>
+                                        ))}
+                                    </p>
+                                    <p><strong>Tore:</strong> {teamStats['Bayern München'].goalsScored}</p>
+                                    <p><strong>Gegentore:</strong> {teamStats['Bayern München'].goalsConceded}</p>
+                                    <p><strong>xG:</strong> {teamStats['Bayern München'].xGFor}</p>
+                                    <p><strong>xGA:</strong> {teamStats['Bayern München'].xGAgainst}</p>
+                                    <p><strong>Heimvorteil:</strong> {teamStats['Bayern München'].homeAdvantage.toFixed(1)}</p>
+                                    <p><strong>Ballbesitz:</strong> {teamStats['Bayern München'].avgPossession}%</p>
+                                    <p><strong>Schüsse pro Spiel:</strong> {teamStats['Bayern München'].shotsPerGame}</p>
+                                    <p><strong>Passgenauigkeit:</strong> {teamStats['Bayern München'].passingAccuracy}%</p>
+                                    <p>
+                                        <strong>Verletzungen:</strong>
+                                        {teamStats['Bayern München'].injuries.map((injury, index) => (
+                                            <span key={index} className="badge">{injury}</span>
+                                        ))}
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div className="stat-card">
+                                <h3>Borussia Dortmund</h3>
+                                <div>
+                                    <p><strong>Form:</strong> 
+                                        {teamStats['Borussia Dortmund'].form.map((result, index) => (
+                                            <span key={index} className={`form-pill form-${result}`}>
+                                                {result}
+                                            </span>
+                                        ))}
+                                    </p>
+                                    <p><strong>Tore:</strong> {teamStats['Borussia Dortmund'].goalsScored}</p>
+                                    <p><strong>Gegentore:</strong> {teamStats['Borussia Dortmund'].goalsConceded}</p>
+                                    <p><strong>xG:</strong> {teamStats['Borussia Dortmund'].xGFor}</p>
+                                    <p><strong>xGA:</strong> {teamStats['Borussia Dortmund'].xGAgainst}</p>
+                                    <p><strong>Heimvorteil:</strong> {teamStats['Borussia Dortmund'].homeAdvantage.toFixed(1)}</p>
+                                    <p><strong>Ballbesitz:</strong> {teamStats['Borussia Dortmund'].avgPossession}%</p>
+                                    <p><strong>Schüsse pro Spiel:</strong> {teamStats['Borussia Dortmund'].shotsPerGame}</p>
+                                    <p><strong>Passgenauigkeit:</strong> {teamStats['Borussia Dortmund'].passingAccuracy}%</p>
+                                    <p>
+                                        <strong>Verletzungen:</strong>
+                                        {teamStats['Borussia Dortmund'].injuries.map((injury, index) => (
+                                            <span key={index} className="badge">{injury}</span>
+                                        ))}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div className="chart-container">
+                            <h2>Teamvergleich</h2>
+                            <ResponsiveContainer width="100%" height={400}>
+                                <RadarChart outerRadius={150} data={[
+                                    {
+                                        subject: 'Tore',
+                                        Bayern: teamStats['Bayern München'].goalsScored/30*100,
+                                        Dortmund: teamStats['Borussia Dortmund'].goalsScored/30*100,
+                                        fullMark: 100
+                                    },
+                                    {
+                                        subject: 'xG',
+                                        Bayern: teamStats['Bayern München'].xGFor/30*100,
+                                        Dortmund: teamStats['Borussia Dortmund'].xGFor/30*100,
+                                        fullMark: 100
+                                    },
+                                    {
+                                        subject: 'Defensive',
+                                        Bayern: (30-teamStats['Bayern München'].goalsConceded)/30*100,
+                                        Dortmund: (30-teamStats['Borussia Dortmund'].goalsConceded)/30*100,
+                                        fullMark: 100
+                                    },
+                                    {
+                                        subject: 'Form',
+                                        Bayern: teamStats['Bayern München'].form.filter(f => f === 'W').length/5*100,
+                                        Dortmund: teamStats['Borussia Dortmund'].form.filter(f => f === 'W').length/5*100,
+                                        fullMark: 100
+                                    },
+                                    {
+                                        subject: 'Ballbesitz',
+                                        Bayern: teamStats['Bayern München'].avgPossession,
+                                        Dortmund: teamStats['Borussia Dortmund'].avgPossession,
+                                        fullMark: 100
+                                    },
+                                    {
+                                        subject: 'Passgenauigkeit',
+                                        Bayern: teamStats['Bayern München'].passingAccuracy,
+                                        Dortmund: teamStats['Borussia Dortmund'].passingAccuracy,
+                                        fullMark: 100
+                                    }
+                                ]}>
+                                    <PolarGrid />
+                                    <PolarAngleAxis dataKey="subject" />
+                                    <PolarRadiusAxis angle={30} domain={[0, 100]} />
+                                    <Radar name="Bayern München" dataKey="Bayern" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
+                                    <Radar name="Borussia Dortmund" dataKey="Dortmund" stroke="#82ca9d" fill="#82ca9d" fillOpacity={0.6} />
+                                    <Legend />
+                                </RadarChart>
+                            </ResponsiveContainer>
+                        </div>
+
+                        <div className="chart-container">
+                            <h2>Direkte Duelle (Head-to-Head)</h2>
+                            <ResponsiveContainer width="100%" height={300}>
+                                <BarChart
+                                    data={[
+                                        { name: 'Siege Bayern', value: teamStats['Bayern München'].headToHead.won },
+                                        { name: 'Unentschieden', value: teamStats['Bayern München'].headToHead.drawn },
+                                        { name: 'Siege Dortmund', value: teamStats['Bayern München'].headToHead.lost }
+                                    ]}
+                                    margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                                >
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="name" />
+                                    <YAxis />
+                                    <Tooltip />
+                                    <Bar dataKey="value" fill="#8884d8" />
+                                </BarChart>
+                            </ResponsiveContainer>
+                        </div>
+
+                        <div className="stats-grid">
+                            <div className="stat-card">
+                                <h3>Wetterbericht</h3>
+                                <div>
+                                    <p><strong>Bedingungen:</strong> {weatherForecast.condition}</p>
+                                    <p><strong>Temperatur:</strong> {weatherForecast.temperature}°C</p>
+                                    <p><strong>Regenwahrscheinlichkeit:</strong> {weatherForecast.precipitation}%</p>
+                                    <p><strong>Windgeschwindigkeit:</strong> {weatherForecast.windSpeed} km/h</p>
+                                </div>
+                            </div>
+                            
+                            <div className="stat-card">
+                                <h3>Schiedsrichter: {refereeStats.name}</h3>
+                                <div>
+                                    <p><strong>Gelbe Karten pro Spiel:</strong> {refereeStats.yellowCardsPerGame}</p>
+                                    <p><strong>Rote Karten pro Spiel:</strong> {refereeStats.redCardsPerGame}</p>
+                                    <p><strong>Elfmeter pro Spiel:</strong> {refereeStats.penaltiesPerGame}</p>
+                                    <p><strong>Heimteam-Tendenz:</strong> {refereeStats.homeTeamBias}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Trends Tab */}
+                    <div className={`tab-content ${activeTab === 'trends' ? 'active' : ''}`}>
+                        <div className="chart-container">
+                            <h2>Prognose-Trends der letzten 7 Tage</h2>
+                            <ResponsiveContainer width="100%" height={300}>
+                                <LineChart
+                                    data={trendData}
+                                    margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                                >
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="tag" />
+                                    <YAxis />
+                                    <Tooltip />
+                                    <Legend />
+                                    <Line 
+                                        type="monotone" 
+                                        dataKey="heimsieg" 
+                                        name="Heimsieg" 
+                                        stroke="#8884d8" 
+                                        activeDot={{ r: 8 }} 
+                                    />
+                                    <Line 
+                                        type="monotone" 
+                                        dataKey="unentschieden" 
+                                        name="Unentschieden" 
+                                        stroke="#82ca9d" 
+                                    />
+                                    <Line 
+                                        type="monotone" 
+                                        dataKey="auswärtssieg" 
+                                        name="Auswärtssieg" 
+                                        stroke="#ffc658" 
+                                    />
+                                </LineChart>
+                            </ResponsiveContainer>
+                        </div>
+
+                        <div className="chart-container">
+                            <h2>Torvorhersagen im Vergleich</h2>
+                            <ResponsiveContainer width="100%" height={300}>
+                                <BarChart
+                                    data={predictions}
+                                    margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                                >
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="source" />
+                                    <YAxis />
+                                    <Tooltip />
+                                    <Legend />
+                                    <Bar dataKey="expectedHomeGoals" name="Bayern München" fill="#8884d8" />
+                                    <Bar dataKey="expectedAwayGoals" name="Borussia Dortmund" fill="#82ca9d" />
+                                </BarChart>
+                            </ResponsiveContainer>
+                        </div>
+
+                        <div className="stats-grid">
+                            <div className="stat-card">
+                                <h3>Torvorhersagen</h3>
+                                <div>
+                                    <p>
+                                        <strong>Über 1.5 Tore:</strong> 
+                                        <span className="highlight">88%</span>
+                                    </p>
+                                    <p>
+                                        <strong>Über 2.5 Tore:</strong> 
+                                        <span className="highlight">76%</span>
+                                    </p>
+                                    <p>
+                                        <strong>Über 3.5 Tore:</strong> 
+                                        <span className="highlight">42%</span>
+                                    </p>
+                                    <p>
+                                        <strong>Beide Teams treffen:</strong> 
+                                        <span className="highlight">68%</span>
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div className="stat-card">
+                                <h3>Empfehlungen Trend</h3>
+                                <div>
+                                    <p>
+                                        <strong>Heimsieg:</strong> 
+                                        <span className="highlight-success">↑ +5% in 7 Tagen</span>
+                                    </p>
+                                    <p>
+                                        <strong>Über 2.5 Tore:</strong> 
+                                        <span className="highlight-success">↑ +3% in 7 Tagen</span>
+                                    </p>
+                                    <p>
+                                        <strong>Beide Teams treffen:</strong> 
+                                        <span className="highlight-danger">↓ -2% in 7 Tagen</span>
+                                    </p>
+                                    <p>
+                                        <strong>Unentschieden:</strong> 
+                                        <span className="highlight-danger">↓ -5% in 7 Tagen</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Wettquoten Tab */}
+                    <div className={`tab-content ${activeTab === 'wettquoten' ? 'active' : ''}`}>
+                        <div className="chart-container">
+                            <h2>Wettquoten im Vergleich</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Anbieter</th>
+                                        <th>Heimsieg</th>
+                                        <th>Unentschieden</th>
+                                        <th>Auswärtssieg</th>
+                                        <th>Über 2.5 Tore</th>
+                                        <th>Beide treffen</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {oddsSources.map((odds, index) => (
+                                        <tr key={index}>
+                                            <td>{odds.source}</td>
+                                            <td className={odds.homeWin === Math.min(...oddsSources.map(o => o.homeWin)) ? 'highlight' : ''}>
+                                                {odds.homeWin.toFixed(2)}
+                                            </td>
+                                            <td className={odds.draw === Math.min(...oddsSources.map(o => o.draw)) ? 'highlight' : ''}>
+                                                {odds.draw.toFixed(2)}
+                                            </td>
+                                            <td className={odds.awayWin === Math.min(...oddsSources.map(o => o.awayWin)) ? 'highlight' : ''}>
+                                                {odds.awayWin.toFixed(2)}
+                                            </td>
+                                            <td className={odds.over25 === Math.min(...oddsSources.map(o => o.over25)) ? 'highlight' : ''}>
+                                                {odds.over25.toFixed(2)}
+                                            </td>
+                                            <td className={odds.BTTS === Math.min(...oddsSources.map(o => o.BTTS)) ? 'highlight' : ''}>
+                                                {odds.BTTS.toFixed(2)}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div className="stats-grid">
+                            <div className="stat-card">
+                                <h3>Wert-Wetten</h3>
+                                <div>
+                                    <p>
+                                        <strong>Beste Wette:</strong> 
+                                        <span className="highlight">Heimsieg @ {Math.min(...oddsSources.map(o => o.homeWin)).toFixed(2)}</span>
+                                    </p>
+                                    <p>
+                                        <strong>Erwarteter Wert:</strong> 
+                                        <span className="highlight-success">+12%</span>
+                                    </p>
+                                    <p>
+                                        <strong>Beste Alternative:</strong> 
+                                        <span className="highlight">Über 2.5 Tore @ {Math.min(...oddsSources.map(o => o.over25)).toFixed(2)}</span>
+                                    </p>
+                                    <p>
+                                        <strong>Erwarteter Wert:</strong> 
+                                        <span className="highlight-success">+8%</span>
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div className="stat-card">
+                                <h3>Quotenentwicklung</h3>
+                                <div>
+                                    <p>
+                                        <strong>Heimsieg:</strong> 
+                                        <span className="highlight-danger">↓ -0.15 in 7 Tagen</span>
+                                    </p>
+                                    <p>
+                                        <strong>Unentschieden:</strong> 
+                                        <span className="highlight-success">↑ +0.2 in 7 Tagen</span>
+                                    </p>
+                                    <p>
+                                        <strong>Auswärtssieg:</strong> 
+                                        <span className="highlight-success">↑ +0.35 in 7 Tagen</span>
+                                    </p>
+                                    <p>
+                                        <strong>Über 2.5 Tore:</strong> 
+                                        <span className="highlight-danger">↓ -0.08 in 7 Tagen</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
