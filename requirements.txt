@@ -1,0 +1,23 @@
+# Football Predicter - Requirements
+#
+# Das Projekt läuft OHNE externe Dependencies (nur Python stdlib).
+# Diese Datei ist optional und nur für Development-Tools.
+
+# Keine erforderlichen Abhängigkeiten - alles ist in der Python Standard Library enthalten:
+# - urllib (HTTP requests with gzip & retry)
+# - json (data parsing)
+# - unittest (testing)
+# - http.server (local development server)
+
+# Optional: Falls du linting/formatting Tools möchtest:
+# black==24.1.1
+# flake8==7.0.0
+# pylint==3.0.3
+
+# Optional: Falls du pytest statt unittest nutzen möchtest:
+# pytest==7.4.4
+# pytest-cov==4.1.0
+
+# Node.js (für server.js) - nicht via pip, sondern vom System installieren:
+# curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+# sudo apt-get install -y nodejs
