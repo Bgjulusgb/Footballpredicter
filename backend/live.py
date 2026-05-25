@@ -124,6 +124,19 @@ def build_live(pbp_events=None, social_records=None, game=None):
     mood = model.mood_meters(social_records)
     ts = model.team_sentiment(social_records)
 
+    # Live win probability from current margin + time remaining, anchored to
+    # the pre-game ensemble prior.
+    win_prob = None
+    if game and game.get("home") and game.get("away"):
+        hs = game["home"].get("score")
+        as_ = game["away"].get("score")
+        if hs is not None and as_ is not None:
+            pregame = _pregame_home_prob()
+            p_home = model.live_win_probability(
+                hs - as_, game.get("period"), game.get("clock"), pregame)
+            win_prob = {"home": p_home, "away": round(1 - p_home, 4),
+                        "pregame_home": pregame}
+
     alerts = _build_alerts(run, mom, spike, game)
 
     state = game.get("state") if game else "pre"
@@ -134,6 +147,7 @@ def build_live(pbp_events=None, social_records=None, game=None):
         "live": {
             "current_run": run,
             "momentum": mom,
+            "win_probability": win_prob,
             "sentiment_spike": spike,
             "mood": mood,
             "team_sentiment": ts,
@@ -144,6 +158,16 @@ def build_live(pbp_events=None, social_records=None, game=None):
         },
         "alerts": alerts,
     }
+
+
+def _pregame_home_prob(default=0.5):
+    """Read the pre-game ensemble home probability from snapshot.json."""
+    try:
+        with open(config.SNAPSHOT_PATH, encoding="utf-8") as f:
+            snap = json.load(f)
+        return snap["prediction"]["ensemble"]["home"]
+    except (OSError, KeyError, ValueError):
+        return default
 
 
 def write_live(path=None, **kwargs):

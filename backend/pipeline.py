@@ -139,15 +139,27 @@ def build_snapshot():
     game = espn_res.meta.get("game") if espn_res.meta else None
     market = _resolve_market(game)
 
+    # ESPN matchup summary (predictor + form + season series), best-effort.
+    summary_meta = {}
+    if game and game.get("id"):
+        summ = espn.fetch_summary(game["id"])
+        sources.append(summ)
+        summary_meta = summ.meta or {}
+    espn_pred = summary_meta.get("predictor")
+
     ratings = model.elo_from_history(bref_res.meta if bref_res.meta else None)
+    ratings = model.elo_adjust_for_form(ratings, summary_meta.get("form"))
     p_elo_home = model.elo_expected(ratings["home"], ratings["away"])
     ts = mood["team_sentiment"]
     delta = model.sentiment_delta(ts)
 
-    p_market_home = market["home"] if market else None
-    ens = model.ensemble(p_market_home, p_elo_home, delta)
-    conf = model.confidence(p_market_home, p_elo_home,
-                            ts["count_home"] + ts["count_away"])
+    model_probs = {
+        "market": market["home"] if market else None,
+        "elo": p_elo_home,
+        "espn": espn_pred["home"] if espn_pred else None,
+    }
+    ens = model.ensemble(model_probs, delta)
+    conf = model.confidence(model_probs, ts["count_home"] + ts["count_away"])
 
     per_game = _per_game_series_probs(ratings, ens["away"])
     clinch = model.series_clinch([g["leader_win"] for g in per_game])
@@ -161,6 +173,7 @@ def build_snapshot():
             "away": round(1 - p_elo_home, 4),
             "ratings": {k: round(v, 1) for k, v in ratings.items()},
         },
+        "espn_predictor": espn_pred,
         "sentiment_delta": round(delta, 4),
         "ensemble": ens,
         "confidence": conf,
@@ -172,6 +185,9 @@ def build_snapshot():
             "per_game": per_game,
         },
     }
+    if game is not None:
+        game["form"] = summary_meta.get("form")
+        game["season_series"] = summary_meta.get("season_series")
 
     state = game.get("state") if game else "pre"
     snapshot = {

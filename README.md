@@ -8,7 +8,7 @@
 ![Dependencies](https://img.shields.io/badge/backend-stdlib%20only-informational)
 ![API keys](https://img.shields.io/badge/API%20keys-none-success)
 ![Cost](https://img.shields.io/badge/cost-%240-success)
-![Tests](https://img.shields.io/badge/tests-27%20passing-brightgreen)
+![Tests](https://img.shields.io/badge/tests-39%20passing-brightgreen)
 ![Language](https://img.shields.io/badge/language-English-lightgrey)
 
 It blends **analyst & press coverage**, **fan social sentiment**, **betting
@@ -51,20 +51,25 @@ game is fully configurable in [`backend/config.py`](backend/config.py).
 
 **Analysis**
 - VADER-style **sentiment engine** with a custom NBA + toxicity lexicon
-  (`clutch`, `washed`, `rigged`, `choke`, `MVP`, `refball`, …).
+  (`clutch`, `washed`, `rigged`, `choke`, `MVP`, `refball`, …), plus
+  **multi-word phrases**, **emoji** and **"but"-contrast** handling.
 - **Emotion breakdown** (joy / anger / fear / sadness / anticipation).
 - **Player-level sentiment & buzz** (roster-aware, avoids shared-surname collisions).
 - **Narrative tracker** — trending storylines and the sentiment around each.
 - **Heat / Hype / Toxicity** meters.
 
-**Prediction (several independent models + ensemble)**
+**Prediction (four independent models + ensemble)**
 - Odds → implied probability with **de-vig**, spread→prob fallback,
-  **Elo / log5**, bounded **sentiment adjustment**, **value-bet** edge + EV,
-  cross-model **confidence**, and **series-clinch** probability.
+  **Elo / log5** (seeded from SRS and **adjusted by recent form**),
+  the **ESPN Matchup Predictor**, and a bounded **sentiment adjustment**.
+- **Value-bet** edge + expected value, cross-model **confidence**,
+  **series-clinch** probability, and a **backtest/calibration** harness
+  (Brier, log-loss, accuracy, skill score).
 
 **Live mode**
-- Scoring-**run detection**, exponential-decay **momentum**, rolling-z-score
-  **sentiment spikes**, and auto-generated alert headlines.
+- **Live win-probability** model (margin + time remaining, anchored to the
+  pre-game prior), scoring-**run detection**, exponential-decay **momentum**,
+  rolling-z-score **sentiment spikes**, and auto-generated alert headlines.
 
 **History & UI**
 - Every run is appended to a rolling history → real **movement charts** over time.
@@ -129,6 +134,9 @@ python3 -m backend.run live --fixture data/fixture_pbp.json  # demo it right now
 # auto: snapshot, then start live mode automatically if the game is on
 python3 -m backend.run auto
 
+# score predictions vs. outcomes (calibration)
+python3 -m backend.run evaluate --results data/results_sample.json
+
 # tests
 python3 -m unittest backend.tests
 ```
@@ -164,19 +172,26 @@ All implemented from scratch in pure Python (`backend/model.py`,
    strip the bookmaker margin (American↔decimal conversion included).
 2. **Spread → probability fallback** — `Φ(spread / σ)`, NBA margin `σ ≈ 12`.
 3. **Elo / log5** — `1 / (1 + 10^(-(R_home + HCA − R_away)/400))`, Elo seeds
-   refined by Basketball-Reference SRS.
-4. **Sentiment-adjusted probability** — bounded `SENT_MAX · tanh(k · Δsentiment)`
+   refined by Basketball-Reference SRS **and nudged by recent (last-5) form**.
+4. **ESPN Matchup Predictor** — pulled from ESPN's summary endpoint as an
+   independent model input.
+5. **Sentiment-adjusted probability** — bounded `SENT_MAX · tanh(k · Δsentiment)`
    (±6 pts cap, so sentiment never overrides the market).
-5. **Heat / Hype / Toxicity meters** — saturating combinations of volume,
+6. **Heat / Hype / Toxicity meters** — saturating combinations of volume,
    engagement, sentiment magnitude/variance and toxicity density.
-6. **Emotion classification** — lexicon-based joy/anger/fear/sadness/anticipation.
-7. **Player sentiment & narratives** — roster-aware mention/sentiment aggregation.
-8. **Value bet** — model edge vs. market + expected value at the offered price.
-9. **Live momentum + run detection** + **sentiment-spike z-score**.
-10. **Ensemble + confidence** — `0.65·market + 0.35·Elo + sentiment nudge`,
-    confidence from cross-model agreement and sample size.
-11. **Series-clinch** — from 3-0, `1 − Π(1 − p_leader,game)` over remaining
+7. **Emotion classification** — lexicon-based joy/anger/fear/sadness/anticipation.
+8. **Player sentiment & narratives** — roster-aware mention/sentiment aggregation.
+9. **Value bet** — model edge vs. market + expected value at the offered price.
+10. **Live win probability** — normal model on projected final margin from the
+    current score + time left, blended toward the pre-game prior.
+11. **Live momentum + run detection** + **sentiment-spike z-score**.
+12. **Ensemble + confidence** — weighted blend (`market 0.45 / ESPN 0.30 /
+    Elo 0.25`, auto-renormalised) + bounded sentiment nudge; confidence from
+    cross-model agreement and sample size.
+13. **Series-clinch** — from 3-0, `1 − Π(1 − p_leader,game)` over remaining
     venue-adjusted games.
+14. **Backtest / calibration** — Brier score, log-loss, accuracy and a skill
+    score vs. a coin-flip baseline (`backend/backtest.py`).
 
 ---
 
@@ -204,12 +219,13 @@ backend/
   sentiment.py              # VADER-style scorer + NBA/toxicity/emotion lexicons
   enrich.py                 # sentiment + attribution + status + import rule
   analysis.py               # players, narratives, emotions, value bet
-  model.py                  # all prediction math
+  model.py                  # all prediction math (odds, Elo, live WP, ensemble)
+  backtest.py               # calibration metrics (Brier / log-loss / skill)
   history.py                # rolling history (data/history.jsonl) for trends
   pipeline.py               # pre-game: fetch(parallel) → enrich → analyse → snapshot.json
-  live.py                   # live mode: runs/momentum/spikes → live.json
-  run.py                    # CLI (snapshot | live | auto)
-  tests.py                  # 27 unit tests
+  live.py                   # live mode: win prob/runs/momentum/spikes → live.json
+  run.py                    # CLI (snapshot | live | auto | evaluate)
+  tests.py                  # 39 unit tests
   sources/                  # one tailored scraper per website
     espn.py  google_news.py  reddit.py  nba_cdn.py  basketball_reference.py
 data/
@@ -226,12 +242,13 @@ server.js                   # optional zero-dependency Node static server
 ## Testing
 
 ```bash
-python3 -m unittest backend.tests       # 27 tests, pure stdlib, no network
+python3 -m unittest backend.tests       # 39 tests, pure stdlib, no network
 ```
 
-Covers the sentiment engine, emotion classifier, odds de-vig, Elo, ensemble
-bounding, run/momentum/spike detection, series-clinch, player attribution,
-narratives, value bet, the import rule and history round-trip.
+Covers the sentiment engine (incl. phrases/emoji/contrast), emotion classifier,
+odds de-vig, Elo + form adjustment, live win probability, ensemble bounding,
+run/momentum/spike detection, series-clinch, player attribution, narratives,
+value bet, calibration metrics, the import rule and history round-trip.
 
 ---
 
@@ -246,8 +263,10 @@ tuning constants (Elo seeds, ensemble weights, sentiment cap, poll interval).
 ## Roadmap
 
 - Reddit comment-thread descent for finer fan signal (when reachable).
-- Calibrate the sentiment weight by back-testing against past outcomes.
-- Compare multiple sportsbooks and flag the sharpest line.
+- Feed completed-game results into `backtest.py` automatically to tune the
+  ensemble weights and sentiment cap from the live calibration log.
+- Compare multiple sportsbooks and flag the sharpest line (when ESPN exposes
+  more than one provider).
 - Auto-discover the live playoff game from the scoreboard.
 - Optional WebSocket push instead of polling for sub-second live updates.
 

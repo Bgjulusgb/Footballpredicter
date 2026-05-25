@@ -53,6 +53,17 @@ def _cmd_live(args):
     return 0
 
 
+def _cmd_evaluate(args):
+    from . import backtest
+    with open(args.results, encoding="utf-8") as f:
+        results = json.load(f)
+    metrics = backtest.evaluate(results)
+    print("Calibration metrics:")
+    for k, v in metrics.items():
+        print(f"  {k}: {v}")
+    return 0
+
+
 def _cmd_auto(args):
     res = espn.fetch_game()
     game = res.meta.get("game") if res.meta else None
@@ -81,9 +92,13 @@ def main(argv=None):
     p_auto.add_argument("--max-iterations", type=int, default=None,
                         dest="max_iterations")
 
+    p_eval = sub.add_parser("evaluate", help="score predictions vs outcomes")
+    p_eval.add_argument("--results", required=True,
+                        help="JSON list of {prob_home, home_won}")
+
     args = parser.parse_args(argv)
-    return {"snapshot": _cmd_snapshot, "live": _cmd_live,
-            "auto": _cmd_auto}[args.command](args)
+    return {"snapshot": _cmd_snapshot, "live": _cmd_live, "auto": _cmd_auto,
+            "evaluate": _cmd_evaluate}[args.command](args)
 
 
 if __name__ == "__main__":

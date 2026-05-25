@@ -110,6 +110,11 @@
         .badge { display:inline-block; padding:3px 9px; border-radius:12px;
             font-size:0.78rem; font-weight:bold; margin-right:5px;
             background: var(--light-color); color: var(--dark-color); }
+        .form-pill { display:inline-block; width:22px; height:22px;
+            border-radius:50%; color:white; text-align:center; line-height:22px;
+            font-weight:bold; margin-right:4px; font-size:0.8rem; }
+        .pill-w { background: var(--success-color); }
+        .pill-l { background: var(--danger-color); }
         /* Alerts */
         .alert-banner { padding:14px 18px; border-radius:10px; margin-bottom:10px;
             color:white; font-weight:600; display:flex; align-items:center; gap:10px; }
@@ -432,10 +437,11 @@ function PredictionTab({ snap }) {
     const p = snap.prediction || {};
     const home = snap.teams.home, away = snap.teams.away;
     const ens = p.ensemble || { home: 0.5, away: 0.5, components: {} };
-    const market = p.market, elo = p.elo || {};
+    const market = p.market, elo = p.elo || {}, espn = p.espn_predictor;
     const compareData = [
         { model: 'Market (de-vig)', home: market ? market.home : null },
         { model: 'Elo / log5', home: elo.home },
+        { model: 'ESPN predictor', home: espn ? espn.home : null },
         { model: 'Ensemble', home: ens.home },
     ].filter(d => d.home != null).map(d => ({
         model: d.model, [home.abbr]: +(d.home * 100).toFixed(1),
@@ -456,8 +462,8 @@ function PredictionTab({ snap }) {
                 </div>
                 <p style={{ color: '#888' }}>
                     Confidence {p.confidence}/100 · blend of market ({W(ens, 'market')}),
-                    Elo ({W(ens, 'elo')}) and a bounded sentiment nudge
-                    ({(ens.components.sentiment_delta * 100 || 0).toFixed(1)} pts)
+                    Elo ({W(ens, 'elo')}), ESPN ({W(ens, 'espn')}) and a bounded
+                    sentiment nudge ({(ens.components.sentiment_delta * 100 || 0).toFixed(1)} pts)
                 </p>
             </div>
             <div className="stats-grid">
@@ -495,6 +501,7 @@ function PredictionTab({ snap }) {
                     </div>
                 </div>
                 <ValueBetCard vb={p.value_bet} teams={snap.teams} />
+                <FormCard game={snap.game} teams={snap.teams} />
             </div>
             <div className="chart-container">
                 <h2>Model Comparison (win %)</h2>
@@ -549,6 +556,36 @@ function ValueBetCard({ vb, teams }) {
                     expected value: {vb.expected_value > 0 ? '+' : ''}
                     {(vb.expected_value * 100).toFixed(1)}% per unit ·
                     {vb.has_value ? ' value detected' : ' no clear edge'}</p>}
+        </div>
+    );
+}
+
+// ---- Recent form & season series -----------------------------------------
+function FormCard({ game, teams }) {
+    const form = game && game.form;
+    if (!form) return null;
+    const pill = r => (
+        <span className={'form-pill ' + (r === 'W' ? 'pill-w' : 'pill-l')}>{r}</span>
+    );
+    const row = side => {
+        const f = form[side];
+        if (!f) return null;
+        return (
+            <p style={{ marginBottom: '6px' }}>
+                <strong>{side === 'home' ? teams.home.abbr : teams.away.abbr}:</strong>{' '}
+                {f.results.map((r, i) => <span key={i}>{pill(r)}</span>)}
+                <span style={{ color: '#888', marginLeft: '6px' }}>
+                    ({f.wins}-{f.losses})</span>
+            </p>
+        );
+    };
+    return (
+        <div className="stat-card">
+            <h3><i className="fas fa-clipboard-list"></i> Recent form (last 5)</h3>
+            {row('home')}{row('away')}
+            {game.season_series &&
+                <p style={{ color: '#888', fontSize: '0.85rem', marginTop: '8px' }}>
+                    {game.season_series.title}: {game.season_series.summary}</p>}
         </div>
     );
 }
@@ -614,6 +651,21 @@ function LiveTab({ live }) {
                     <div className="live-score">{g.away ? g.away.score : '-'}</div>
                 </div>
             </div>
+            {L.win_probability && (
+                <div className="chart-container">
+                    <h2>Live win probability</h2>
+                    <div className="prob-bar">
+                        <div className="prob-home" style={{ width: fmtPct(L.win_probability.home) }}>
+                            {g.home ? g.home.abbr : 'H'} {fmtPct(L.win_probability.home)}</div>
+                        <div className="prob-away" style={{ width: fmtPct(L.win_probability.away) }}>
+                            {fmtPct(L.win_probability.away)} {g.away ? g.away.abbr : 'A'}</div>
+                    </div>
+                    <p style={{ color: '#888' }}>
+                        from current margin + time remaining (pre-game prior
+                        {' ' + fmtPct(L.win_probability.pregame_home)} {g.home ? g.home.abbr : 'home'})
+                    </p>
+                </div>
+            )}
             <div className="stats-grid">
                 <div className="stat-card">
                     <h3>Current Run</h3>
