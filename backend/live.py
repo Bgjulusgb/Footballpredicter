@@ -11,8 +11,8 @@ import json
 import os
 import time
 
-from . import config, enrich, model
-from .sources import espn, nba_cdn, reddit
+from . import aggregator, config, enrich, momentum_composite, model
+from .sources import espn, flashscore, nba_cdn, reddit, sofascore, thescore
 
 
 def _now_iso():
@@ -95,18 +95,56 @@ def _build_alerts(run, momentum_val, spike, game):
 
 
 def build_live(pbp_events=None, social_records=None, game=None):
-    """Compute the live snapshot. Fetches sources unless data is injected."""
-    # Game state (score/period/clock) from ESPN unless injected.
-    if game is None:
-        espn_res = espn.fetch_game()
-        game = espn_res.meta.get("game") if espn_res.meta else None
+    """Compute the live snapshot. Fetches sources unless data is injected.
 
-    # Play-by-play from NBA.com unless injected (fixture/testing).
+    Now multi-source: ESPN + Sofascore + Flashscore + TheScore for the game
+    state (median-consensus score), Sofascore + NBA.com CDN for play-by-play.
+    """
+    multi_game = None
+    if game is None:
+        # Pull every game source concurrently.
+        from .http_util import run_parallel
+        bundle = run_parallel({
+            "espn": espn.fetch_game,
+            "sofa_disc": sofascore.discover_event_id,
+            "flash": flashscore.fetch_game,
+            "score": thescore.fetch_game,
+        }, max_workers=4)
+
+        espn_game = (_meta_game(bundle.get("espn"))
+                      if not isinstance(bundle.get("espn"), Exception) else None)
+        flash_game = (_meta_game(bundle.get("flash"))
+                       if not isinstance(bundle.get("flash"), Exception) else None)
+        score_game = (_meta_game(bundle.get("score"))
+                       if not isinstance(bundle.get("score"), Exception) else None)
+
+        sofa_disc = bundle.get("sofa_disc")
+        sofa_game = None
+        if (not isinstance(sofa_disc, Exception) and isinstance(sofa_disc, tuple)
+                and sofa_disc[0]):
+            sg_res = sofascore.fetch_game(sofa_disc[0])
+            sofa_game = _meta_game(sg_res)
+
+        multi_game = aggregator.merge_scores({
+            "espn": espn_game, "sofascore": sofa_game,
+            "flashscore": flash_game, "thescore": score_game,
+        })
+        # Use ESPN as the primary game object, but fall back through the list.
+        game = espn_game or sofa_game or flash_game or score_game
+
+    # Play-by-play from NBA.com CDN AND Sofascore incidents (when game id known).
     pbp_source_status = "injected"
+    sofa_inc_status = "skipped"
     if pbp_events is None:
         pbp_res = nba_cdn.fetch_playbyplay()
-        pbp_events = pbp_res.records
+        pbp_events = list(pbp_res.records)
         pbp_source_status = pbp_res.status
+        # Also pull Sofascore incidents and merge them in.
+        sofa_disc, _ = sofascore.discover_event_id()
+        if sofa_disc:
+            inc_res = sofascore.fetch_incidents(sofa_disc)
+            sofa_inc_status = inc_res.status
+            pbp_events = aggregator.merge_pbp(pbp_events, inc_res.records)
 
     scoring = [e for e in pbp_events if e.get("points", 0) > 0]
     run = model.detect_current_run(scoring)
@@ -139,25 +177,46 @@ def build_live(pbp_events=None, social_records=None, game=None):
 
     alerts = _build_alerts(run, mom, spike, game)
 
+    # Composite momentum across signals (when we have any).
+    composite_mom = momentum_composite.composite(
+        scoring_momentum=mom,
+        current_run=run,
+        home_abbr=config.GAME["home"]["abbr"],
+        sentiment_zscore=spike,
+        starting_plus_minus_diff=None,
+        pace_ratio=None,
+    )
+
     state = game.get("state") if game else "pre"
     return {
         "generated_at": _now_iso(),
         "mode": {"pre": "pre", "in": "live", "post": "post"}.get(state, "pre"),
         "game": game,
+        "scores_unified": multi_game,
         "live": {
             "current_run": run,
             "momentum": mom,
+            "composite_momentum": composite_mom,
             "win_probability": win_prob,
             "sentiment_spike": spike,
             "mood": mood,
             "team_sentiment": ts,
             "score_timeline": _score_timeline(pbp_events),
-            "recent_events": [e for e in pbp_events if e.get("desc")][-12:],
+            "recent_events": [e for e in pbp_events if e.get("desc") or e.get("text")][-15:],
             "pbp_status": pbp_source_status,
+            "sofa_inc_status": sofa_inc_status,
             "social_status": social_status,
         },
         "alerts": alerts,
     }
+
+
+def _meta_game(res):
+    """Pull the .meta['game'] from a SourceResult-like (None-safe)."""
+    if res is None or isinstance(res, Exception):
+        return None
+    meta = getattr(res, "meta", None) or {}
+    return meta.get("game")
 
 
 def _pregame_home_prob(default=0.5):

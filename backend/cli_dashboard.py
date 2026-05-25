@@ -379,7 +379,81 @@ TABS = {
     "live": "live in-game view",
     "history": "history table",
     "sources": "source health",
+    "categories": "topic category breakdown",
+    "lineups": "lineups + missing players",
+    "odds": "multi-book odds",
 }
+
+
+def render_categories(snap):
+    out = [section("Topic Categories")]
+    cats = (snap.get("categories") or {}).get("categories") or []
+    if not cats:
+        out.append(dim("  (no records to categorise yet)"))
+        return "\n".join(out)
+    out.append(kv("Total records", (snap.get("categories") or {}).get("total")))
+    out.append("")
+    out.append(f"  {bold('CATEGORY'.ljust(18))}{bold('COUNT'.rjust(7))}  {bold('MEAN SENT.'.rjust(12))}")
+    out.append("  " + dim("-" * 42))
+    for c in cats:
+        s = c["mean_sentiment"]
+        col = green(f"{s:+.4f}") if s > 0 else red(f"{s:+.4f}") if s < 0 else yellow(f"{s:+.4f}")
+        out.append(f"  {c['category'].ljust(18)}{str(c['count']).rjust(7)}  {col.rjust(12)}")
+    return "\n".join(out)
+
+
+def render_lineups(snap):
+    out = [section("Lineups")]
+    L = snap.get("lineups_unified")
+    meta = snap.get("lineup_meta") or {}
+    if not L:
+        out.append(dim("  (no lineups available; Sofascore usually publishes ~1h before tip)"))
+        return "\n".join(out)
+    adv = meta.get("starting_advantage") or {}
+    if adv:
+        out.append(kv("Starting value home", adv.get("home_starting_value")))
+        out.append(kv("Starting value away", adv.get("away_starting_value")))
+        out.append(kv("Net (home)", adv.get("net_advantage_home")))
+    for side_key, label in (("home", snap["teams"]["home"]["name"]),
+                              ("away", snap["teams"]["away"]["name"])):
+        side = L.get(side_key)
+        if not side:
+            continue
+        out.append("")
+        out.append(bold(label))
+        for p in (side.get("starters") or []):
+            out.append(f"  {dim(p.get('position') or '?')}  {p.get('name') or '?'}")
+        out.append(dim("  bench:"))
+        for p in (side.get("bench") or [])[:5]:
+            out.append(f"    {dim(p.get('position') or '?')}  {p.get('name') or '?'}")
+        miss = (meta.get(f"{side_key}_missing") or {}).get("players") or []
+        if miss:
+            out.append(red("  missing:"))
+            for m in miss:
+                out.append(f"    {m.get('name')} — {m.get('type')} ({m.get('reason')})")
+    return "\n".join(out)
+
+
+def render_odds(snap):
+    out = [section("Multi-book odds")]
+    odds = snap.get("odds_unified") or {}
+    books = odds.get("books") or []
+    if not books:
+        out.append(dim("  (no odds; Sofascore odds endpoint failed or no provider published)"))
+        return "\n".join(out)
+    out.append(kv("Books reporting", odds.get("count")))
+    out.append("")
+    out.append(f"  {bold('PROVIDER'.ljust(20))}{bold('HOME ML'.rjust(9))}  "
+               f"{bold('AWAY ML'.rjust(9))}  {bold('H DEC'.rjust(8))}  "
+               f"{bold('A DEC'.rjust(8))}  {bold('SPREAD'.rjust(8))}")
+    for b in books:
+        out.append(f"  {(b.get('provider') or '?')[:19].ljust(20)}"
+                   f"{str(b.get('home_moneyline') or '—').rjust(9)}  "
+                   f"{str(b.get('away_moneyline') or '—').rjust(9)}  "
+                   f"{str(b.get('home_decimal') or '—').rjust(8)}  "
+                   f"{str(b.get('away_decimal') or '—').rjust(8)}  "
+                   f"{str(b.get('spread') or '—').rjust(8)}")
+    return "\n".join(out)
 
 
 def _load(path):
@@ -410,6 +484,12 @@ def render(snap: dict, live: dict | None, tab: str) -> str:
         h = render_history(snap)
         if h:
             parts.append(h)
+    if tab in ("all", "categories"):
+        parts.append(render_categories(snap))
+    if tab in ("all", "lineups"):
+        parts.append(render_lineups(snap))
+    if tab in ("all", "odds"):
+        parts.append(render_odds(snap))
     if tab in ("all", "sources"):
         parts.append(render_sources(snap))
     parts.append("")

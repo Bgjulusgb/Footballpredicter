@@ -745,6 +745,369 @@ function LiveTab({ live }) {
     );
 }
 
+// ---------------------------------------------------------------------------
+// NEW TABS (added in v2): Sources / Lineups / Odds / Categories / Math /
+// Sofascore. Each one consumes the new pipeline blocks; everything is null-safe
+// so the dashboard still renders if a source was down on the last snapshot.
+// ---------------------------------------------------------------------------
+function SourcesTab({ snap }) {
+    const health = snap.source_health || {};
+    const sources = (health.by_source || []).slice().sort((a, b) =>
+        a.status.localeCompare(b.status) || a.name.localeCompare(b.name));
+    const counts = health.counts || {};
+    return (
+        <div>
+            <div className="stats-grid">
+                <div className="stat-card">
+                    <h3>Uptime</h3>
+                    <div className="big-number">{health.uptime_pct ?? 0}%</div>
+                    <div style={{ color: mute(), marginTop: 6 }}>
+                        ok={counts.ok || 0} · partial={counts.partial || 0} · error={counts.error || 0}
+                    </div>
+                </div>
+                <div className="stat-card">
+                    <h3>Sources configured</h3>
+                    <div className="big-number">{sources.length}</div>
+                </div>
+            </div>
+            <div className="chart-container">
+                <h2>Source health grid</h2>
+                <table>
+                    <thead>
+                        <tr><th>Source</th><th>Status</th></tr>
+                    </thead>
+                    <tbody>
+                        {sources.map(s => (
+                            <tr key={s.name}>
+                                <td>{s.name}</td>
+                                <td>
+                                    <span className={'source-chip src-' + s.status}>
+                                        {s.status}
+                                    </span>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            <div className="chart-container">
+                <h2>Score consensus</h2>
+                <p style={{ fontFamily: 'var(--mono)' }}>
+                    Sources reporting: {(snap.scores_unified || {}).n_sources || 0} ·
+                    consensus: HOME {(snap.scores_unified || {}).consensus_home ?? '?'} —
+                    AWAY {(snap.scores_unified || {}).consensus_away ?? '?'} ·
+                    max disagreement: {(snap.scores_unified || {}).max_disagreement ?? 0}
+                </p>
+                <table>
+                    <thead><tr><th>Source</th><th>Side</th><th>Score</th></tr></thead>
+                    <tbody>
+                        {((snap.scores_unified || {}).home_scores || []).map((p, i) =>
+                            <tr key={'h' + i}><td>{p[0]}</td><td>HOME</td><td>{p[1]}</td></tr>)}
+                        {((snap.scores_unified || {}).away_scores || []).map((p, i) =>
+                            <tr key={'a' + i}><td>{p[0]}</td><td>AWAY</td><td>{p[1]}</td></tr>)}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
+}
+
+function LineupsTab({ snap }) {
+    const L = snap.lineups_unified;
+    const meta = snap.lineup_meta || {};
+    if (!L) {
+        return <div className="chart-container"><h2>Lineups</h2>
+            <p>No lineup data yet — Sofascore typically publishes ~1 hour before tip-off.</p>
+        </div>;
+    }
+    const renderSide = (side, label) => (
+        <div className="stat-card" style={{ flex: 1 }}>
+            <h3>{label}{side?.formation ? ' · ' + side.formation : ''}</h3>
+            <div style={{ marginBottom: 10, color: mute() }}>STARTERS</div>
+            {(side?.starters || []).map((p, i) => (
+                <div key={i} style={{ display: 'flex', justifyContent: 'space-between',
+                    fontFamily: 'var(--mono)', padding: '4px 0' }}>
+                    <span><b>{p.jersey || ''}</b> {p.name}</span>
+                    <span style={{ color: mute() }}>{p.position}</span>
+                </div>
+            ))}
+            <div style={{ margin: '10px 0 6px', color: mute() }}>BENCH</div>
+            {(side?.bench || []).slice(0, 8).map((p, i) => (
+                <div key={i} style={{ display: 'flex', justifyContent: 'space-between',
+                    fontFamily: 'var(--mono)', padding: '3px 0', fontSize: '0.85rem' }}>
+                    <span>{p.name}</span>
+                    <span style={{ color: mute() }}>{p.position}</span>
+                </div>
+            ))}
+            {(side?.missing || []).length > 0 && (
+                <>
+                    <div style={{ margin: '10px 0 6px', color: mute() }}>MISSING</div>
+                    {side.missing.map((m, i) => (
+                        <div key={i} style={{ fontFamily: 'var(--mono)', fontSize: '0.82rem',
+                            padding: '2px 0' }}>
+                            <b>{m.name}</b> — {m.type} · {m.reason}
+                        </div>
+                    ))}
+                </>
+            )}
+        </div>
+    );
+    return (
+        <div>
+            <div className="stats-grid">
+                <div className="stat-card">
+                    <h3>Starting value (home)</h3>
+                    <div className="big-number">
+                        {((meta.starting_advantage || {}).home_starting_value || 0).toFixed(3)}
+                    </div>
+                </div>
+                <div className="stat-card">
+                    <h3>Starting value (away)</h3>
+                    <div className="big-number">
+                        {((meta.starting_advantage || {}).away_starting_value || 0).toFixed(3)}
+                    </div>
+                </div>
+                <div className="stat-card">
+                    <h3>Net advantage (home)</h3>
+                    <div className="big-number">
+                        {((meta.starting_advantage || {}).net_advantage_home || 0).toFixed(3)}
+                    </div>
+                </div>
+            </div>
+            <div style={{ display: 'flex', gap: 18, flexWrap: 'wrap' }}>
+                {renderSide(L.home, snap.teams.home.name)}
+                {renderSide(L.away, snap.teams.away.name)}
+            </div>
+        </div>
+    );
+}
+
+function OddsTab({ snap }) {
+    const odds = snap.odds_unified || { books: [] };
+    return (
+        <div className="chart-container">
+            <h2>Multi-book odds ({odds.count || 0} books)</h2>
+            <table>
+                <thead>
+                    <tr><th>Provider</th><th>Home ML</th><th>Away ML</th>
+                        <th>Home dec.</th><th>Away dec.</th><th>Spread</th><th>O/U</th></tr>
+                </thead>
+                <tbody>
+                    {(odds.books || []).map((b, i) => (
+                        <tr key={i}>
+                            <td><b>{b.provider}</b></td>
+                            <td>{b.home_moneyline ?? '—'}</td>
+                            <td>{b.away_moneyline ?? '—'}</td>
+                            <td>{b.home_decimal ?? '—'}</td>
+                            <td>{b.away_decimal ?? '—'}</td>
+                            <td>{b.spread ?? '—'}</td>
+                            <td>{b.over_under ?? '—'}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+}
+
+function CategoriesTab({ snap }) {
+    const cats = (snap.categories || {}).categories || [];
+    const [active, setActive] = React.useState('all');
+    const items = (snap.press_review || []).filter(a => {
+        if (active === 'all') return true;
+        return a.category === active;
+    }).slice(0, 40);
+    return (
+        <div>
+            <div className="chart-container">
+                <h2>Category mix · total {(snap.categories || {}).total || 0}</h2>
+                <ResponsiveContainer width="100%" height={260}>
+                    <BarChart data={cats}>
+                        <CartesianGrid stroke={mute()} strokeDasharray="3 3" />
+                        <XAxis dataKey="category" stroke={ink()} />
+                        <YAxis stroke={ink()} />
+                        <Tooltip />
+                        <Bar dataKey="count" fill={ink()} />
+                    </BarChart>
+                </ResponsiveContainer>
+            </div>
+            <div className="filters">
+                <button className={'tab ' + (active === 'all' ? 'active' : '')}
+                    onClick={() => setActive('all')}>ALL</button>
+                {cats.map(c => (
+                    <button key={c.category}
+                        className={'tab ' + (active === c.category ? 'active' : '')}
+                        onClick={() => setActive(c.category)}>
+                        {c.category.toUpperCase()} ({c.count})
+                    </button>
+                ))}
+            </div>
+            <div>
+                {items.map((a, i) => (
+                    <div key={i} className="article">
+                        <a href={a.url} target="_blank" rel="noreferrer">{a.title}</a>
+                        <div className="article-meta">
+                            <span className="badge">{a.category}</span>
+                            <span>{a.source}</span>
+                            <span>{fmtDate(a.published)}</span>
+                            <span className="sent-badge"
+                                style={{ background: sentimentColor(a.sentiment?.compound) }}>
+                                {((a.sentiment?.compound || 0) > 0 ? '+' : '') +
+                                    (a.sentiment?.compound || 0).toFixed(2)}
+                            </span>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+function MathTab({ snap }) {
+    const adv = snap.advanced || {};
+    const mc = adv.monte_carlo_game || {};
+    const mcs = adv.monte_carlo_series || {};
+    const glk = adv.glicko || {};
+    const kel = adv.kelly;
+    const inj = adv.injuries || {};
+    const hm = adv.history_movement || {};
+    return (
+        <div className="stats-grid">
+            <div className="stat-card">
+                <h3>Monte Carlo (game)</h3>
+                <p>Trials: <b>{mc.trials}</b></p>
+                <p>Sim home WP: <b>{((mc.home_win_prob_sim || 0) * 100).toFixed(2)}%</b></p>
+                <p>Margin p10 / p50 / p90:
+                    <b> {mc.p10_margin} / {mc.median_margin} / {mc.p90_margin}</b></p>
+                <p>Std margin: <b>{mc.stdev_margin}</b></p>
+            </div>
+            <div className="stat-card">
+                <h3>Monte Carlo (series)</h3>
+                <p>Clinch: <b>{((mcs.leader_clinch_prob || 0) * 100).toFixed(2)}%</b></p>
+                <p>Expected games: <b>{mcs.expected_games}</b></p>
+                {mcs.ends_in && (
+                    <ul style={{ marginLeft: 18 }}>
+                        {Object.keys(mcs.ends_in).map(g =>
+                            <li key={g}>G{g}: {(mcs.ends_in[g] * 100).toFixed(1)}%</li>)}
+                    </ul>
+                )}
+            </div>
+            <div className="stat-card">
+                <h3>Glicko-2</h3>
+                <p>Home rating: <b>{glk.home_rating}</b> RD={glk.home_rd}</p>
+                <p>Away rating: <b>{glk.away_rating}</b> RD={glk.away_rd}</p>
+                <p>P(home wins): <b>{((glk.home_win_prob || 0) * 100).toFixed(2)}%</b></p>
+            </div>
+            <div className="stat-card">
+                <h3>Kelly criterion</h3>
+                {kel ? <>
+                    <p>Side: <b>{kel.side?.toUpperCase()}</b></p>
+                    <p>Decimal: <b>{kel.decimal}</b></p>
+                    <p>Full Kelly: <b>{((kel.full || 0) * 100).toFixed(2)}%</b></p>
+                    <p>1/4 Kelly: <b>{((kel.quarter || 0) * 100).toFixed(2)}%</b></p>
+                    <p>EV: <b>{((kel.ev || 0) * 100).toFixed(2)}%</b></p>
+                </> : <p>No value bet detected.</p>}
+            </div>
+            <div className="stat-card">
+                <h3>Injury impact</h3>
+                <p>Home share lost: <b>{((inj.home || 0) * 100).toFixed(1)}%</b></p>
+                <p>Away share lost: <b>{((inj.away || 0) * 100).toFixed(1)}%</b></p>
+                <p>Adjusted home WP:
+                    <b> {(((inj.adjustment || {}).adjusted_prob || 0) * 100).toFixed(2)}%</b></p>
+                <p>Delta: <b>{(((inj.adjustment || {}).delta || 0) * 100).toFixed(2)} pp</b></p>
+            </div>
+            <div className="stat-card">
+                <h3>History time series</h3>
+                <p>Drift / run: <b>{hm.ens_drift_per_run}</b></p>
+                <p>R²: <b>{hm.ens_r2}</b></p>
+                <p>Autocorr lag-1: <b>{hm.ens_autocorr_lag1}</b></p>
+                <p>Pearson vs market: <b>{hm.pearson_ens_vs_market}</b></p>
+                <p>Pearson vs sentiment: <b>{hm.pearson_ens_vs_sentiment}</b></p>
+            </div>
+        </div>
+    );
+}
+
+function SofascoreTab({ snap }) {
+    const sf = snap.sofascore || {};
+    const stats = sf.stats?.all || {};
+    const form = sf.form || {};
+    const h2h = sf.h2h || {};
+    const graph = sf.graph || [];
+    const featured = sf.featured || [];
+    const inc = sf.incidents || [];
+    return (
+        <div>
+            <div className="stats-grid">
+                <div className="stat-card">
+                    <h3>Form (recent)</h3>
+                    <div><b>{snap.teams.home.name}</b>: {form.home?.form || '—'}
+                        (W{form.home?.wins || 0}-L{form.home?.losses || 0})</div>
+                    <div><b>{snap.teams.away.name}</b>: {form.away?.form || '—'}
+                        (W{form.away?.wins || 0}-L{form.away?.losses || 0})</div>
+                </div>
+                <div className="stat-card">
+                    <h3>Head-to-head</h3>
+                    <p>Home wins: <b>{h2h.home_wins ?? '—'}</b></p>
+                    <p>Away wins: <b>{h2h.away_wins ?? '—'}</b></p>
+                    <p>Draws: <b>{h2h.draws ?? '—'}</b></p>
+                </div>
+                <div className="stat-card">
+                    <h3>Featured players</h3>
+                    {featured.length === 0 && <p>—</p>}
+                    {featured.map((f, i) =>
+                        <div key={i}>
+                            <b>{f.side?.toUpperCase()}</b>: {f.name}{' '}
+                            <span style={{ color: mute() }}>rating={f.rating ?? '—'}</span>
+                        </div>)}
+                </div>
+            </div>
+            {graph.length > 0 && (
+                <div className="chart-container">
+                    <h2>Minute-by-minute scoring graph</h2>
+                    <ResponsiveContainer width="100%" height={240}>
+                        <LineChart data={graph}>
+                            <CartesianGrid stroke={mute()} strokeDasharray="3 3" />
+                            <XAxis dataKey="minute" stroke={ink()} />
+                            <YAxis stroke={ink()} />
+                            <Tooltip />
+                            <Line dataKey="value" stroke={ink()} dot={false} />
+                        </LineChart>
+                    </ResponsiveContainer>
+                </div>
+            )}
+            {Object.keys(stats).length > 0 && (
+                <div className="chart-container">
+                    <h2>Team statistics (all)</h2>
+                    <table>
+                        <thead><tr><th>Stat</th><th>Home</th><th>Away</th></tr></thead>
+                        <tbody>
+                            {Object.keys(stats).map(k => (
+                                <tr key={k}>
+                                    <td>{k}</td>
+                                    <td>{stats[k]?.home ?? '—'}</td>
+                                    <td>{stats[k]?.away ?? '—'}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            )}
+            {inc.length > 0 && (
+                <div className="chart-container">
+                    <h2>Last 20 incidents</h2>
+                    {inc.slice(0, 20).map((e, i) =>
+                        <div key={i} style={{ fontFamily: 'var(--mono)',
+                            fontSize: '0.85rem', padding: '4px 0' }}>
+                            <b>Q{e.period} {e.clock || ''}</b> [{e.team || '?'}]{' '}
+                            {e.text} {e.points ? ` (+${e.points})` : ''}
+                        </div>)}
+                </div>
+            )}
+        </div>
+    );
+}
+
 // ---- App ------------------------------------------------------------------
 function App() {
     const [snap, setSnap] = React.useState(null);
@@ -840,9 +1203,12 @@ function App() {
                 </div>
             </div>
 
-            <div className="tabs">
-                {[['mood', 'Mood Mirror'], ['press', 'Press Review'],
-                  ['prediction', 'Prediction'], ['live', 'Live']].map(([k, lbl]) => (
+            <div className="tabs" style={{ flexWrap: 'wrap' }}>
+                {[['mood', 'Mood'], ['press', 'Press'], ['categories', 'Categories'],
+                  ['prediction', 'Prediction'], ['math', 'Math'],
+                  ['lineups', 'Lineups'], ['odds', 'Odds'],
+                  ['sofascore', 'Sofascore'], ['live', 'Live'],
+                  ['sources', 'Sources']].map(([k, lbl]) => (
                     <button key={k} className={'tab ' + (tab === k ? 'active' : '')}
                         onClick={() => setTab(k)}>
                         {lbl}{k === 'live' && isLive && <span className="badge-dot"></span>}
@@ -854,10 +1220,22 @@ function App() {
                 <MoodTab snap={snap} /></div>
             <div className={'tab-content ' + (tab === 'press' ? 'active' : '')}>
                 <PressTab snap={snap} /></div>
+            <div className={'tab-content ' + (tab === 'categories' ? 'active' : '')}>
+                <CategoriesTab snap={snap} /></div>
             <div className={'tab-content ' + (tab === 'prediction' ? 'active' : '')}>
                 <PredictionTab snap={snap} /></div>
+            <div className={'tab-content ' + (tab === 'math' ? 'active' : '')}>
+                <MathTab snap={snap} /></div>
+            <div className={'tab-content ' + (tab === 'lineups' ? 'active' : '')}>
+                <LineupsTab snap={snap} /></div>
+            <div className={'tab-content ' + (tab === 'odds' ? 'active' : '')}>
+                <OddsTab snap={snap} /></div>
+            <div className={'tab-content ' + (tab === 'sofascore' ? 'active' : '')}>
+                <SofascoreTab snap={snap} /></div>
             <div className={'tab-content ' + (tab === 'live' ? 'active' : '')}>
                 <LiveTab live={live} /></div>
+            <div className={'tab-content ' + (tab === 'sources' ? 'active' : '')}>
+                <SourcesTab snap={snap} /></div>
 
             <p style={{ textAlign: 'center', color: '#999', marginTop: '24px',
                 fontSize: '0.82rem' }}>

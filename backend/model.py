@@ -388,7 +388,8 @@ def sentiment_spike(bucket_values):
 # ===========================================================================
 # Relative weight of each model. Only the models actually present are used,
 # and their weights are renormalised so they always sum to 1.
-MODEL_WEIGHTS = {"market": 0.45, "espn": 0.30, "elo": 0.25}
+# `power` is the TeamRankings power-rating signal (added when available).
+MODEL_WEIGHTS = {"market": 0.40, "espn": 0.25, "elo": 0.20, "power": 0.15}
 
 
 def ensemble(model_probs, sent_delta):
