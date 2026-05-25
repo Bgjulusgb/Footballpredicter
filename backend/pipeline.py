@@ -9,7 +9,8 @@ import datetime as dt
 import json
 import os
 
-from . import analysis, config, enrich, history, model
+from . import (advanced_math, analysis, config, enrich, history,
+               injury_impact, model, simulation, streaks)
 from .http_util import run_parallel
 from .sources import espn, google_news, reddit, basketball_reference
 from .sources.base import SourceResult, STATUS_ERROR
@@ -133,7 +134,12 @@ def build_snapshot():
 
     # --- 3b. Deeper analysis: players, narratives -------------------------
     players = analysis.player_sentiment(imported)
-    narratives = analysis.narratives(imported)
+    narratives_list = analysis.narratives(imported)
+    narrative_meta = {
+        "concentration": analysis.narrative_concentration(narratives_list),
+        "polarity": analysis.sentiment_polarity(relevant),
+        "outlets": analysis.top_outlets(press_review),
+    }
 
     # --- 4. Prediction math -----------------------------------------------
     game = espn_res.meta.get("game") if espn_res.meta else None
@@ -165,6 +171,11 @@ def build_snapshot():
     clinch = model.series_clinch([g["leader_win"] for g in per_game])
 
     value = analysis.value_bet(market, ens, game.get("odds") if game else None)
+    advanced = _compute_advanced(
+        ens=ens, ratings=ratings, per_game=per_game,
+        odds=(game.get("odds") if game else None), value=value,
+        history_rows=history.load_recent(), imported=imported,
+    )
 
     prediction = {
         "market": market,
@@ -206,8 +217,10 @@ def build_snapshot():
                          reverse=True),
         "mood": mood,
         "players": players,
-        "narratives": narratives,
+        "narratives": narratives_list,
+        "narrative_meta": narrative_meta,
         "prediction": prediction,
+        "advanced": advanced,
         "import_stats": import_stats,
     }
     # Append to the rolling history, then attach the recent tail for trends.
@@ -223,3 +236,97 @@ def write_snapshot(path=None):
     with open(path, "w", encoding="utf-8") as f:
         json.dump(snapshot, f, ensure_ascii=False, indent=2)
     return snapshot, path
+
+
+# ---------------------------------------------------------------------------
+# Advanced math add-on: Monte Carlo, Glicko-2, Kelly, injuries, time-series.
+# Pulls a few seconds of stdlib compute on top of the existing snapshot so
+# the dashboard has a richer prediction panel.
+# ---------------------------------------------------------------------------
+def _compute_advanced(*, ens, ratings, per_game, odds, value, history_rows,
+                      imported):
+    # Deterministic across runs so the dashboard doesn't jiggle on refresh.
+    simulation.seed(42)
+    home_wp = ens.get("home", 0.5)
+
+    mc_game = simulation.simulate_game(home_wp, trials=4000)
+    leader_probs = [g["leader_win"] for g in per_game]
+    mc_series = simulation.simulate_series(
+        leader_probs, leader_wins=3, trailer_wins=0, trials=8000)
+
+    # Glicko-2 expressed from current Elo seeds (high-precision win prob).
+    glicko = {
+        "home_rating": round(ratings["home"], 1),
+        "home_rd": 60.0,
+        "away_rating": round(ratings["away"], 1),
+        "away_rd": 60.0,
+        "home_win_prob": round(advanced_math.glicko2_win_prob(
+            ratings["home"], 60.0, ratings["away"], 60.0, home_court=50.0), 4),
+    }
+
+    # Kelly sizing on the value-bet side, using the model probability + ML.
+    kelly_block = None
+    if value and odds:
+        ml = value.get("moneyline")
+        dec = model.american_to_decimal(ml) if ml is not None else None
+        if dec is not None:
+            p = value.get("model_prob") or 0.0
+            kelly_block = {
+                "side": value.get("side"),
+                "decimal": round(dec, 3),
+                "full": round(advanced_math.kelly_fraction(p, dec), 4),
+                "quarter": round(advanced_math.fractional_kelly(p, dec, 0.25), 4),
+                "ev": round(advanced_math.expected_value(p, dec), 4),
+            }
+
+    # Injury detection from the press/social corpus, propagated to a WP delta.
+    inj = injury_impact.estimated_team_impact(imported)
+    inj_adj = injury_impact.adjust_win_probability(home_wp, inj)
+    inj["adjustment"] = inj_adj
+
+    # Time-series moves from history (last 30 runs).
+    ts_moves = _history_movement(history_rows)
+
+    return {
+        "monte_carlo_game": mc_game,
+        "monte_carlo_series": mc_series,
+        "glicko": glicko,
+        "kelly": kelly_block,
+        "injuries": inj,
+        "history_movement": ts_moves,
+        "what_if_star_out_home": simulation.what_if_player_out(home_wp, 0.20),
+        "what_if_star_out_away": simulation.what_if_player_out(home_wp, -0.20)
+            if False else simulation.what_if_player_out(1 - home_wp, 0.20),
+    }
+
+
+def _history_movement(rows):
+    """Quick stats over the rolling history for the dashboard.
+
+    Computes:
+      * EWMA-smoothed ensemble home %
+      * Autocorrelation at lag 1 (so a noisy stream vs a trending one is obvious)
+      * Linear regression slope vs index (rough drift speed)
+      * Pearson(ens_home, market_home) and Pearson(ens_home, sent_home)
+    """
+    if not rows:
+        return {}
+    ens_series = [r.get("ens_home") for r in rows if r.get("ens_home") is not None]
+    market_series = [r.get("market_home") for r in rows if r.get("market_home") is not None]
+    sent_series = [r.get("sent_home") for r in rows if r.get("sent_home") is not None]
+    out = {}
+    if ens_series:
+        out["ewma_ens_home"] = [round(v, 4) for v in advanced_math.ewma(ens_series, 0.3)]
+        lr = advanced_math.linear_regression(list(range(len(ens_series))), ens_series)
+        out["ens_drift_per_run"] = round(lr["slope"], 5)
+        out["ens_r2"] = round(lr["r2"], 4)
+        out["ens_autocorr_lag1"] = round(advanced_math.autocorrelation(ens_series, 1), 4)
+    if ens_series and market_series:
+        n = min(len(ens_series), len(market_series))
+        out["pearson_ens_vs_market"] = round(
+            advanced_math.pearson_correlation(ens_series[-n:], market_series[-n:]), 4)
+    if ens_series and sent_series:
+        n = min(len(ens_series), len(sent_series))
+        out["pearson_ens_vs_sentiment"] = round(
+            advanced_math.pearson_correlation(ens_series[-n:], sent_series[-n:]), 4)
+    return out

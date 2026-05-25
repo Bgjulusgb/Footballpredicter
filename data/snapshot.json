@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T13:12:25.178877+00:00",
+  "generated_at": "2026-05-25T14:51:18.686347+00:00",
   "mode": "pre",
   "game": {
     "id": "401873344",
@@ -25,7 +25,7 @@
     "odds": {
       "provider": "DraftKings",
       "details": "NY -2.5",
-      "over_under": 217.5,
+      "over_under": 218.5,
       "spread": 2.5,
       "home_moneyline": 120,
       "away_moneyline": -142,
@@ -178,7 +178,7 @@
           "odds": {
             "provider": "DraftKings",
             "details": "NY -2.5",
-            "over_under": 217.5,
+            "over_under": 218.5,
             "spread": 2.5,
             "home_moneyline": 120,
             "away_moneyline": -142,
@@ -270,9 +270,9 @@
     },
     {
       "name": "press_review",
-      "status": "partial",
-      "count": 500,
-      "error": "espn_news: parse error no element found: line 1, column 0",
+      "status": "ok",
+      "count": 514,
+      "error": null,
       "meta": {}
     },
     {
@@ -349,6 +349,562 @@
   ],
   "press_review": [
     {
+      "id": "news:f4f2a983b77d",
+      "source": "yahoo_news",
+      "kind": "article",
+      "title": "Lakers reportedly hire Pelicans exec Rohan Ramadas as new assistant general manager under Rob Pelinka",
+      "text": "Rohan Ramadas has worked in the NBA ... and done jobs for NASA.",
+      "url": "https://sports.yahoo.com/nba/breaking-news/article/lakers-reportedly-hire-pelicans-exec-rohan-ramadas-as-new-assistant-general-manager-under-rob-pelinka-144214892.html",
+      "author": null,
+      "published": "2026-05-25T14:42:14+00:00",
+      "engagement": 0,
+      "outlet": "Yahoo Sports",
+      "team_hint": null,
+      "sentiment": {
+        "compound": -0.4588,
+        "pos": 0.0,
+        "neg": 0.0714,
+        "neu": 0.9286,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "negative",
+      "team": "general",
+      "status": "partial",
+      "imported_via": "repair"
+    },
+    {
+      "id": "news:e053973cfb2d",
+      "source": "google_news",
+      "kind": "article",
+      "title": "Check Out Stylish Jalen Brunson, Knicks' 'Kings of New York' Cover for 'The New Yorker' Magazine",
+      "text": "Check Out Stylish Jalen Brunson, Knicks' 'Kings of New York' Cover for 'The New Yorker' Magazine  Bleacher Report",
+      "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPN3BtMVlQY0w2LUZ4RjRoYmcxYUNhbGFDOGpGdzF2Y29xQWNYSTF6U2MwWGVlbmktbXg4aVZsblcxS0FSVHBzVEpGaGZfQjhrWS1YblcwQnlBQXhibDlZY3ZDS1RxOTF5Si0wMEljeENKbTNyT2hhZXV3RnBxV1pxMmQ0Z2RDVWlBMVRXa2xva1JhdUF0azNoc1BGSk5Ocm5STWtGQ3BOQmdLOTdYTzc3RnBoQzRDQWc5Q25aZVBiZzB2UQ?oc=5",
+      "author": null,
+      "published": "2026-05-25T14:42:11+00:00",
+      "engagement": 0,
+      "outlet": "Bleacher Report",
+      "team_hint": null,
+      "sentiment": {
+        "compound": -0.296,
+        "pos": 0.0,
+        "neg": 0.0361,
+        "neu": 0.9639,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "away",
+      "status": "ok"
+    },
+    {
+      "id": "news:eae7468a0f1f",
+      "source": "google_news",
+      "kind": "article",
+      "title": "Knicks Bulletin: ‘I’m buying the brooms’",
+      "text": "Knicks Bulletin: ‘I’m buying the brooms’  Posting and Toasting",
+      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOckxFWVJLNWlvY0JONmhIa2xSQWRyNkVpbmM4aTF2THhqcDhuTXY4WnBIRVZvb3JYWWU5eHR5Ym5nWlVCSnZOYzczcXlTcnBBYTFPTXVEc2luaEd5Q2szaW5rVzdiMHp6NXhhc0JhSUFoMFRjTUlZS3cydDJ4eEpHb1ZKV1hRRko4Z0JnQ2YzTHYxczQ?oc=5",
+      "author": null,
+      "published": "2026-05-25T14:40:00+00:00",
+      "engagement": 0,
+      "outlet": "Posting and Toasting",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "away",
+      "status": "ok"
+    },
+    {
+      "id": "news:49b8eef77a38",
+      "source": "google_news",
+      "kind": "article",
+      "title": "NBA player prop picks, odds: Three best 2026 NBA Playoffs prop bets for Knicks vs. Cavaliers, Game 4",
+      "text": "NBA player prop picks, odds: Three best 2026 NBA Playoffs prop bets for Knicks vs. Cavaliers, Game 4  CBS Sports",
+      "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxORXlNUFl3UzNmMVBkZG41NVlpV3VMejB0SFhLbUNBOFJtOThrS2VxQjBIdUh0bW9iVXc1UDZzTXBOc3haTWJyM2loUXQwM0g2Nm1aRFdoNDR4eVNwYjhPMW1BdlpVOVJFcHVSWkFoV2dMbkZobVJ1R0JWWUwyLS1WWm1TUmFTYm1XMktxaHJFRHhFcTBqVUtfeUo2cWE0U3ZvUEN1dXFXMmJZSWVHaURQN0pfNlpRa3VjdGpsWS1yVm5jNkd2TkgtY011WWY?oc=5",
+      "author": null,
+      "published": "2026-05-25T14:32:58+00:00",
+      "engagement": 0,
+      "outlet": "CBS Sports",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.8555,
+        "pos": 0.1667,
+        "neg": 0.0,
+        "neu": 0.8333,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "positive",
+      "team": "both",
+      "status": "ok"
+    },
+    {
+      "id": "news:209ffb25f746",
+      "source": "google_news",
+      "kind": "article",
+      "title": "Suddenly, the Knicks are amazing. What does it mean for the NBA Finals?",
+      "text": "Suddenly, the Knicks are amazing. What does it mean for the NBA Finals?  The New York Times",
+      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQNTVYZEhmeXlzcENhdXFNMjZka2M5THQwSTlmV0M3bEZFWlpCWjdMVXlockl5YjEwcm1zbTd4ZkdTbEthOGpFdkhialdvRUlpMy1XcFlMc2VMTWNOSTNCM0I0cTdwNU1wYmtWY3N4UTlyUnMwLUlMSzBXSWNKZS1GVDlrZFJINmlrWUw5VUFMOHYwbUZWaS00WVlzd1RNblFXcjhfMVJEMVEwYmhJeUc1QW53?oc=5",
+      "author": null,
+      "published": "2026-05-25T14:28:02+00:00",
+      "engagement": 0,
+      "outlet": "The New York Times",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.8677,
+        "pos": 0.186,
+        "neg": 0.0,
+        "neu": 0.814,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "positive",
+      "team": "away",
+      "status": "ok"
+    },
+    {
+      "id": "news:d97c4e112f5f",
+      "source": "google_news",
+      "kind": "article",
+      "title": "Kalshi Promo Code DENVER: Get $10 Bonus for Memorial Day MLB, Knicks-Cavs Game 4",
+      "text": "Kalshi Promo Code DENVER: Get $10 Bonus for Memorial Day MLB, Knicks-Cavs Game 4  Denver Stiffs",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNZF9OZjJrdXQ3SWJUQ2FDY0NicGJUeUR3N2pxQ3hQMk9GelRMMUg2NEFMd2dHYUFCdlRPNXFOTlZHOUNkM2k4NnR3OE12a0Nrc0t5MXpiN3BaZnFodjFuNmxzZ2FqUWRxaDJ4UDdlRXNZWFZycjhEZ3JkTjZDVGxQbzBQOHpBV25jOXVGX0lrUDVIWXQzaDhwcHZEQjBqUGhyLXRPRTZqQi0tOTQ?oc=5",
+      "author": null,
+      "published": "2026-05-25T14:27:09+00:00",
+      "engagement": 0,
+      "outlet": "Denver Stiffs",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "both",
+      "status": "ok"
+    },
+    {
+      "id": "news:0d0219853940",
+      "source": "google_news",
+      "kind": "article",
+      "title": "How to watch Cavs Game 4 against Knicks",
+      "text": "How to watch Cavs Game 4 against Knicks  News 5 Cleveland WEWS",
+      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQZy04RUZPMXVmaWFlMXpfRnBuTEhqNUF5azJ1V3hrampYRXZwWGNGV21RalU4SW1WTnZoNkUwbXNMcC1BeGtwOEpBdlRJTGdsTC1zWWRTS3c5dFhwYUpvZGwzeklXZndGZzVLUkFPWjNDSjVvbTI0WF9zT3hocndGM2FldGlVTGhuZFhpd2lCeExrMU5SWkcxVEV2UUpsVXc?oc=5",
+      "author": null,
+      "published": "2026-05-25T14:17:38+00:00",
+      "engagement": 0,
+      "outlet": "News 5 Cleveland WEWS",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "both",
+      "status": "ok"
+    },
+    {
+      "id": "news:59741b1c6bf2",
+      "source": "google_news",
+      "kind": "article",
+      "title": "Knicks vs. Cavs odds, prediction: 2026 NBA Eastern Conference finals picks, Game 4 best bets from proven model",
+      "text": "Knicks vs. Cavs odds, prediction: 2026 NBA Eastern Conference finals picks, Game 4 best bets from proven model  CBS Sports",
+      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQNWp1ZmFNNmp3dkh3Nnc0ZUEtUVgyWE1YS0hLWVdKN0c1NThzdEg0NElkY2lDN21oeC1WZmlYUWxGYTE0MWd3M1RwLXBkTW91N3hXQzByYklhRmxwWnl0YWpIVHhteFE5cEM0S0hwTXFqN0otWWlsV1NBLUpIOVpHeXlnd1UwdnYyOFdmSGF0amw3dWsxRXV6T0pHazZpQTFaUndWUHFWMVNETjNybnVUTUttTUt1dFdwcGFSSnNR?oc=5",
+      "author": null,
+      "published": "2026-05-25T14:17:02+00:00",
+      "engagement": 0,
+      "outlet": "CBS Sports",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.8555,
+        "pos": 0.1667,
+        "neg": 0.0,
+        "neu": 0.8333,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "positive",
+      "team": "both",
+      "status": "ok"
+    },
+    {
+      "id": "news:c0b2765d1d38",
+      "source": "google_news",
+      "kind": "article",
+      "title": "New York Knicks and Danhausen Are Celebrating a \"Very Nice, Very Evil\" NBA Playoff Run",
+      "text": "New York Knicks and Danhausen Are Celebrating a \"Very Nice, Very Evil\" NBA Playoff Run  Sports Illustrated",
+      "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNM2lBaUNxZUJwbVFzR0dycXhnanRqWFV0cThVa18yZU44R0Z2SnRzQVQyT3ludHRFYkprVGtSZEdwbWp5aGhNQm5BaTNyVWFSTHB5ZUFlOWdtZS04N3lIMlVmRGpaa1ZXeTZJakpqMXREVlRQbWFyVTdwdUVEMW15Y0lib2ppNXhZRWxvVmpTdzVLejZNcVl2ZG9nTUQ?oc=5",
+      "author": null,
+      "published": "2026-05-25T14:15:01+00:00",
+      "engagement": 0,
+      "outlet": "Sports Illustrated",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "away",
+      "status": "ok"
+    },
+    {
+      "id": "news:9cc4eb69fdbf",
+      "source": "cbs_news",
+      "kind": "article",
+      "title": "Spurs defense dominates Thunder, and Game 4 might have flipped the chess board of this series",
+      "text": "San Antonio ditched the SGA double teams, shut off the shooters, and still held the MVP in check",
+      "url": "\n                                                https://www.cbssports.com/nba/news/spurs-defense-dominates-thunder-game-4/\n                    ",
+      "author": null,
+      "published": "2026-05-25T14:03:58+00:00",
+      "engagement": 0,
+      "outlet": "Unknown",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.6841,
+        "pos": 0.102,
+        "neg": 0.0,
+        "neu": 0.898,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "positive",
+      "team": "general",
+      "status": "partial",
+      "imported_via": "repair"
+    },
+    {
+      "id": "news:82f410c3d11b",
+      "source": "google_news",
+      "kind": "article",
+      "title": "Jalen Brunson just explained why the Knicks are so dangerous on the road",
+      "text": "Jalen Brunson just explained why the Knicks are so dangerous on the road  Daily Knicks",
+      "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxOVC1aSjFBcTBwZ29uZ0s3NHpzZ3lzYUh4N3NYNW1od2UyLUZfNVNESHBLcHpJMWl0dUEtcENmVjRrWkQ5cnU2Q0xFUnFMaFV4azRxYWhHdjdBbWtIQUhneXlTRWF1YUlvSTRBamd0N0FBTkMyb3ZybWNLdDlveFUzOFR6cWk4Zw?oc=5",
+      "author": null,
+      "published": "2026-05-25T14:00:03+00:00",
+      "engagement": 0,
+      "outlet": "Daily Knicks",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "away",
+      "status": "ok"
+    },
+    {
+      "id": "news:2ade0e518c5f",
+      "source": "google_news",
+      "kind": "article",
+      "title": "Road to the NBA Finals: NBA Playoff Predictions, Picks for Knicks vs. Cavs Eastern Conference Finals Game 4",
+      "text": "Road to the NBA Finals: NBA Playoff Predictions, Picks for Knicks vs. Cavs Eastern Conference Finals Game 4  Sports Illustrated",
+      "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQSG5PRl9HNkRIN2xzUzRnUnJpY0xPNEJrTTkwZE1tRnBJbWc3QzBRZk5aRGhLZlU1VEhKb3IzdGRHMmllMHJrM0JON0VyZWdjUXJydl9HT2RFWHllT0JNS2pvZ0ZUdVd3UldMU2gtRlZkV2xTM1Fvck13MEhoT1ZvNjVzdVZieWJWZVZ0ZnBJUjFNWGM4V1A2SDhGYTdqUUh2UVVlMWNUYWJZVENUNHFwNE1tVGlYTUhNMUxDRnA3NzBhcTZrRW5XdDRHQQ?oc=5",
+      "author": null,
+      "published": "2026-05-25T14:00:01+00:00",
+      "engagement": 0,
+      "outlet": "Sports Illustrated",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "both",
+      "status": "ok"
+    },
+    {
+      "id": "news:91ee8b93dd01",
+      "source": "google_news",
+      "kind": "article",
+      "title": "Use Kalshi promo code CBSSPORTS for $10 bonus by trading Cavaliers-Knicks, Athletics-Mariners, NHL on Monday",
+      "text": "Use Kalshi promo code CBSSPORTS for $10 bonus by trading Cavaliers-Knicks, Athletics-Mariners, NHL on Monday  CBS Sports",
+      "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQNEZSNFRTMW5uMktnbE52eEJXb2ZTVjdua0U0NURhdVh1ZXV5SmdIS0RfazZaZmoyOGdBXzZGbkw0eHRjZklkaGZLdFQ1bU95RHBYaXpESUU3QjFwTDJEbldZRmpibHllOWJoV19rU2E2QkNTUW45U1RSVmphZ0FNY1ktSTFBZDZac2dyV2wxeFlYYjRZVXZkSWlsWnRuTC1hYUFjQ3lOMU9lX3UxNkxlRUFyaWpFOU9JMWtfQWY4WS1oRVhNaWdoc2FVcGZCY0Zi?oc=5",
+      "author": null,
+      "published": "2026-05-25T13:57:17+00:00",
+      "engagement": 0,
+      "outlet": "CBS Sports",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "both",
+      "status": "ok"
+    },
+    {
+      "id": "news:66c3ef9e9914",
+      "source": "cbs_news",
+      "kind": "article",
+      "title": "Use BetMGM bonus code CBSSPORTS to get $1,500 in bonus bets for Knicks-Cavaliers, Hurricanes-Canadiens Monday",
+      "text": "Use the latest BetMGM promo code CBSSPORTS to get $1,500 in bonus bets if your first bet loses for NBA, NHL and MLB betting on Monday",
+      "url": "\n                                                https://www.cbssports.com/betting/news/use-betmgm-bonus-code-cbssports-to-get-1500-in-bonus-bets-for-knicks-cavaliers-hurricanes-canadiens-monday/\n                    ",
+      "author": null,
+      "published": "2026-05-25T13:47:06+00:00",
+      "engagement": 0,
+      "outlet": "Unknown",
+      "team_hint": null,
+      "sentiment": {
+        "compound": -0.4939,
+        "pos": 0.0,
+        "neg": 0.0547,
+        "neu": 0.9453,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "negative",
+      "team": "both",
+      "status": "ok"
+    },
+    {
+      "id": "news:47f12646e9fa",
+      "source": "google_news",
+      "kind": "article",
+      "title": "Starting 5: Spurs dominate in Game 4; Knicks seek 1st NBA Finals berth since 1999",
+      "text": "Starting 5: Spurs dominate in Game 4; Knicks seek 1st NBA Finals berth since 1999  NBA",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE4xQkZwRTdpYnV3SVlMQU1fZ1RveThWMVpwZEMzS2Z6NHI4cnhjbktGLWhqYXdLRmpieU9sUDlyZUlwbmZWT1UtYUNTZlh4a3NpdUdSMHAyYTV2M0E?oc=5",
+      "author": null,
+      "published": "2026-05-25T13:44:33+00:00",
+      "engagement": 0,
+      "outlet": "NBA",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.7906,
+        "pos": 0.1786,
+        "neg": 0.0,
+        "neu": 0.8214,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "positive",
+      "team": "away",
+      "status": "ok"
+    },
+    {
+      "id": "news:e718c11efcb5",
+      "source": "google_news",
+      "kind": "article",
+      "title": "Use DraftKings promo code for $100 bonus bets by targeting Knicks-Cavaliers, Hurricanes-Canadiens on Monday",
+      "text": "Use DraftKings promo code for $100 bonus bets by targeting Knicks-Cavaliers, Hurricanes-Canadiens on Monday  CBS Sports",
+      "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxOT3l5OEF3MXlnSW54ZTByNFZSUG9EMWxPaXZRNFpMSm1qeEMteVZLaGk3dWEtdkZnemRrblZBc3VrM0hmRTJSeFd3ZlRiSXI4SERQN2Vnc2lUTHVxZFloSlE4RGJ2T3Q1OTllVnFZaTJVVTRDc1l2RFRXZms2dVFNTVlXNzR2SEdXampMT0ROY2xIRjd0dTVqUXdWYm1vckdaUGJwUGExQTFSZHF5UElxejRsQmQwazBRRk5UVWZ6UFNzdXluWDl0N2FYQVhGb0ZTWkZ3V20tVE1WZE5qWUE?oc=5",
+      "author": null,
+      "published": "2026-05-25T13:44:02+00:00",
+      "engagement": 0,
+      "outlet": "CBS Sports",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "both",
+      "status": "ok"
+    },
+    {
+      "id": "news:087d35dfb384",
+      "source": "google_news",
+      "kind": "article",
+      "title": "New York Knicks @ Cleveland Cavaliers: Live game updates, stats, play-by-play",
+      "text": "New York Knicks @ Cleveland Cavaliers: Live game updates, stats, play-by-play  Yahoo Sports",
+      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOMUVPSHBMd212cy14OWRxMFBlM0xoclZjZUljNlV1cmk0MnFDLWdjajdNRGhobWJQeGNJdnFmWlg1WlI5RHl0bHF0SjFNV0JUWXlRb25IaTd6bERDdXJuQmk5b3V6blVseFRmeE1fNDJ0c25OdktrQzRlc25EZ1VUdHBR?oc=5",
+      "author": null,
+      "published": "2026-05-25T13:39:55+00:00",
+      "engagement": 0,
+      "outlet": "Yahoo Sports",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "both",
+      "status": "ok"
+    },
+    {
+      "id": "news:998aa13bd7aa",
+      "source": "google_news",
+      "kind": "article",
+      "title": "Cavaliers Still Believe They Can Win ECF, but History Doesn’t Agree",
+      "text": "Cavaliers Still Believe They Can Win ECF, but History Doesn’t Agree  roundtable.io",
+      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPcHJrb3BzQWdnblRLamMzVEVzT0NKMDR6MFBWLWp1bWxSN0R5QWVRMjJYNVdIdWkyQkp3WE9EUGFCZWJYM3ZKbm1WVzFRbXFpRTJqakw0R1l2X2taal9JQ0RKYlJLc2lzUFZnNUdDZ0dIMWt0UFZpVmxfOXY5dDAxTkxuSUJmUUdzQVFHSlBMU1ZVSzdsckJvcUNJSzhFRzlPYVBqeUF6b3J1S2FBTDlZVV9qMS0?oc=5",
+      "author": null,
+      "published": "2026-05-25T13:38:10+00:00",
+      "engagement": 0,
+      "outlet": "roundtable.io",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.802,
+        "pos": 0.1781,
+        "neg": 0.0,
+        "neu": 0.8219,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "positive",
+      "team": "home",
+      "status": "ok"
+    },
+    {
+      "id": "news:89a8750053b3",
+      "source": "google_news",
+      "kind": "article",
+      "title": "Knicks vs. Cavaliers Game 4 Picks & Odds: May 25, 2026",
+      "text": "Knicks vs. Cavaliers Game 4 Picks & Odds: May 25, 2026  Odds Shark",
+      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOdk1nTGVXejNlOTNhNnFHSzFyZm9JLVlsM3JXVHpNMDBidUxJQ2V4V3Q1Wk4yZ2c5d0VTNG4zOWhXb3prU1RudWVGNmdUb1Q1b3dMZ2hJNTNGdmtsankwX1VXSi1CRmI3NFJPSklvVVhlYnRqa25ZXzBuOFl5UXg0UUNn?oc=5",
+      "author": null,
+      "published": "2026-05-25T13:32:34+00:00",
+      "engagement": 0,
+      "outlet": "Odds Shark",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "both",
+      "status": "ok"
+    },
+    {
+      "id": "news:56d4890cb904",
+      "source": "google_news",
+      "kind": "article",
+      "title": "Knicks vs Cavaliers Game Notes | May 25, 2026: Eastern Conference Finals Game 4",
+      "text": "Knicks vs Cavaliers Game Notes | May 25, 2026: Eastern Conference Finals Game 4  NBA",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPREZESzNLTDhqY3ZFYnhVY0tSRlNWcFYwY0h2NGJfdzdzVFZfTWx6RFVWSXNWaWtaSHNsYU5nSG94R2JucE1tLXk1bTFYc2NRQnlXNmc4YmFSb2xiN1p4MHEtOVh2U1EzamVjT1pPQU43ZmNLVlNINFR2WDA2OUp5VWVrZkhPdGFXYzBRLTkwMkhfTGtTbDlTeXVmNll6WnhHLXdMclVRQU0wX0k?oc=5",
+      "author": null,
+      "published": "2026-05-25T13:27:15+00:00",
+      "engagement": 0,
+      "outlet": "NBA",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "both",
+      "status": "ok"
+    },
+    {
+      "id": "news:e5cb00fb60c6",
+      "source": "google_news",
+      "kind": "article",
+      "title": "NBA Game Leader Props for Donovan Mitchell (+264), Landry Shamet (+2200), Evan Mobley (+548), Jarrett Allen (+670)",
+      "text": "NBA Game Leader Props for Donovan Mitchell (+264), Landry Shamet (+2200), Evan Mobley (+548), Jarrett Allen (+670)  Action Network",
+      "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNcU1sLVAxR3hxM0Y0ZXIwNkQxemJ6WDM0NGFrSkcwSUlvS3ExWDVtWWdZRG4yN19WWV9vV0RrWW1iVXVfemlqRmt4Zl9ScXFvcElGbDFCZzVOR1V3cXpQVkE2Yms0Z0VOY0hJQ1o1Qy1XYTU2MU4tN2JUR0JDRDQ2MGhha0x0MVpDSlRZTUlHQ2xXWV9iUklDZ21wLW9OOW9kX2VKQTBHRTN2S2RLelp0cm13Vklwd3NYTkt5cHBseXJGaVZhZmVESW5WRFFIQQ?oc=5",
+      "author": null,
+      "published": "2026-05-25T13:27:00+00:00",
+      "engagement": 0,
+      "outlet": "Action Network",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "general",
+      "status": "partial",
+      "imported_via": "repair"
+    },
+    {
+      "id": "news:6e640c0fd352",
+      "source": "yahoo_news",
+      "kind": "article",
+      "title": "Cavs coach Kenny Atkinson makes strangest analytics remark yet",
+      "text": "As it turns out, the Browns aren&#39;t the Cleveland-based sports team having the most warped obsession with analytics.",
+      "url": "https://sports.yahoo.com/articles/cavs-coach-kenny-atkinson-makes-132348925.html",
+      "author": null,
+      "published": "2026-05-25T13:23:48+00:00",
+      "engagement": 0,
+      "outlet": "ProFootball Talk on NBC Sports",
+      "team_hint": null,
+      "sentiment": {
+        "compound": -0.2263,
+        "pos": 0.0,
+        "neg": 0.0323,
+        "neu": 0.9677,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "home",
+      "status": "ok"
+    },
+    {
+      "id": "news:52ffb5c78ec5",
+      "source": "google_news",
+      "kind": "article",
+      "title": "How all the Knicks' big bets are paying off with New York one win from NBA Finals",
+      "text": "How all the Knicks' big bets are paying off with New York one win from NBA Finals  CBS Sports",
+      "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE9Qbm9hSUhrZUoxNEhYa2NCYi1jVWpQV2M3Y3NDX082alAtdldsRFhNZTNIbjAwM2Z3SFpTaFhqUmhySVpTWHJQOHpPTUR0NW5vSTdMU1ZlYzZveGFtWkFYUHhyanYwaDhJOG83SWdIWDBsU3FHR002Z05LWDRiUQ?oc=5",
+      "author": null,
+      "published": "2026-05-25T13:22:00+00:00",
+      "engagement": 0,
+      "outlet": "CBS Sports",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.802,
+        "pos": 0.1327,
+        "neg": 0.0,
+        "neu": 0.8673,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "positive",
+      "team": "away",
+      "status": "ok"
+    },
+    {
+      "id": "news:7db0bc372ed3",
+      "source": "yahoo_news",
+      "kind": "article",
+      "title": "Jared McCain Is Giving Off Life Lessons Left And Right",
+      "text": "This guy must be Dale Carnegie’s love child. Seriously.",
+      "url": "https://sports.yahoo.com/articles/jared-mccain-giving-off-life-131200323.html",
+      "author": null,
+      "published": "2026-05-25T13:12:00+00:00",
+      "engagement": 0,
+      "outlet": "SB Nation",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.6369,
+        "pos": 0.1441,
+        "neg": 0.0,
+        "neu": 0.8559,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "positive",
+      "team": "general",
+      "status": "partial",
+      "imported_via": "repair"
+    },
+    {
       "id": "news:0bee0da1e266",
       "source": "google_news",
       "kind": "article",
@@ -368,6 +924,53 @@
         "toxicity": 0.0
       },
       "sentiment_label": "positive",
+      "team": "both",
+      "status": "ok"
+    },
+    {
+      "id": "news:c69b423c9375",
+      "source": "yahoo_news",
+      "kind": "article",
+      "title": "Gregg Popovich&#39;s locker room speech jolts Spurs in Game 4 win vs Thunder",
+      "text": "De&#39;Aaron Fox said Gregg Popovich had some &quot;choice words&quot; for the Spurs after their Game 3 loss vs. the Thunder. Whatever he said, it worked in Game 4.",
+      "url": "https://sports.yahoo.com/articles/gregg-popovichs-locker-room-speech-130523170.html",
+      "author": null,
+      "published": "2026-05-25T13:05:23+00:00",
+      "engagement": 0,
+      "outlet": "USA TODAY Sports",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.1531,
+        "pos": 0.0583,
+        "neg": 0.0448,
+        "neu": 0.8969,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "general",
+      "status": "partial",
+      "imported_via": "repair"
+    },
+    {
+      "id": "news:3d8adcded8ca",
+      "source": "google_news",
+      "kind": "article",
+      "title": "Cavs vs Knicks, Game 4 | Rocket Game Preview",
+      "text": "Cavs vs Knicks, Game 4 | Rocket Game Preview  NBA",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBMR0Q5M2FlSHlDMjJmZVQ1V1N6VlAxVnhjWWVuVjNSbEJXYVpMdFA2RTVjSlFad1cybkszMTF3M294ald3WFZTMXA1TENwR3pFa2NCNmJOUFR4SlRJUVR3X1E5MmZITlE?oc=5",
+      "author": null,
+      "published": "2026-05-25T13:04:00+00:00",
+      "engagement": 0,
+      "outlet": "NBA",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
       "team": "both",
       "status": "ok"
     },
@@ -415,6 +1018,29 @@
       },
       "sentiment_label": "neutral",
       "team": "both",
+      "status": "ok"
+    },
+    {
+      "id": "news:d99aa65c063f",
+      "source": "cbs_news",
+      "kind": "article",
+      "title": "Spurs pull even with Thunder as Knicks eye sweep; Felix Rosenqvist wins historic Indy 500",
+      "text": "Plus the final results from the 2025-26 European soccer season",
+      "url": "\n                                                https://www.cbssports.com/nba/news/spurs-pull-even-with-thunder-as-knicks-eye-sweep-felix-rosenqvist-wins-historic-indy-500/\n                    ",
+      "author": null,
+      "published": "2026-05-25T12:55:53+00:00",
+      "engagement": 0,
+      "outlet": "Unknown",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.7096,
+        "pos": 0.1506,
+        "neg": 0.0,
+        "neu": 0.8494,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "positive",
+      "team": "away",
       "status": "ok"
     },
     {
@@ -484,29 +1110,6 @@
         "toxicity": 0.0
       },
       "sentiment_label": "neutral",
-      "team": "away",
-      "status": "ok"
-    },
-    {
-      "id": "news:3e112652353b",
-      "source": "google_news",
-      "kind": "article",
-      "title": "Knicks’ Mike Brown Has Strong Words After OG Anunoby All-Defensive Snub",
-      "text": "Knicks’ Mike Brown Has Strong Words After OG Anunoby All-Defensive Snub  heavy.com",
-      "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNTVR1UXg3M3BFVjZVSlBoNTRDa2RNQnBVb3lBakFuMmtObVRpNW40QlpmeFRXaHdvd1FLNGZoTUp2SEk1LVVVcmJUal9Pa0tOUlRTaV9yTmNORTdYN0Vsc0p6dGJTNGZCRGk2cmh0cXdVZlZpdFBYcktNdS13bnhES2NrYm5rMVczMVE?oc=5",
-      "author": null,
-      "published": "2026-05-25T12:35:30+00:00",
-      "engagement": 0,
-      "outlet": "heavy.com",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.7184,
-        "pos": 0.1538,
-        "neg": 0.0,
-        "neu": 0.8462,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "positive",
       "team": "away",
       "status": "ok"
     },
@@ -581,27 +1184,51 @@
       "imported_via": "repair"
     },
     {
-      "id": "news:551086b91d02",
+      "id": "news:f7be0f8c04bc",
       "source": "google_news",
       "kind": "article",
-      "title": "Cavs' Kenny Atkinson makes pointless case that Cleveland has won '2 out of 3' vs. Knicks",
-      "text": "Cavs' Kenny Atkinson makes pointless case that Cleveland has won '2 out of 3' vs. Knicks  Yahoo Sports",
-      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNb05CRE9yd3RBeEFRMlh1QmY5bW1WLVFoc05nQ2YtdWwta253Y0ZFN3BJdE84OE10RUxfWElCN3hQRHB1ZkFRZ013V2xsYlZSeUlteHM1b0szRlNBMFJoNWlUZU1NRXpNYmZPcEQ4R2ZBQVZveW1uSXhiT09iUEdaV1Y3VEszeXNGWThXWQ?oc=5",
+      "title": "'They do believe': Why Cavs aren't counting themselves out down 3-0 to Knicks in Eastern Conference Finals",
+      "text": "'They do believe': Why Cavs aren't counting themselves out down 3-0 to Knicks in Eastern Conference Finals  News 5 Cleveland WEWS",
+      "url": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxNN2NhSDZ4ZHlCajlQaktBLU9YbEhiMmNXbkFfWElOcW9wOXY0ZlhnU2ZjVkh0TTdOcElkVVVpd0tWQkt0eFBRbTZYbHpNSlRTZUYzemJtR2Jidlp5WUk0UW1ZWG5rS29icGotTG1ybVZWY2N2RGt5MzdJT0x6VGpjempTT3BraWRCdTgydkt1cFh2TEJaR09YQXRudnJyaUc2ZTBtSE9TZmJEYV9ZcUVjUXFRQTk3bkJsSDMxWHlqQ1dFeDVaVFdqZVE4QmRnTGI0VHRGbEN1bGpVczdRQ2w0SUVMd1BHbkxfdW1uMnpTbk9tUWM?oc=5",
       "author": null,
-      "published": "2026-05-25T12:26:12+00:00",
+      "published": "2026-05-25T12:28:21+00:00",
       "engagement": 0,
-      "outlet": "Yahoo Sports",
+      "outlet": "News 5 Cleveland WEWS",
       "team_hint": null,
       "sentiment": {
-        "compound": 0.6597,
-        "pos": 0.1285,
-        "neg": 0.0335,
-        "neu": 0.838,
+        "compound": -0.296,
+        "pos": 0.0,
+        "neg": 0.0331,
+        "neu": 0.9669,
         "toxicity": 0.0
       },
-      "sentiment_label": "positive",
+      "sentiment_label": "neutral",
       "team": "both",
       "status": "ok"
+    },
+    {
+      "id": "news:81ced7700f33",
+      "source": "google_news",
+      "kind": "article",
+      "title": "2026 NBA playoffs: Schedule, scores, news and highlights",
+      "text": "2026 NBA playoffs: Schedule, scores, news and highlights  ESPN",
+      "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxNSk5BSVNUVF83LXVLUFlubnZPTlBRMGlVSVpJcVNqTlBuOU9ZdC1GLXVKenFtcXU1aGJKN2Z0UlZkbGNsajQxc1A0M3ZydmJpM1NhX2pmT1B0Q1k1ZC03RDk4UnVnS0QxLWR1SlVPQ0MxNlhsblBGdXVFVnFlOVVNS1lOemYzM0RCWnFnSGZST3dmT01fNlBrdEowQVhsZFNMNDNDa0JiMzhDV1FkM2F3MmxIcHBFUnhoaWlaU2RDU0w?oc=5",
+      "author": null,
+      "published": "2026-05-25T12:20:11+00:00",
+      "engagement": 0,
+      "outlet": "ESPN",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "general",
+      "status": "partial",
+      "imported_via": "repair"
     },
     {
       "id": "news:ec3c842b9b9a",
@@ -743,16 +1370,40 @@
       "status": "ok"
     },
     {
-      "id": "news:7938523d68dc",
+      "id": "news:03b8508ceef8",
       "source": "yahoo_news",
       "kind": "article",
-      "title": "Knicks vs Cavaliers Prediction, Picks & Odds for Tonight&#39;s NBA Playoffs Game 4",
-      "text": "New York&#39;s depth is simply too much to handle in our Knicks vs. Cavaliers predictions and NBA picks on Monday, May 25.",
-      "url": "https://sports.yahoo.com/articles/knicks-vs-cavaliers-prediction-picks-165800715.html",
+      "title": "The Suns’ Memorial Day history begins and ends in 2005",
+      "text": "A look back at the Suns’ lone Memorial Day appearance and the playoff win that came with it.",
+      "url": "https://sports.yahoo.com/articles/suns-memorial-day-history-begins-120000365.html",
+      "author": null,
+      "published": "2026-05-25T12:00:00+00:00",
+      "engagement": 0,
+      "outlet": "SB Nation",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.5574,
+        "pos": 0.0909,
+        "neg": 0.0,
+        "neu": 0.9091,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "positive",
+      "team": "general",
+      "status": "partial",
+      "imported_via": "repair"
+    },
+    {
+      "id": "news:ded3cefeb3eb",
+      "source": "google_news",
+      "kind": "article",
+      "title": "Knicks vs Cavaliers Prediction, Picks & Odds for Tonight's NBA Playoffs Game 4",
+      "text": "Knicks vs Cavaliers Prediction, Picks & Odds for Tonight's NBA Playoffs Game 4  Yahoo Sports",
+      "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNVzByNlJZTUYxbjhzaDR0VFJRcnNkTU94aU4xOVFGUnlEUkotU1pPV1BIb1ZEbk9Oai05UDBTYk5mcUJOaWdheEkwZnExT1lEYmVEX0lORy1TZFBqM0tCYjVVRjUyal9pNVBDMTZ6aUFwbEJnWkRSaTR1SExEZmZ4eXc5ZW5GTzJyS0QyQmpB?oc=5",
       "author": null,
       "published": "2026-05-25T11:56:39+00:00",
       "engagement": 0,
-      "outlet": "COVERS",
+      "outlet": "Yahoo Sports",
       "team_hint": null,
       "sentiment": {
         "compound": 0.0,
@@ -766,16 +1417,16 @@
       "status": "ok"
     },
     {
-      "id": "news:832997b125ca",
-      "source": "google_news",
+      "id": "news:7938523d68dc",
+      "source": "yahoo_news",
       "kind": "article",
-      "title": "Knicks vs Cavaliers Prediction, Picks & Odds for Tonight's NBA Playoffs Game 4",
-      "text": "Knicks vs Cavaliers Prediction, Picks & Odds for Tonight's NBA Playoffs Game 4  Covers.com",
-      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPTVRaSGZ5ZDhoX29ZdDlKTl9XZU5FOFpjQmMzQ1JFaWdCY2pGNXRSUzk3OW9UNE1EYndkaXhvWE55bW5MM1RqSm1jbDRrNUNRRzd5UVZBTXo0OHUyWmI4aGVMUGVtcHhtTlJ5S3VXcTZCTzZwZjF4XzB4OWlHalJtXzlGUEQ1ZTIzeWVlRklnak5YRnhfZFFTdXFR?oc=5",
+      "title": "Knicks vs Cavaliers Prediction, Picks & Odds for Tonight&#39;s NBA Playoffs Game 4",
+      "text": "New York&#39;s depth is simply too much to handle in our Knicks vs. Cavaliers predictions and NBA picks on Monday, May 25.",
+      "url": "https://sports.yahoo.com/articles/knicks-vs-cavaliers-prediction-picks-165800715.html",
       "author": null,
-      "published": "2026-05-25T11:56:00+00:00",
+      "published": "2026-05-25T11:56:39+00:00",
       "engagement": 0,
-      "outlet": "Covers.com",
+      "outlet": "COVERS",
       "team_hint": null,
       "sentiment": {
         "compound": 0.0,
@@ -857,6 +1508,30 @@
       "sentiment_label": "neutral",
       "team": "away",
       "status": "ok"
+    },
+    {
+      "id": "news:aecb165e3169",
+      "source": "yahoo_news",
+      "kind": "article",
+      "title": "The Celtics are closer to contention than you think—The Week in Green",
+      "text": "Major moves may not be needed to bring the Celtics back to the top.",
+      "url": "https://sports.yahoo.com/articles/celtics-closer-contention-think-week-112900927.html",
+      "author": null,
+      "published": "2026-05-25T11:29:00+00:00",
+      "engagement": 0,
+      "outlet": "SB Nation",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "general",
+      "status": "partial",
+      "imported_via": "repair"
     },
     {
       "id": "news:7627ca2e486a",
@@ -1092,6 +1767,197 @@
       "status": "ok"
     },
     {
+      "id": "news:afe2e6440668",
+      "source": "espn_news",
+      "kind": "article",
+      "title": "Takeaways: Spurs rout Thunder to take Game 4",
+      "text": "Here's what we've learned -- and what's next for the Spurs-Thunder series.",
+      "url": "https://www.espn.com/nba/story/_/id/48771425/2026-nba-playoffs-conference-finals-takeaways-thunder-spurs-knicks-cavaliers",
+      "author": null,
+      "published": "2026-05-25T10:37:41-05:00",
+      "engagement": 0,
+      "outlet": "Unknown",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "general",
+      "status": "partial",
+      "imported_via": "repair"
+    },
+    {
+      "id": "news:7701d0d7dc24",
+      "source": "espn_news",
+      "kind": "article",
+      "title": "Sources: Lakers hire Ramadas as assistant GM",
+      "text": "The Lakers made their first significant move of the offseason by hiring Rohan Ramadas as an assistant GM under president and GM Rob Pelinka, sources told ESPN.",
+      "url": "https://www.espn.com/nba/story/_/id/48845975/sources-lakers-hire-rohan-ramadas-assistant-general-manager",
+      "author": null,
+      "published": "2026-05-25T10:33:37-05:00",
+      "engagement": 0,
+      "outlet": "Unknown",
+      "team_hint": null,
+      "sentiment": {
+        "compound": -0.4588,
+        "pos": 0.0,
+        "neg": 0.0571,
+        "neu": 0.9429,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "negative",
+      "team": "general",
+      "status": "partial",
+      "imported_via": "repair"
+    },
+    {
+      "id": "news:dedf8a0bd359",
+      "source": "espn_news",
+      "kind": "article",
+      "title": "Spurs shut down OKC in Game 4 to even series",
+      "text": "Victor Wembanyama set the tone from the beginning of Game 4 on Sunday as the Spurs evened the Western Conference finals at 2-2.",
+      "url": "https://www.espn.com/nba/story/_/id/48868264/spurs-shut-thunder-game-4-even-series",
+      "author": null,
+      "published": "2026-05-25T10:33:37-05:00",
+      "engagement": 0,
+      "outlet": "Unknown",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "general",
+      "status": "partial",
+      "imported_via": "repair"
+    },
+    {
+      "id": "news:91c378e870b8",
+      "source": "espn_news",
+      "kind": "article",
+      "title": "'Punched us in our face early': OKC flounders in G...",
+      "text": "The Thunder turned in their worst offensive performance in years Sunday night in Game 4 as the Spurs evened the Western Conference finals at 2-2.",
+      "url": "https://www.espn.com/nba/story/_/id/48869079/thunder-held-worst-offensive-performance-years-game-4-loss-spurs",
+      "author": null,
+      "published": "2026-05-25T10:33:37-05:00",
+      "engagement": 0,
+      "outlet": "Unknown",
+      "team_hint": null,
+      "sentiment": {
+        "compound": -0.6369,
+        "pos": 0.0,
+        "neg": 0.0884,
+        "neu": 0.9116,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "negative",
+      "team": "general",
+      "status": "partial",
+      "imported_via": "repair"
+    },
+    {
+      "id": "news:f3dfb522fbe1",
+      "source": "espn_news",
+      "kind": "article",
+      "title": "Atkinson: Cavs are 'analytically' beating Knicks",
+      "text": "Kenny Atkinson said the Cavaliers \"analytically\" have won two of the first three games against the Knicks in the Eastern Conference finals.",
+      "url": "https://www.espn.com/nba/story/_/id/48871303/kenny-atkinson-cavs-analytically-winning-series-vs-knicks",
+      "author": null,
+      "published": "2026-05-25T10:33:37-05:00",
+      "engagement": 0,
+      "outlet": "Unknown",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.5106,
+        "pos": 0.0785,
+        "neg": 0.0,
+        "neu": 0.9215,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "positive",
+      "team": "both",
+      "status": "ok"
+    },
+    {
+      "id": "news:135fbcef120a",
+      "source": "espn_news",
+      "kind": "article",
+      "title": "SGA, Jokic, Wembanyama headline All-NBA teams",
+      "text": "Shai Gilgeous-Alexander of Oklahoma City and Nikola Jokic of Denver were unanimous first-team All-NBA selections, while San Antonio's Victor Wembanyama missed joining them in that club by one vote.",
+      "url": "https://www.espn.com/nba/story/_/id/48866761/shai-gilgeous-alexander-nikola-jokic-victor-wembanyama-luka-doncic-cade-cunningham-make-first-team-all-nba",
+      "author": null,
+      "published": "2026-05-25T10:33:37-05:00",
+      "engagement": 0,
+      "outlet": "Unknown",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "general",
+      "status": "partial",
+      "imported_via": "repair"
+    },
+    {
+      "id": "news:5e326796e9cf",
+      "source": "espn_news",
+      "kind": "article",
+      "title": "With Giannis in crowd, Olympiakos wins EuroLeague",
+      "text": "In a raucous Telekom Center in Athens, Greece, on Sunday, Olympiakos clinched the EuroLeague basketball title, defeating Real Madrid 92-85 in a back-and-forth game that saw the eventual champions fall behind 15-3 in the opening four minutes.",
+      "url": "https://www.espn.com/nba/story/_/id/48865519/olympiakos-defeats-real-madrid-claim-euroleague-title",
+      "author": null,
+      "published": "2026-05-25T10:33:37-05:00",
+      "engagement": 0,
+      "outlet": "Unknown",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.5267,
+        "pos": 0.0529,
+        "neg": 0.0,
+        "neu": 0.9471,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "positive",
+      "team": "general",
+      "status": "partial",
+      "imported_via": "repair"
+    },
+    {
+      "id": "news:8d06bdfa22e6",
+      "source": "espn_news",
+      "kind": "article",
+      "title": "🏀 2026 mock draft: Predicting all 60 picks",
+      "text": "Jeremy Woo's updated mock draft and predicting all 60 picks after an exciting week at the 2026 NBA combine.",
+      "url": "https://www.espn.com/nba/story/_/id/48790115/2026-nba-mock-draft-projecting-60-picks-post-combine-peterson-dybantsa-boozer",
+      "author": null,
+      "published": "2026-05-25T10:33:37-05:00",
+      "engagement": 0,
+      "outlet": "Unknown",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "general",
+      "status": "partial",
+      "imported_via": "repair"
+    },
+    {
       "id": "news:75483e334636",
       "source": "yahoo_news",
       "kind": "article",
@@ -1208,6 +2074,29 @@
       "status": "ok"
     },
     {
+      "id": "news:841e226224bf",
+      "source": "google_news",
+      "kind": "article",
+      "title": "ESPN NBA Full Court Press: Knicks look to advance to their first NBA Finals in 27 years with a potential series sweep over Cavaliers on Monday",
+      "text": "ESPN NBA Full Court Press: Knicks look to advance to their first NBA Finals in 27 years with a potential series sweep over Cavaliers on Monday  ESPN Press Room",
+      "url": "https://news.google.com/rss/articles/CBMinwJBVV95cUxQSHU1ZEUwQ242MG5ZdmJhQlpYVGNVVUFqbkhMUzNVdmF0VDNvTzBjVklqZkQxZnpVNEhpcU41Zl92NlVYR0lQYUhoRVZYbnBsN05iWEk3LTQyMm82QzJMS2NuV2NrX3o4bWpiaU45TWVkM0h1RzRMb1VWRy1kaFpRQTBIYWo4RlRYT3dZc3pVNTU5Z0twNi1GMG03OEUyR184ZFpGWl9YQUluTEtGTmxzcVktNW40N09kUFBRZEY0UlV3MzJ2NlBoOW5nbl81a053MGxOeXlUclZXVXd6N3hEZ0hQTVlGMXFpcFJtV1FSTUpETzh2UWFaUDFpd3dQYWlERkk4V2RxaGxZRWx1djZVQTNWQk5XdW9pcVZsN2NHSQ?oc=5",
+      "author": null,
+      "published": "2026-05-25T09:50:52+00:00",
+      "engagement": 0,
+      "outlet": "ESPN Press Room",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.6124,
+        "pos": 0.0556,
+        "neg": 0.0,
+        "neu": 0.9444,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "positive",
+      "team": "both",
+      "status": "ok"
+    },
+    {
       "id": "news:f945390d1a8e",
       "source": "google_news",
       "kind": "article",
@@ -1229,6 +2118,77 @@
       "sentiment_label": "neutral",
       "team": "both",
       "status": "ok"
+    },
+    {
+      "id": "news:17c65ff679cb",
+      "source": "espn_news",
+      "kind": "article",
+      "title": "Roster-building lessons from the NBA's final four ...",
+      "text": "Four conference finalists, four roster-building lessons. What could other teams learn from the Knicks, Cavs, Thunder and Spurs?",
+      "url": "https://www.espn.com/nba/story/_/id/48868620/nba-playoffs-2026-thunder-spurs-knicks-cavs-team-building-trades-signings-lessons",
+      "author": null,
+      "published": "2026-05-25T09:40:35-05:00",
+      "engagement": 0,
+      "outlet": "Unknown",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "both",
+      "status": "ok"
+    },
+    {
+      "id": "news:729659638b98",
+      "source": "espn_news",
+      "kind": "article",
+      "title": "Six NBA trade proposals: Landing spots for Morant,...",
+      "text": "ESPN's NBA insiders pitch six trades that could rock the offseason. But which move would truly change the league landscape?",
+      "url": "https://www.espn.com/nba/story/_/id/48862012/nba-offseason-2026-six-trade-offers-thunder-nets-lakers-mavs-morant-pistons",
+      "author": null,
+      "published": "2026-05-25T09:40:20-05:00",
+      "engagement": 0,
+      "outlet": "Unknown",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "general",
+      "status": "partial",
+      "imported_via": "repair"
+    },
+    {
+      "id": "news:42792883f136",
+      "source": "espn_news",
+      "kind": "article",
+      "title": "Free agent rankings: Bobby Marks' offers for LeBro...",
+      "text": "Who's getting paid this summer -- and how much? Marks examines the free agency future of 20 players.",
+      "url": "https://www.espn.com/nba/story/_/id/48838667/nba-free-agency-rankings-2026-harden-lebron-reaves-bobby-marks-top-20-contracts",
+      "author": null,
+      "published": "2026-05-25T09:40:20-05:00",
+      "engagement": 0,
+      "outlet": "Unknown",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "general",
+      "status": "partial",
+      "imported_via": "repair"
     },
     {
       "id": "news:37a6e614ed7d",
@@ -1300,16 +2260,39 @@
       "status": "ok"
     },
     {
-      "id": "news:42a1d412840b",
+      "id": "news:d744a9552aa3",
       "source": "google_news",
       "kind": "article",
-      "title": "2026 NBA Play-in, Playoffs & Finals Schedule",
-      "text": "2026 NBA Play-in, Playoffs & Finals Schedule  NBA",
-      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5zWkdfa0RYQ2tGWnFJUk9IQjZDd19TTUhXd2VLQUtoUzRWVnFmUUhEUXIxckUzOTc5ZmdRakZQc2FsOGZnNHViaVFWTzhFSkJ5QUxYaXpjdDh2TU94TkU3aw?oc=5",
+      "title": "Jalen Brunson takes Knicks one win away from the NBA Finals",
+      "text": "Jalen Brunson takes Knicks one win away from the NBA Finals  AOL.com",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE0wLVdmNE0tQ3JXWjAxUmZGWmhsS25SV3hneE1ZVUVVamd6blVZb3FKZGVMT1RCLUNWM21nMW85OTRqS3I3dHhfZ3JMV19uNUtjdWd1anhIc1BDVnhBTWhTZmpzT0VVMUVjSzJ4VU4tT1M4ZWp3QzZJd1lkelFUczA?oc=5",
       "author": null,
-      "published": "2026-05-25T09:06:52+00:00",
+      "published": "2026-05-25T09:24:52+00:00",
       "engagement": 0,
-      "outlet": "NBA",
+      "outlet": "AOL.com",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.802,
+        "pos": 0.1912,
+        "neg": 0.0,
+        "neu": 0.8088,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "positive",
+      "team": "away",
+      "status": "ok"
+    },
+    {
+      "id": "news:1eb00c959e11",
+      "source": "espn_news",
+      "kind": "article",
+      "title": "Ranking every possible Finals series: Which matchu...",
+      "text": "Spurs-Knicks!? Thunder-Cavaliers!? As the top teams in the East and West battle for an NBA Finals bid, let's break down all four possible series.",
+      "url": "https://www.espn.com/nba/story/_/id/48807411/nba-playoffs-2026-ranking-every-finals-series-spurs-thunder-knicks-cavaliers",
+      "author": null,
+      "published": "2026-05-25T09:09:18-05:00",
+      "engagement": 0,
+      "outlet": "Unknown",
       "team_hint": null,
       "sentiment": {
         "compound": 0.0,
@@ -1319,6 +2302,53 @@
         "toxicity": 0.0
       },
       "sentiment_label": "neutral",
+      "team": "both",
+      "status": "ok"
+    },
+    {
+      "id": "news:b44d04903c55",
+      "source": "espn_news",
+      "kind": "article",
+      "title": "'That's why he's going to be MVP for the next 10 y...",
+      "text": "What makes the 2026 Defensive Player of the Year so dangerous isn't that he blocks so many shots. It's that he prevents players from shooting in the first place.",
+      "url": "https://www.espn.com/nba/story/_/id/48857143/why-san-antonio-spurs-victor-wembanyama-most-dominant-skill-remains-mystery-western-conference-finals",
+      "author": null,
+      "published": "2026-05-25T09:08:48-05:00",
+      "engagement": 0,
+      "outlet": "Unknown",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.6841,
+        "pos": 0.094,
+        "neg": 0.0,
+        "neu": 0.906,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "positive",
+      "team": "general",
+      "status": "partial",
+      "imported_via": "repair"
+    },
+    {
+      "id": "news:d163f00edc6e",
+      "source": "espn_news",
+      "kind": "article",
+      "title": "Copy of Inside the Shaolin monastery that helped build Vic...",
+      "text": "Monks in central China helped turn Wemby into what he is now: The most unstoppable force in basketball.",
+      "url": "https://www.espn.com/nba/story/_/id/48818786/how-34-generations-shaolin-warrior-monk-training-helped-build-once-generation-nba-superstar-victor-wembanyama",
+      "author": null,
+      "published": "2026-05-25T09:08:48-05:00",
+      "engagement": 0,
+      "outlet": "Unknown",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.5719,
+        "pos": 0.0909,
+        "neg": 0.0,
+        "neu": 0.9091,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "positive",
       "team": "general",
       "status": "partial",
       "imported_via": "repair"
@@ -1348,25 +2378,48 @@
       "imported_via": "repair"
     },
     {
-      "id": "news:b149b3efe6cc",
+      "id": "news:7b259475a561",
       "source": "google_news",
       "kind": "article",
       "title": "Cavs vs. Knicks Game 4: How to watch, odds, and injury report",
-      "text": "Cavs vs. Knicks Game 4: How to watch, odds, and injury report  Yahoo Sports",
-      "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE9nRVBhOG80Y1AtVTVXc1BiaUpBbUQxQXA3SUQyR0VTOUttaWdpNXc2OUxhSzdXX25VeC1VTVY2TjhicHpFRlJrUk50c2tJeDkxenA3Wk83M1loVENwdlM5VFRyT2tseVdtQUpFbzl6U1FkQUlWMzBLOXNR?oc=5",
+      "text": "Cavs vs. Knicks Game 4: How to watch, odds, and injury report  Fear The Sword",
+      "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPMHlEdWsxa01ZM0xfQ1FGdlIybjVvYmhGRDNBTWhuTEVnamFlb2RzWkZIdWVDcFJUVlhpczNOZmw1TmYyUDljaUpJTmRRSjlJSmExLWxVNjNsX2Y3Z204NGRYSTlBb1RmbUwxdUNXMzBycVlHcUZ5RkxMcFdzRU1yNUV3OEJGZk5tcGx4Y0NDSkFJdlZJVDBPcjVFcmlxQW5sN3c1dWN1R0k1em05TkUxUA?oc=5",
       "author": null,
       "published": "2026-05-25T09:00:00+00:00",
       "engagement": 0,
-      "outlet": "Yahoo Sports",
+      "outlet": "Fear The Sword",
       "team_hint": null,
       "sentiment": {
         "compound": -0.6808,
         "pos": 0.0,
-        "neg": 0.1406,
-        "neu": 0.8594,
+        "neg": 0.1353,
+        "neu": 0.8647,
         "toxicity": 0.0
       },
       "sentiment_label": "negative",
+      "team": "both",
+      "status": "ok"
+    },
+    {
+      "id": "news:31dfa6c58432",
+      "source": "google_news",
+      "kind": "article",
+      "title": "Mitchell, Cavs in perilous 3-0 hole against Knicks",
+      "text": "Mitchell, Cavs in perilous 3-0 hole against Knicks  vindy.com",
+      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNY2FWaV9qRklTZHNkM3ZrSVhaMV9WMHQ0Y0JGMlplUktycUE3M2hEX3NoUmRyeXRWSWxONUhXTF93US0wbGRmMmZkanBwYlZvMjZERmh3VEw2WE1VZ1h2YTZNZnFhdXN0bW9VbGx2Wm9FQnl5bGppYkc4Rk1tbDV3NWp5WnVCY1k1WldhLXZjN0M?oc=5",
+      "author": null,
+      "published": "2026-05-25T08:13:47+00:00",
+      "engagement": 0,
+      "outlet": "vindy.com",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
       "team": "both",
       "status": "ok"
     },
@@ -1381,29 +2434,6 @@
       "published": "2026-05-25T08:02:00+00:00",
       "engagement": 0,
       "outlet": "Bergen Record",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
-        "neg": 0.0,
-        "neu": 1.0,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
-      "team": "both",
-      "status": "ok"
-    },
-    {
-      "id": "news:31dfa6c58432",
-      "source": "google_news",
-      "kind": "article",
-      "title": "Mitchell, Cavs in perilous 3-0 hole against Knicks",
-      "text": "Mitchell, Cavs in perilous 3-0 hole against Knicks  vindy.com",
-      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNY2FWaV9qRklTZHNkM3ZrSVhaMV9WMHQ0Y0JGMlplUktycUE3M2hEX3NoUmRyeXRWSWxONUhXTF93US0wbGRmMmZkanBwYlZvMjZERmh3VEw2WE1VZ1h2YTZNZnFhdXN0bW9VbGx2Wm9FQnl5bGppYkc4Rk1tbDV3NWp5WnVCY1k1WldhLXZjN0M?oc=5",
-      "author": null,
-      "published": "2026-05-25T07:58:12+00:00",
-      "engagement": 0,
-      "outlet": "vindy.com",
       "team_hint": null,
       "sentiment": {
         "compound": 0.0,
@@ -1464,29 +2494,6 @@
       "imported_via": "repair"
     },
     {
-      "id": "news:b0426f2ad0f1",
-      "source": "google_news",
-      "kind": "article",
-      "title": "Streaking Knicks focus on Game 4, not being on verge of reaching the NBA Finals",
-      "text": "Streaking Knicks focus on Game 4, not being on verge of reaching the NBA Finals  Northwest Arkansas Democrat-Gazette",
-      "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQWFpCYUc3SVVha1VpTTY2LXhXckU1bGEtTXRBQ1V0b2xmbTlIQlZ4cXR4OHR4RFowUmptQ0VER2p6aVlBcUJ1aUlFTzdCc3o1NnBaRGFkV2Q3bFVWcU1DQnNrSjhDbmhFanNfYXdwbHRRdUpXOUI3a3J1ZWdHT3dVTnVnLXdYRjk3X2xVVGxyX1cyMUU2ZTU4b2EzQkw?oc=5",
-      "author": null,
-      "published": "2026-05-25T07:11:00+00:00",
-      "engagement": 0,
-      "outlet": "Northwest Arkansas Democrat-Gazette",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
-        "neg": 0.0,
-        "neu": 1.0,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
-      "team": "away",
-      "status": "ok"
-    },
-    {
       "id": "news:9ef56ec14042",
       "source": "google_news",
       "kind": "article",
@@ -1534,29 +2541,6 @@
       "imported_via": "repair"
     },
     {
-      "id": "news:f7be0f8c04bc",
-      "source": "google_news",
-      "kind": "article",
-      "title": "'They do believe': Why Cavs aren't counting themselves out down 3-0 to Knicks in Eastern Conference Finals",
-      "text": "'They do believe': Why Cavs aren't counting themselves out down 3-0 to Knicks in Eastern Conference Finals  News 5 Cleveland WEWS",
-      "url": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxNN2NhSDZ4ZHlCajlQaktBLU9YbEhiMmNXbkFfWElOcW9wOXY0ZlhnU2ZjVkh0TTdOcElkVVVpd0tWQkt0eFBRbTZYbHpNSlRTZUYzemJtR2Jidlp5WUk0UW1ZWG5rS29icGotTG1ybVZWY2N2RGt5MzdJT0x6VGpjempTT3BraWRCdTgydkt1cFh2TEJaR09YQXRudnJyaUc2ZTBtSE9TZmJEYV9ZcUVjUXFRQTk3bkJsSDMxWHlqQ1dFeDVaVFdqZVE4QmRnTGI0VHRGbEN1bGpVczdRQ2w0SUVMd1BHbkxfdW1uMnpTbk9tUWM?oc=5",
-      "author": null,
-      "published": "2026-05-25T06:28:21+00:00",
-      "engagement": 0,
-      "outlet": "News 5 Cleveland WEWS",
-      "team_hint": null,
-      "sentiment": {
-        "compound": -0.296,
-        "pos": 0.0,
-        "neg": 0.0331,
-        "neu": 0.9669,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
-      "team": "both",
-      "status": "ok"
-    },
-    {
       "id": "news:e55ff6d5f862",
       "source": "yahoo_news",
       "kind": "article",
@@ -1576,53 +2560,6 @@
         "toxicity": 0.0
       },
       "sentiment_label": "negative",
-      "team": "general",
-      "status": "partial",
-      "imported_via": "repair"
-    },
-    {
-      "id": "news:a608dfb64e8a",
-      "source": "google_news",
-      "kind": "article",
-      "title": "Knicks vs. Cavaliers (May 25, 2026) Pregame",
-      "text": "Knicks vs. Cavaliers (May 25, 2026) Pregame  ESPN",
-      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5adkxuUUJxMnI5QUl0ZGVWU09ROV85NUh1cFMtQ01Td2lxQjhqYUowUjNjX0V3dTJBUE4wZDdnaUF0RUVaSWhZdEpvcS1uSDR1blJXWVl0Qm4wN005OEtXMg?oc=5",
-      "author": null,
-      "published": "2026-05-25T05:59:19+00:00",
-      "engagement": 0,
-      "outlet": "ESPN",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
-        "neg": 0.0,
-        "neu": 1.0,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
-      "team": "both",
-      "status": "ok"
-    },
-    {
-      "id": "news:9cc4eb69fdbf",
-      "source": "cbs_news",
-      "kind": "article",
-      "title": "Spurs defense dominates Thunder, and Game 4 might have flipped the chess board of this series",
-      "text": "San Antonio ditched the SGA double teams, shut off the shooters, and still held the MVP in check",
-      "url": "\n                                                https://www.cbssports.com/nba/news/spurs-defense-dominates-thunder-game-4/\n                    ",
-      "author": null,
-      "published": "2026-05-25T05:46:01+00:00",
-      "engagement": 0,
-      "outlet": "Unknown",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.6841,
-        "pos": 0.102,
-        "neg": 0.0,
-        "neu": 0.898,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "positive",
       "team": "general",
       "status": "partial",
       "imported_via": "repair"
@@ -1933,30 +2870,6 @@
       "status": "ok"
     },
     {
-      "id": "news:1fc041d0cabc",
-      "source": "google_news",
-      "kind": "article",
-      "title": "2026 NBA playoffs: Schedule, scores, news and highlights",
-      "text": "2026 NBA playoffs: Schedule, scores, news and highlights  ESPN",
-      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQRDc5Y1Q4UktuVDNVQllONDVTRWI0OVZMc21KbnB0RmRDVW90QUpISHdKTktWazBCUTEzWWZYYlE3XzlNQ0M0WDJqSHVrX0ZUUlpQbEpJNmJ1aGp6R1hmdXpyYUE4YVktMUl5LXpUTjctQjJHanZXOTRNX25QTnhHVkFvQ1A4dEE2VTZyTGd4UEJURzRHbElDQzF6RHJ2Wlp6Zy1JY0d3Mlg5d2xkZ00xU0s2el9NSGc4VzZzbg?oc=5",
-      "author": null,
-      "published": "2026-05-25T03:06:00+00:00",
-      "engagement": 0,
-      "outlet": "ESPN",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
-        "neg": 0.0,
-        "neu": 1.0,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
-      "team": "general",
-      "status": "partial",
-      "imported_via": "repair"
-    },
-    {
       "id": "news:52f2287ff33c",
       "source": "yahoo_news",
       "kind": "article",
@@ -2005,10 +2918,10 @@
       "imported_via": "repair"
     },
     {
-      "id": "news:e633d7152f49",
+      "id": "news:48fe02500075",
       "source": "yahoo_news",
       "kind": "article",
-      "title": "San Antonio vs. Oklahoma City, Final Score: Spurs turn up defense to even series with Thunder, 103-82",
+      "title": "San Antonio vs. Oklahoma City, Final Score: Spurs showcase their defensive chops to even series with Thunder, 103-82",
       "text": "San Antonio had another hot start, and gave Oklahoma City a stifling dose of its own defensive medicine to win Game 4",
       "url": "https://sports.yahoo.com/articles/san-antonio-vs-oklahoma-city-025908979.html",
       "author": null,
@@ -2018,9 +2931,9 @@
       "team_hint": null,
       "sentiment": {
         "compound": 0.7184,
-        "pos": 0.1,
+        "pos": 0.0976,
         "neg": 0.0,
-        "neu": 0.9,
+        "neu": 0.9024,
         "toxicity": 0.0
       },
       "sentiment_label": "positive",
@@ -2073,6 +2986,29 @@
       },
       "sentiment_label": "neutral",
       "team": "both",
+      "status": "ok"
+    },
+    {
+      "id": "news:74e7f1f0c523",
+      "source": "google_news",
+      "kind": "article",
+      "title": "Cavaliers guard Donovan Mitchell named to All-NBA Second Team",
+      "text": "Cavaliers guard Donovan Mitchell named to All-NBA Second Team  Akron Beacon Journal",
+      "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxPRm5EbURiODJ0TVBuM0w5c29nSHV4OEVqc0lsekR6SDFmUnk3R3JxMU04Y0U3WEZiNzBLV2tqbDhLTHFlY3JpNWF1M1RrYlBFcXVLeHc4cjA1QUNKLUxUYzJxYkt1TlpaUTZKcjNFUGNVZUtrMWJDRUwzVUVFcnpWci1mejA4RHdxbFluNVY5N0h6dk9tR2puNVFxTjBWb0tISlkzTHU5Y2Q0aU42REpFZ05UZTVkR29FR1BpbEt5SWNmZDROS0NjNHNpTUpEelAzdnI4enFNNA?oc=5",
+      "author": null,
+      "published": "2026-05-25T02:14:00+00:00",
+      "engagement": 0,
+      "outlet": "Akron Beacon Journal",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "home",
       "status": "ok"
     },
     {
@@ -2170,11 +3106,11 @@
       "imported_via": "repair"
     },
     {
-      "id": "news:28e769911524",
+      "id": "news:9a69b35b8e20",
       "source": "google_news",
       "kind": "article",
-      "title": "Kenny Atkinson on Cavaliers-Knicks East finals: ‘Analytically, we’ve won 2 out of 3’",
-      "text": "Kenny Atkinson on Cavaliers-Knicks East finals: ‘Analytically, we’ve won 2 out of 3’  The New York Times",
+      "title": "Kenny Atkinson on Cavaliers-Knicks East finals: ‘Analytically, we’ve won 2 out of 3’ - The Athletic",
+      "text": "Kenny Atkinson on Cavaliers-Knicks East finals: ‘Analytically, we’ve won 2 out of 3’ - The Athletic  The New York Times",
       "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNU21lOU8tMjFpbVFGSC0yNDNuVndGb192UlotMmZ6MzlFTGFfWVpUaTg4VWlUMUo4TWdTYmV1STJnTW9pbm5ZSmFrbEp2eHlMeXNYMHF5a3JCTEpLdmpOenV6dTY3Zk16RTRsaUtkeVJKYV8xQWR1QVRRd2hMeEFwSTRxWFNSS2RjZDBVV1B3SXJOd1FMdWI3SlZEUzJFdFk?oc=5",
       "author": null,
       "published": "2026-05-25T01:56:22+00:00",
@@ -2183,9 +3119,9 @@
       "team_hint": null,
       "sentiment": {
         "compound": 0.6597,
-        "pos": 0.1544,
-        "neg": 0.0403,
-        "neu": 0.8054,
+        "pos": 0.1285,
+        "neg": 0.0335,
+        "neu": 0.838,
         "toxicity": 0.0
       },
       "sentiment_label": "positive",
@@ -2300,39 +3236,16 @@
       "outlet": "Yahoo Sports",
       "team_hint": null,
       "sentiment": {
-        "compound": 0.802,
-        "pos": 0.1361,
+        "compound": 0.8658,
+        "pos": 0.1731,
         "neg": 0.0,
-        "neu": 0.8639,
+        "neu": 0.8269,
         "toxicity": 0.0
       },
       "sentiment_label": "positive",
       "team": "general",
       "status": "partial",
       "imported_via": "repair"
-    },
-    {
-      "id": "news:70a3ba37cd00",
-      "source": "google_news",
-      "kind": "article",
-      "title": "Knicks on brink of first Finals trip since ’99 while Cavs grasp for answers",
-      "text": "Knicks on brink of first Finals trip since ’99 while Cavs grasp for answers  Field Level Media",
-      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNTUV2bHRRRUFiVlNwbURaanJ3emE5a1NCLVd3VWNZVWNZMHJ1c2pBU2hkUXlBVHRSX1cwNEh3eVhTZkpWY1FmZzhrRi1kdUhraU1QaEE3V3JWZmUwblZTMmJ1eVZKZVFub1pFZWQ5OFBPZmhndHBtVEkzRFg3RXRiZF82YkFwQWV1ZFhSOUlYbjJ3MFJUUFFJTDExNGFKMzZ5anNUa2NwTmF5bXM?oc=5",
-      "author": null,
-      "published": "2026-05-25T01:08:51+00:00",
-      "engagement": 0,
-      "outlet": "Field Level Media",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
-        "neg": 0.0,
-        "neu": 1.0,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
-      "team": "both",
-      "status": "ok"
     },
     {
       "id": "news:3b1e7b4de358",
@@ -2683,6 +3596,29 @@
       "status": "ok"
     },
     {
+      "id": "news:a29b4bf646ca",
+      "source": "google_news",
+      "kind": "article",
+      "title": "Cavs simply have no energy & no chance against rampaging Knicks – Terry Pluto",
+      "text": "Cavs simply have no energy & no chance against rampaging Knicks – Terry Pluto  Cleveland.com",
+      "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNSHo4MGJJTnlNWWVscWU0TUNmdG8yZk1OVFptZGZha2lVQnA1X3p2bHBSaThjd1lxUlNLZnlUakhLVkZmN1FkT1RWWkNuN29EVlJZWWUzQjRROHYzblIxM19QVGR2MmVZVnRONjRiRHdINThoa0t6c1FmNXpWb25qY0xPOF9LSlZsTEFUenVGc0FVU3dySWF2d0RhdFJqUzhHYzFjRm9kVUp5SU5QNHBHLUVBZUFnNzFt?oc=5",
+      "author": null,
+      "published": "2026-05-24T23:55:00+00:00",
+      "engagement": 0,
+      "outlet": "Cleveland.com",
+      "team_hint": null,
+      "sentiment": {
+        "compound": -0.6369,
+        "pos": 0.0,
+        "neg": 0.1379,
+        "neu": 0.8621,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "negative",
+      "team": "both",
+      "status": "ok"
+    },
+    {
       "id": "news:898a0069e9e4",
       "source": "google_news",
       "kind": "article",
@@ -2941,125 +3877,6 @@
       "imported_via": "repair"
     },
     {
-      "id": "news:45e6122d86b8",
-      "source": "yahoo_news",
-      "kind": "article",
-      "title": "Luka Dončić named to First Team All-NBA, earning sixth All-NBA selection",
-      "text": "For the first time in his Lakers career and sixth time overall, Luka Dončić is an All-NBA player.",
-      "url": "https://sports.yahoo.com/articles/luka-don-named-first-team-232656261.html",
-      "author": null,
-      "published": "2026-05-24T23:26:56+00:00",
-      "engagement": 0,
-      "outlet": "SB Nation",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
-        "neg": 0.0,
-        "neu": 1.0,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
-      "team": "general",
-      "status": "partial",
-      "imported_via": "repair"
-    },
-    {
-      "id": "news:6e70d95c6f1d",
-      "source": "yahoo_news",
-      "kind": "article",
-      "title": "Shai Gilgeous-Alexander, Nikola Jokić, Victor Wembanyama headline 2026 All-NBA First Team",
-      "text": "Luka Dončić and Cade Cunningham round out the list, with a lineup that matches the top 5 in MVP voting.",
-      "url": "https://sports.yahoo.com/nba/article/shai-gilgeous-alexander-nikola-jokic-victor-wembanyama-headline-2026-all-nba-first-team-232519347.html",
-      "author": null,
-      "published": "2026-05-24T23:25:19+00:00",
-      "engagement": 0,
-      "outlet": "Yahoo Sports",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.6166,
-        "pos": 0.1127,
-        "neg": 0.0186,
-        "neu": 0.8687,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "positive",
-      "team": "general",
-      "status": "partial",
-      "imported_via": "repair"
-    },
-    {
-      "id": "news:550d821c12ca",
-      "source": "yahoo_news",
-      "kind": "article",
-      "title": "Lakers’ Luka Doncic named to All-NBA team, receiving first-team honors",
-      "text": "Luka Doncic was once again formally recognized as one of the NBA’s best players. The Lakers superstar guard was named to a 2025-26 All-NBA team on Sunday, receiving first-team honors....",
-      "url": "https://sports.yahoo.com/articles/lakers-luka-doncic-named-nba-232208101.html",
-      "author": null,
-      "published": "2026-05-24T23:22:08+00:00",
-      "engagement": 0,
-      "outlet": "NY Post Sports",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.6369,
-        "pos": 0.0741,
-        "neg": 0.0,
-        "neu": 0.9259,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "positive",
-      "team": "general",
-      "status": "partial",
-      "imported_via": "repair"
-    },
-    {
-      "id": "news:936cdb8d0bdd",
-      "source": "yahoo_news",
-      "kind": "article",
-      "title": "It’s time for Playoff Basketball: San Antonio Spurs at Oklahoma Thunder, Game 4",
-      "text": "Spurs try to avoid their first three game loss streak of the season",
-      "url": "https://sports.yahoo.com/articles/time-playoff-basketball-san-antonio-232200178.html",
-      "author": null,
-      "published": "2026-05-24T23:22:00+00:00",
-      "engagement": 0,
-      "outlet": "SB Nation",
-      "team_hint": null,
-      "sentiment": {
-        "compound": -0.4588,
-        "pos": 0.0,
-        "neg": 0.0741,
-        "neu": 0.9259,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "negative",
-      "team": "general",
-      "status": "partial",
-      "imported_via": "repair"
-    },
-    {
-      "id": "news:0d9f05f9013a",
-      "source": "google_news",
-      "kind": "article",
-      "title": "Cavaliers guard Donovan Mitchell named to All-NBA Second Team",
-      "text": "Cavaliers guard Donovan Mitchell named to All-NBA Second Team  Yahoo Sports",
-      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQSHkzUWJGSTdmZm1yOEVFTzVpdk1mcGhKNW1SU1RacnNacWc0c2xHaDJGZl9zaHg4azlqRl9iMHBWbkxrT0RRVG1fckVHbUVBLWtjamdvZVdnMDVxWVlXUlhhRi1TdlVsZEhBWmxtcFZCczhBcWVZVXhLZTlmcUphMGl5M1JBTnA4UDMtSjl2UmY?oc=5",
-      "author": null,
-      "published": "2026-05-24T23:21:54+00:00",
-      "engagement": 0,
-      "outlet": "Yahoo Sports",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
-        "neg": 0.0,
-        "neu": 1.0,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
-      "team": "home",
-      "status": "ok"
-    },
-    {
       "id": "news:8f0f1d7b6e62",
       "source": "google_news",
       "kind": "article",
@@ -3200,29 +4017,6 @@
       "status": "ok"
     },
     {
-      "id": "news:9f98075b675d",
-      "source": "google_news",
-      "kind": "article",
-      "title": "Streaking Knicks focused on Game 4 and not being on verge of reaching the NBA Finals | Sports | 2news.com",
-      "text": "Streaking Knicks focused on Game 4 and not being on verge of reaching the NBA Finals | Sports | 2news.com  KTVN",
-      "url": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxPaVNJQWtIdERya2ZLaWdCUE82THloS2tVazFUcnRVcFBmdDNGZG9RQXl5bkxSbjRMbmJqVHJDSUVrNVcyYlBaSU5Od0NPNEF1YW1OTkxBWFpOMG5kN1BOVlY0UFVkSnpkQVFkX3NNNUI4U1hvOG1VUm16c29BNk9UREYtTlpCTExNMWFNMC1BdFpPR2NkbWVPaUlOY0R5V3ROZkNGeVZTZDg5MlZRMDZQbWxrNnNwLTFaUFQxa0ZySDdNd2d2YnNCRXZfNDh6eEV4NWZLWXlZc2pzbFB5SkRuZVhuandEWFhxRHlB?oc=5",
-      "author": null,
-      "published": "2026-05-24T22:10:50+00:00",
-      "engagement": 0,
-      "outlet": "KTVN",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
-        "neg": 0.0,
-        "neu": 1.0,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
-      "team": "away",
-      "status": "ok"
-    },
-    {
       "id": "news:a91a43aa81cc",
       "source": "google_news",
       "kind": "article",
@@ -3312,29 +4106,6 @@
       },
       "sentiment_label": "neutral",
       "team": "both",
-      "status": "ok"
-    },
-    {
-      "id": "news:b894ae1afb2e",
-      "source": "google_news",
-      "kind": "article",
-      "title": "How Landry Shamet became the Knicks’ unlikeliest hero",
-      "text": "How Landry Shamet became the Knicks’ unlikeliest hero  Posting and Toasting",
-      "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQcGF5MW53QUhVejR0TUpLS3oxY3Ruem9qcnBfYmprTEYxYUhpNDBXSkRqMktCc3Z5Q1poUVhKaVk2YXBhVXNXRG9rSVdIb0gzUWJYWmk2ZTF4ekkwaHp3VlZkVnBHWEg3SU9ZTHpjRWpRVWpTZkduY084RDUyRFI2M0ktMEZqT2UzSHhKcXBtbFhWYTF5MzVxTzR0REotTWJTV0dBb3RMcTdmMDlmOVdkLWNNcDA5LXQxWWVTdUFncw?oc=5",
-      "author": null,
-      "published": "2026-05-24T20:28:42+00:00",
-      "engagement": 0,
-      "outlet": "Posting and Toasting",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
-        "neg": 0.0,
-        "neu": 1.0,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
-      "team": "away",
       "status": "ok"
     },
     {
@@ -3548,29 +4319,6 @@
       "status": "ok"
     },
     {
-      "id": "news:1c4d16833486",
-      "source": "google_news",
-      "kind": "article",
-      "title": "Cavaliers cannot overcome their most glaring weakness vs. Knicks",
-      "text": "Cavaliers cannot overcome their most glaring weakness vs. Knicks  King James Gospel",
-      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOWmZRWkdvQlVhb2l3N2pNQ00ydmk1ZXVEUFJuWEl6UE5PaWdicmdhTnZ6amQxRVBRNm9ka0NUZlVyYXpWN19FOEVhQm9qOHQ2VGRnSXczMmJNdDVVZktGY1Q5N0ZZVngxRmhkZEdyNEJZd01wN2taWVBrTWhMQmJaczZseEhuUHc0TGdyRktWTi13LWJxRkE?oc=5",
-      "author": null,
-      "published": "2026-05-24T18:30:00+00:00",
-      "engagement": 0,
-      "outlet": "King James Gospel",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
-        "neg": 0.0,
-        "neu": 1.0,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
-      "team": "both",
-      "status": "ok"
-    },
-    {
       "id": "news:50aa290e1cc1",
       "source": "google_news",
       "kind": "article",
@@ -3617,29 +4365,6 @@
       "status": "ok"
     },
     {
-      "id": "news:e06c737e5634",
-      "source": "google_news",
-      "kind": "article",
-      "title": "Pacer setter: Jalen Brunson exposes James Harden in Knicks stunning comeback",
-      "text": "Pacer setter: Jalen Brunson exposes James Harden in Knicks stunning comeback  MSN",
-      "url": "https://news.google.com/rss/articles/CBMimwNBVV95cUxNMWRpajdNZExKMkVOQ3hUd2tvaTdzU3J1LVhzUmJLVUd5QVExR2o0UWNCZ1pPVDViNlN3c1NHRHR0MzJwcHVOTlVXS2RFUVYtRDZDODlmbzI2ZC0zRjA5WXNITF9nVGNmYTVDQkNNQXlhQ2V0emVIQXdaYklnaVUzdnhDbTNMakpELVlTVW8yMVRPOVRJSWpjR29HVUVBeTZZcHhISHNjRWRzeWJla1lDdW9ZejB4X3RleDJNNnJPS2NVUURoanMxTnJoeUlDTzhvQ1Vyd1B4b0RLZ3pQY2JmM0hkOEZGem1xTTEwell6Tk9EaFZwRGdydU5JaWxjWXVFRDg4dlVTSTdfLWF3bGhVRFdkZmVPTVp2czFOaTVXNUVJWllybnNBb1NOTkFOUmpVMnBUbEMyS0RtVVpYOHNjX1NwOF9MenZqbFhBVkhwSm80RE5GVzRzU0FWVGlKU3ZQcUxkR2pKVmlZLTVrZlUySXBLUkEyTHllQ3R0eEFGeHdzTjBDSXVyRnJZT0xVSU9Na2ZibzY0QkpUUUk?oc=5",
-      "author": null,
-      "published": "2026-05-24T17:52:24+00:00",
-      "engagement": 0,
-      "outlet": "MSN",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
-        "neg": 0.0,
-        "neu": 1.0,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
-      "team": "away",
-      "status": "ok"
-    },
-    {
       "id": "news:a34606c28661",
       "source": "google_news",
       "kind": "article",
@@ -3663,22 +4388,22 @@
       "status": "ok"
     },
     {
-      "id": "news:53f7b934202d",
+      "id": "news:774b2274c0b6",
       "source": "google_news",
       "kind": "article",
       "title": "Knicks vs Cavaliers — Game 4 ECF — predictions: Odds, recent stats, trends, best bets on May 25",
-      "text": "Knicks vs Cavaliers — Game 4 ECF — predictions: Odds, recent stats, trends, best bets on May 25  Yahoo Sports",
-      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPd3J5VlBJazU3QTJYUlV3SkNNX0RwN0ljM3h6UHZoMDRLMHBHQzN6Z0FPbjZUSzJpUGoyV0hMeGF5RGFWYzlRWWlYUnNZZ3ZJcW1RbndhMHlmN2szQ1dEdlVZN3JpdkxxVy1tR1FzZU9acG5rNGJ3U1BOU3h2Y2poYw?oc=5",
+      "text": "Knicks vs Cavaliers — Game 4 ECF — predictions: Odds, recent stats, trends, best bets on May 25  NBC SportsKnicks push Cavs to the brink of elimination with comfortable Game 3 victory - The Athletic  The New York TimesNBA playoffs 2026: Team-building tips from Thunder, Spurs, Knicks, Cavs  ESPN",
+      "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNVGVfNllYS055ZjB5aWFhaEMtYTNaMkF0ay02dnM5MGNvNHdHa21lSVZFZGdrVWdxWWVJaGtwOWRTVnpsMnpmbHp6b0VxX213VDJkNDE4M2ZONE9KQTVpMUc4S29majJGcENUd3FmZnlKTEtQczNRT1FlYllpUWdDdVVmOGlGSzk5aVZxLWpoSnEwOVRGTFVaQXU1R0Fsb2NoRlFVTFJab2w4MUdkX0pSMVlyNkhWc0R1TEFWUEQwV3BZaER4ZHZYRFZn?oc=5",
       "author": null,
-      "published": "2026-05-24T17:39:57+00:00",
+      "published": "2026-05-24T17:42:17+00:00",
       "engagement": 0,
-      "outlet": "Yahoo Sports",
+      "outlet": "NBC Sports",
       "team_hint": null,
       "sentiment": {
-        "compound": 0.8555,
-        "pos": 0.186,
+        "compound": 0.9217,
+        "pos": 0.1456,
         "neg": 0.0,
-        "neu": 0.814,
+        "neu": 0.8544,
         "toxicity": 0.0
       },
       "sentiment_label": "positive",
@@ -3733,29 +4458,6 @@
       "status": "ok"
     },
     {
-      "id": "news:446259eafb11",
-      "source": "google_news",
-      "kind": "article",
-      "title": "Knicks vs Cavaliers Prediction, Picks & Odds for NBA Playoffs Game 4",
-      "text": "Knicks vs Cavaliers Prediction, Picks & Odds for NBA Playoffs Game 4  Yahoo Sports",
-      "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNVzByNlJZTUYxbjhzaDR0VFJRcnNkTU94aU4xOVFGUnlEUkotU1pPV1BIb1ZEbk9Oai05UDBTYk5mcUJOaWdheEkwZnExT1lEYmVEX0lORy1TZFBqM0tCYjVVRjUyal9pNVBDMTZ6aUFwbEJnWkRSaTR1SExEZmZ4eXc5ZW5GTzJyS0QyQmpB?oc=5",
-      "author": null,
-      "published": "2026-05-24T16:58:00+00:00",
-      "engagement": 0,
-      "outlet": "Yahoo Sports",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
-        "neg": 0.0,
-        "neu": 1.0,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
-      "team": "both",
-      "status": "ok"
-    },
-    {
       "id": "news:fef3e678f299",
       "source": "google_news",
       "kind": "article",
@@ -3799,6 +4501,29 @@
       },
       "sentiment_label": "neutral",
       "team": "home",
+      "status": "ok"
+    },
+    {
+      "id": "news:88bfcec00d84",
+      "source": "google_news",
+      "kind": "article",
+      "title": "Cavaliers vs. Knicks series odds: New York favored to complete sweep - The Athletic",
+      "text": "Cavaliers vs. Knicks series odds: New York favored to complete sweep - The Athletic  The New York Times",
+      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQeEU5bmJFX2k3OGhZQnNwdVBnanM0RXNFdHZEX0pFemRFaXZMVFU3cE1WQl84cktUdG90bTJHVmhkT2ZDOVdxaGp1b2VKOGw0XzR3SV9PcmlzbUJPRVhiVWhpaEl0MXRDZ2NqbE40TUNncGFOZUlVYmdMR2NZeGZwdlJFQkJIX2JCRnhITkphSDN2dHJ0SzhZSXhHTEVMUDlO?oc=5",
+      "author": null,
+      "published": "2026-05-24T16:26:34+00:00",
+      "engagement": 0,
+      "outlet": "The New York Times",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.6124,
+        "pos": 0.0909,
+        "neg": 0.0,
+        "neu": 0.9091,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "positive",
+      "team": "both",
       "status": "ok"
     },
     {
@@ -3945,7 +4670,7 @@
       "source": "google_news",
       "kind": "article",
       "title": "Knicks move within one win of NBA Finals with 121-108 victory over Cavaliers",
-      "text": "Knicks move within one win of NBA Finals with 121-108 victory over Cavaliers  AP News",
+      "text": "Knicks move within one win of NBA Finals with 121-108 victory over Cavaliers  AP NewsNBA: Cleveland Cavaliers 108-121 New York Knicks: Jalen Brunson helps Knicks into 3-0 lead  BBCStarting 5: Brunson’s 30 fuels Knicks’ 10th straight W & 3-0 lead, Thunder-Spurs Game 4 tonight  NBA",
       "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOZ3RMZTJGU2h5eFhUT1BQaDFqcGwzTkI1RkRKR0VxOE5LTVcwYkFORWpLR3JXY19EUExfN0xIbTdLYXFQU21VWGtGOTg0R294elJlRE1WZVhjbS1jN2FVWWY3ZGRSUWJ1Q1pYTllLRDBXMm1sd2sza2RpMUEtbmtueFVBNjVOY3h6d2dDMS1xZmVTejNQNUhQWlNOZw?oc=5",
       "author": null,
       "published": "2026-05-24T14:51:00+00:00",
@@ -3954,9 +4679,9 @@
       "team_hint": null,
       "sentiment": {
         "compound": 0.9413,
-        "pos": 0.3103,
+        "pos": 0.1748,
         "neg": 0.0,
-        "neu": 0.6897,
+        "neu": 0.8252,
         "toxicity": 0.0
       },
       "sentiment_label": "positive",
@@ -4127,29 +4852,6 @@
       "imported_via": "repair"
     },
     {
-      "id": "news:be6ab63c0f6c",
-      "source": "google_news",
-      "kind": "article",
-      "title": "Quentin Richardson: The Cavs can't stop Jalen Brunson",
-      "text": "Quentin Richardson: The Cavs can't stop Jalen Brunson  ESPN",
-      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTFBRWWJwaUlPcG1pUlktWkE0cFUxdmQzZDVUQVVrd1hnSTd6YWh5UXNsY2VzN1VEOU01ZFNGNHdRSXVnbW5ZNExiOVZ1ZnhIdGZ0M05IcVpTcXQ?oc=5",
-      "author": null,
-      "published": "2026-05-24T13:54:39+00:00",
-      "engagement": 0,
-      "outlet": "ESPN",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
-        "neg": 0.0,
-        "neu": 1.0,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
-      "team": "home",
-      "status": "ok"
-    },
-    {
       "id": "news:98240142a6d9",
       "source": "google_news",
       "kind": "article",
@@ -4208,13 +4910,13 @@
       "outlet": "Bleacher Report",
       "team_hint": null,
       "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
+        "compound": 0.6369,
+        "pos": 0.086,
         "neg": 0.0,
-        "neu": 1.0,
+        "neu": 0.914,
         "toxicity": 0.0
       },
-      "sentiment_label": "neutral",
+      "sentiment_label": "positive",
       "team": "away",
       "status": "ok"
     },
@@ -4285,29 +4987,6 @@
       },
       "sentiment_label": "neutral",
       "team": "both",
-      "status": "ok"
-    },
-    {
-      "id": "news:bf68f707741d",
-      "source": "google_news",
-      "kind": "article",
-      "title": "Cavs debacle may lead to Heat pairing Bam Adebayo with perfect co-star",
-      "text": "Cavs debacle may lead to Heat pairing Bam Adebayo with perfect co-star  All U Can Heat",
-      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQd0EzcVlzc1IxMVhaSktoZU1wSDJfSFF2RXBJb0xXZTZ0M1J0OUpZS1J4amtuaUMwbVNSb3EwNDE2NzdUS1BtZDhnUHhZaHBqT1BsRW5uREMtcXE4aVlmanRNbDNvSzJsdm5RaVBrZ2JfaE9sSUVQYVZEQ2d0ZFlxSHFsbjZXWWlhOWM4M0tnSEtfcU9CbVJBTUlR?oc=5",
-      "author": null,
-      "published": "2026-05-24T12:18:32+00:00",
-      "engagement": 0,
-      "outlet": "All U Can Heat",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.8481,
-        "pos": 0.1925,
-        "neg": 0.0,
-        "neu": 0.8075,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "positive",
-      "team": "home",
       "status": "ok"
     },
     {
@@ -4419,6 +5098,29 @@
         "pos": 0.0,
         "neg": 0.0361,
         "neu": 0.9639,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "both",
+      "status": "ok"
+    },
+    {
+      "id": "news:65586f2bec97",
+      "source": "google_news",
+      "kind": "article",
+      "title": "New York looks to clinch conference finals against Cleveland in game 4",
+      "text": "New York looks to clinch conference finals against Cleveland in game 4  WFMJ",
+      "url": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxNdEhVQjN3RVVsbTlOY0pMci0zUUlfdXloclppMXhTWGRlOFFzZ0hGNnJmdHpfUm9uNURMOFRDNmVCYk1obUFCTGhDbFFwZFFXX0l6OTVSai1LeXoxQUo1N250enZQYkpxUWhRem9fcWxEOC1Id2lnZzdneUNvRHZ4azdaU05qbVcwREpfR0pIazFjSkhQNWtzdVB0azU1Mnd2QnpWSG1NbnVrcVlIOWdLWS0yU2ZSMjNTaFNEOHRQZHlQd0pYaXgxZG5EN3ZHMmR4aWV6RTdDS0FTRDRhcy1wMWFWdVVpclN2bF9XbHhn?oc=5",
+      "author": null,
+      "published": "2026-05-24T10:14:55+00:00",
+      "engagement": 0,
+      "outlet": "WFMJ",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
         "toxicity": 0.0
       },
       "sentiment_label": "neutral",
@@ -4633,6 +5335,30 @@
       "status": "ok"
     },
     {
+      "id": "news:b87ae4141afb",
+      "source": "google_news",
+      "kind": "article",
+      "title": "2026 NBA Play-in Tournament, Playoffs & Finals Schedule",
+      "text": "2026 NBA Play-in Tournament, Playoffs & Finals Schedule  NBA",
+      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5zWkdfa0RYQ2tGWnFJUk9IQjZDd19TTUhXd2VLQUtoUzRWVnFmUUhEUXIxckUzOTc5ZmdRakZQc2FsOGZnNHViaVFWTzhFSkJ5QUxYaXpjdDh2TU94TkU3aw?oc=5",
+      "author": null,
+      "published": "2026-05-24T07:00:00+00:00",
+      "engagement": 0,
+      "outlet": "NBA",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "general",
+      "status": "partial",
+      "imported_via": "repair"
+    },
+    {
       "id": "news:10cc998e5785",
       "source": "google_news",
       "kind": "article",
@@ -4702,6 +5428,29 @@
       "status": "ok"
     },
     {
+      "id": "news:92b9f31e1879",
+      "source": "google_news",
+      "kind": "article",
+      "title": "Cavs lose 121-108 to Knicks, fall into 3-0 deficit in Eastern Conference finals",
+      "text": "Cavs lose 121-108 to Knicks, fall into 3-0 deficit in Eastern Conference finals  Medina Gazette",
+      "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOSmtYYlI5R0pfUGFWck9vMTB3ZHNOVzJCWkpPMTZ0UTA0V1pHWVVCdV94WTRPTkp0SXhkNWowRjVOMGNuNjJHVGFSSHg1Zm9MdUFFeDJUOFJlYVA2OGI0SEVFdjBLTjFrY0NfQno3V3pUSnFnajZfbEFXQVM3bHFCNG9sZlFLMC1hSkJGSm9Jc29WUFl2X1hKdjdQTkNjTTZzTDdXd0Y2Q3lFRmFIOUlzMFJMQ2s5ZjBPQkE?oc=5",
+      "author": null,
+      "published": "2026-05-24T06:35:00+00:00",
+      "engagement": 0,
+      "outlet": "Medina Gazette",
+      "team_hint": null,
+      "sentiment": {
+        "compound": -0.765,
+        "pos": 0.0,
+        "neg": 0.1503,
+        "neu": 0.8497,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "negative",
+      "team": "both",
+      "status": "ok"
+    },
+    {
       "id": "news:054af99cbe3c",
       "source": "google_news",
       "kind": "article",
@@ -4722,29 +5471,6 @@
       },
       "sentiment_label": "neutral",
       "team": "away",
-      "status": "ok"
-    },
-    {
-      "id": "news:931d710146b3",
-      "source": "google_news",
-      "kind": "article",
-      "title": "New York looks to clinch conference finals against Cleveland in game 4",
-      "text": "New York looks to clinch conference finals against Cleveland in game 4  FOX Sports",
-      "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOUkZmQzctQ1NvcFk2dlJFaWFTcEVPS08tcGlWWGFCdWt6ZkJWWmI3SklyVXBfbEY3enJCdWFZTnplREFraEtORjk3V3hXbVlMV1FZb2o1RHJFUldCWXFOZ0FxSkU1N29VN1RPMHpURHU1TF9xM0QzcElUUGZaWUdlSW83cFQzY3dVZVp3LV9SbnR0NlYtazVDbG9YelRyZjBmcE9yQndLblRHbkxqaUE?oc=5",
-      "author": null,
-      "published": "2026-05-24T06:03:43+00:00",
-      "engagement": 0,
-      "outlet": "FOX Sports",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
-        "neg": 0.0,
-        "neu": 1.0,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
-      "team": "both",
       "status": "ok"
     },
     {
@@ -4836,29 +5562,6 @@
         "toxicity": 0.0
       },
       "sentiment_label": "positive",
-      "team": "both",
-      "status": "ok"
-    },
-    {
-      "id": "news:35391454f0e0",
-      "source": "google_news",
-      "kind": "article",
-      "title": "Cavs vs Knicks | James Harden and Jarrett Allen Post Game | 05.23.2026",
-      "text": "Cavs vs Knicks | James Harden and Jarrett Allen Post Game | 05.23.2026  NBA",
-      "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQV21oMVQ2YkNLLWpZXzFYc3Bzck1kR3hwUUJfSGNoZmhma2lSekxnTlZPdE1fSDF5WUpDLUFlVVdjaWwyWUk4Wkc2SEZya2pvcHp5c3RCS3FaSk9Hbm5oTmtTaVRNWWhEZWs2d2RNTl84Y3ZSOTVHS29wd1VNTGVubS05Vkp0cVJSWmNTQ196WjY4ak5TeEZTQU5MY2JUcnpzZkREc0tn?oc=5",
-      "author": null,
-      "published": "2026-05-24T04:53:09+00:00",
-      "engagement": 0,
-      "outlet": "NBA",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
-        "neg": 0.0,
-        "neu": 1.0,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
       "team": "both",
       "status": "ok"
     },
@@ -5001,6 +5704,29 @@
       "status": "ok"
     },
     {
+      "id": "news:3de58a98200c",
+      "source": "google_news",
+      "kind": "article",
+      "title": "Everything Donovan Mitchell said after the Cavs’ Game 3 loss to the Knicks",
+      "text": "Everything Donovan Mitchell said after the Cavs’ Game 3 loss to the Knicks  Cleveland.com",
+      "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQN3NRbjRpcUVPS2U0eFlzekNPOTBQeFpIWlJWNUZEQ2pJeFJSRUJRS09VQmdzb19PLTBROWxfNjBWUTBWUmlzak14aEFJYlBxT2tVR0NEY1FYMGpRdzBic0hpQVZySE10RVFPdGZ3VW4zVV93dlBFNW96d1hwQnRVc1Q5MnJOdXNXU0swTnVYNk1NbEZKeWRqdXlucHpMTzRBVWdvSFpZVndudmxjZEEzY09zcmY5Z01G?oc=5",
+      "author": null,
+      "published": "2026-05-24T04:00:00+00:00",
+      "engagement": 0,
+      "outlet": "Cleveland.com",
+      "team_hint": null,
+      "sentiment": {
+        "compound": -0.7184,
+        "pos": 0.0,
+        "neg": 0.1429,
+        "neu": 0.8571,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "negative",
+      "team": "both",
+      "status": "ok"
+    },
+    {
       "id": "news:da78f602516f",
       "source": "google_news",
       "kind": "article",
@@ -5066,29 +5792,6 @@
         "toxicity": 0.0
       },
       "sentiment_label": "neutral",
-      "team": "both",
-      "status": "ok"
-    },
-    {
-      "id": "news:3b997e26db3c",
-      "source": "google_news",
-      "kind": "article",
-      "title": "Knicks close in on NBA Finals: Takeaways from Game 3 win vs. Cavaliers",
-      "text": "Knicks close in on NBA Finals: Takeaways from Game 3 win vs. Cavaliers  USA Today",
-      "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxQd0VZM09SVm13eFZwaldNVW5jRl9vUHVVMXd2dDFjWTN4SkpJbDc0YlpQbVNFbVZoZkFmeFVjQnJHV1NRaEdOZ29VOTBEanRSWDRoS3VfeTFyOTVzQVAwb3U3aWYwSHUwUF9qMmFSLTV4Q2wxRDQxQl9ycTJLNzNJcTA1ZWo2WmsxeXktWk9ZdXpVVXladFZPLUlfOXFuZUYxYVhyRWtYelBQaGRmbWVDaDVsbW9yU3dZUC1JampmbkZYdlVINzhUMkNwVFdfZw?oc=5",
-      "author": null,
-      "published": "2026-05-24T03:25:00+00:00",
-      "engagement": 0,
-      "outlet": "USA Today",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.802,
-        "pos": 0.1781,
-        "neg": 0.0,
-        "neu": 0.8219,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "positive",
       "team": "both",
       "status": "ok"
     },
@@ -5208,29 +5911,6 @@
       "status": "ok"
     },
     {
-      "id": "news:4177f928922b",
-      "source": "google_news",
-      "kind": "article",
-      "title": "Knicks are one win away from NBA Finals after Game 3 victory over Cavs",
-      "text": "Knicks are one win away from NBA Finals after Game 3 victory over Cavs  Bergen Record",
-      "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNVm5FeTZHZXRrbWdkWXI1cUdGZ3NqMFFIQ3F2Yk9uemlvbnc0LXUwYkZaSmtOdEprVkxDdlJpUDhCWV9ZUnBYaGFZc2VMd2IweTc5RVFSa3FCNW9zaUNiRVhhN05HSy1jQ0tpRWpXVWM1SkU3MWtHdjBzX3FGTXpIN3dBcFNUaVJMUzRuTHVtd3Z0UEJOTmVKOE85NlZPWF9jRl9PeG52NHNBMk40TW91bngzTkxxZmZN?oc=5",
-      "author": null,
-      "published": "2026-05-24T03:10:00+00:00",
-      "engagement": 0,
-      "outlet": "Bergen Record",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.9413,
-        "pos": 0.3103,
-        "neg": 0.0,
-        "neu": 0.6897,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "positive",
-      "team": "both",
-      "status": "ok"
-    },
-    {
       "id": "news:efd282df47b4",
       "source": "google_news",
       "kind": "article",
@@ -5300,29 +5980,6 @@
       "status": "ok"
     },
     {
-      "id": "news:5d0edcc2add2",
-      "source": "google_news",
-      "kind": "article",
-      "title": "Jalen Brunson, Knicks Go Up 3-0 on Cavs, Final Box Score Stats & Highlights for Harden, Mitchell",
-      "text": "Jalen Brunson, Knicks Go Up 3-0 on Cavs, Final Box Score Stats & Highlights for Harden, Mitchell  Bleacher ReportCavaliers vs. Knicks series odds: New York favored to complete sweep - The Athletic  The New York TimesNBA playoffs 2026: Team-building tips from Thunder, Spurs, Knicks, Cavs  ESPN",
-      "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQS0NfZ1U2SDJfMF9fMGk4NC1vTTEyNXYxNUE5WTA3M1BOSl95c2ViN21ORTEwQUQxVEFGcEdpbE5wSFFEb1pvV3YtRHBRelN2dEpEZUlrN3NOQjZZZmhFbE5CWVNEWS1uOWYxdnBIdElYQnRrQklTN1lHWGdlalY1QkZTc3h6MXQtVzF5VVRWRS1CdWZBc0h4Ry1oc093ckxkVW1vNXpBcWxETW9feWhvbGdPc25FcHBnNkNWX0Q1c2ItSmxF?oc=5",
-      "author": null,
-      "published": "2026-05-24T03:00:34+00:00",
-      "engagement": 0,
-      "outlet": "Bleacher Report",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.3612,
-        "pos": 0.0248,
-        "neg": 0.0,
-        "neu": 0.9752,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "positive",
-      "team": "both",
-      "status": "ok"
-    },
-    {
       "id": "news:cf33de57c229",
       "source": "google_news",
       "kind": "article",
@@ -5373,7 +6030,7 @@
       "source": "google_news",
       "kind": "article",
       "title": "Knicks take complete control of Eastern Conference Finals with wire-to-wire Game 3 win over Cavaliers",
-      "text": "Knicks take complete control of Eastern Conference Finals with wire-to-wire Game 3 win over Cavaliers  SNYCavaliers vs. Knicks series odds: New York favored to complete sweep - The Athletic  The New York TimesCavs score vs Knicks. New York leads wire to wire in Game 3 win  Akron Beacon Journal",
+      "text": "Knicks take complete control of Eastern Conference Finals with wire-to-wire Game 3 win over Cavaliers  SNYKnicks vs Cavaliers Game Notes | May 25, 2026: Eastern Conference Finals Game 4  NBARoad to the NBA Finals: NBA Playoff Predictions, Picks for Knicks vs. Cavs Eastern Conference Finals Game 4  Sports Illustrated",
       "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTFBGMzZGZ3ZRUWJsRUJtYlVncFZoZ1BsVVRHYVAya0VoNDR0Y0NtTE1zaE9OTGgxWG4wb2NDclRyRFNTWmdNbnBJV010TGl3Wi00T3RCNVNDd2QzT1RRd09fa1NKdElCOHkzU1YzV1pBUjRTems3YVd0ZQ?oc=5",
       "author": null,
       "published": "2026-05-24T02:55:24+00:00",
@@ -5381,36 +6038,13 @@
       "outlet": "SNY",
       "team_hint": null,
       "sentiment": {
-        "compound": 0.9231,
-        "pos": 0.1403,
+        "compound": 0.802,
+        "pos": 0.0864,
         "neg": 0.0,
-        "neu": 0.8597,
+        "neu": 0.9136,
         "toxicity": 0.0
       },
       "sentiment_label": "positive",
-      "team": "both",
-      "status": "ok"
-    },
-    {
-      "id": "news:b81b20802bf1",
-      "source": "google_news",
-      "kind": "article",
-      "title": "Taylor Swift, Travis Kelce among celebs at Cavs vs. Knicks Game 3",
-      "text": "Taylor Swift, Travis Kelce among celebs at Cavs vs. Knicks Game 3  Akron Beacon Journal",
-      "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxPUzdRNUlRbzYxbmtqSzNaeFlqX09PbkdZOUlTU0FGZUhJRzJIb0F1NHBwYlJISzU3MXNXcWUyQWRHOXlyRkxVTkwxWDBqYVdlQVIxemZSbno5bVpDSFpPNS1id3ZISExQeXB1TWVydFp3SGN3aWhBd0FwQ2EtRUotSVlkWjhmTWtwMU9wSFRESVpPbGRrVUVza3hQR0h2TXJVXzlVdVRrZTg3Wl9xM2NnelhSRXRKYkNzbDB0bHJCbWdlSEpnWjcyakdudEpTd0kxa1FvdA?oc=5",
-      "author": null,
-      "published": "2026-05-24T02:54:21+00:00",
-      "engagement": 0,
-      "outlet": "Akron Beacon Journal",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
-        "neg": 0.0,
-        "neu": 1.0,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
       "team": "both",
       "status": "ok"
     },
@@ -5458,29 +6092,6 @@
       },
       "sentiment_label": "neutral",
       "team": "both",
-      "status": "ok"
-    },
-    {
-      "id": "news:2f921d1355e8",
-      "source": "google_news",
-      "kind": "article",
-      "title": "Jalen Brunson takes Knicks one win away from the NBA Finals",
-      "text": "Jalen Brunson takes Knicks one win away from the NBA Finals  Yahoo Sports",
-      "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQTzVPWGFrSjUwb09mR0p0ZGpaTEZsczFzMzJZVlNpT1QzV1djSjctWTh4MGJmY3A0SmRlb2N0QjJBNFl0RGR5cWlpbHAtUDFsNU1EX1QtQnVWY0ZGb0Jxdm84RS0tNDd5V09YMnBkaHlNV3pTZDFuMXJ4ejc2NVVVZVhyaldrUQ?oc=5",
-      "author": null,
-      "published": "2026-05-24T02:49:00+00:00",
-      "engagement": 0,
-      "outlet": "Yahoo Sports",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.802,
-        "pos": 0.1912,
-        "neg": 0.0,
-        "neu": 0.8088,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "positive",
-      "team": "away",
       "status": "ok"
     },
     {
@@ -5710,29 +6321,6 @@
         "toxicity": 0.0
       },
       "sentiment_label": "positive",
-      "team": "both",
-      "status": "ok"
-    },
-    {
-      "id": "news:0bed960269d5",
-      "source": "google_news",
-      "kind": "article",
-      "title": "New York Knicks vs Cleveland Cavaliers May 23, 2026 Box Scores",
-      "text": "New York Knicks vs Cleveland Cavaliers May 23, 2026 Box Scores  NBA",
-      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9sTGJJUFJvM2dQb0JFdGVaMS02ZDNKLTM1SWJOU3VOTEd2V3h5dExnVE8tbDVvX1hiVC1ON2JDUXRjM1hnY1NNZHU5cGV1VnhxTFJyV1dFZXJzajdra3lNUmZhbFJXSkE?oc=5",
-      "author": null,
-      "published": "2026-05-24T00:17:29+00:00",
-      "engagement": 0,
-      "outlet": "NBA",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
-        "neg": 0.0,
-        "neu": 1.0,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
       "team": "both",
       "status": "ok"
     },
@@ -6290,6 +6878,29 @@
       "status": "ok"
     },
     {
+      "id": "news:156d756a28e5",
+      "source": "google_news",
+      "kind": "article",
+      "title": "Taylor Swift attends Cavs-Knicks in Cleveland with fiance Travis Kelce",
+      "text": "Taylor Swift attends Cavs-Knicks in Cleveland with fiance Travis Kelce  The Boston Globe",
+      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPcFVNT1lqcHVsUzhHU0pwRUtFZ2l0eFpjdmtudDJsSFF3dFJDckZfanJVZTA4V1pCc2Izb1ZlX0N1NUR6RkVUNnNNenF1cXNlM0p4RkRyaFBCdHVSMHBqQ1c3Q0hZMVRQNzhITHJHaE50RkZ4cEwtTVNXelBWNWU4SlVYbldYeHpfTWpGaw?oc=5",
+      "author": null,
+      "published": "2026-05-23T22:44:00+00:00",
+      "engagement": 0,
+      "outlet": "The Boston Globe",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "both",
+      "status": "ok"
+    },
+    {
       "id": "news:1fd4a5bef036",
       "source": "google_news",
       "kind": "article",
@@ -6819,30 +7430,6 @@
       "status": "ok"
     },
     {
-      "id": "news:442945c167aa",
-      "source": "google_news",
-      "kind": "article",
-      "title": "O’Donnell: Case building that Jalen Brunson may be the greatest local athlete ever",
-      "text": "O’Donnell: Case building that Jalen Brunson may be the greatest local athlete ever  Daily Herald",
-      "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQWHVacUZtR0hHRzBua1ozdnJsbHNjdEJkMFFPWmJKTjlKV0xXS1FnLXI2cmk2N2Y4WkxMS0ZobWJhdzFVbVRkRTBheTMwanE5RUNCYk4yX2wyWkNIRDVubWRIUDlMUVNHeFlHcjVWcnpLMDdCNnk4eGQwMDRjcXBIMDlBa2tDWm1HR01YZ3VLOUFIUFRDRkNsWXBjdzR5a3F0NVZzdktkU3Robl9OTU9fRGNSeXpneVVZeUNPUnZNOVhPT29TbFVjcw?oc=5",
-      "author": null,
-      "published": "2026-05-23T16:25:17+00:00",
-      "engagement": 0,
-      "outlet": "Daily Herald",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
-        "neg": 0.0,
-        "neu": 1.0,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
-      "team": "general",
-      "status": "partial",
-      "imported_via": "repair"
-    },
-    {
       "id": "news:5d79114b48c1",
       "source": "google_news",
       "kind": "article",
@@ -7004,29 +7591,6 @@
       "status": "ok"
     },
     {
-      "id": "news:455820579907",
-      "source": "google_news",
-      "kind": "article",
-      "title": "NY Knicks Playoff Game Today: Channel, Time & Prediction For Game 3 Versus Cavaliers",
-      "text": "NY Knicks Playoff Game Today: Channel, Time & Prediction For Game 3 Versus Cavaliers  Yahoo Sports",
-      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPeTZlOGlTM3pXQmZvSXktRmgxQnItYWw0TFpkYXBnekN1UFgxaHpUaGlnQlc1VFZwdWg3NDBFNTVaa0VJek1lWnB2TXNXb01uaGpqZ0llaGgxdFdDWU5XNFoxOWQ1UW5lZEEwSDFTcGZOeFF3M2l5NGR1UllkN3JRUHB6Zw?oc=5",
-      "author": null,
-      "published": "2026-05-23T13:00:00+00:00",
-      "engagement": 0,
-      "outlet": "Yahoo Sports",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
-        "neg": 0.0,
-        "neu": 1.0,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
-      "team": "both",
-      "status": "ok"
-    },
-    {
       "id": "news:c92a32b5b68d",
       "source": "google_news",
       "kind": "article",
@@ -7096,29 +7660,6 @@
       "status": "ok"
     },
     {
-      "id": "news:bdfbdc3580f8",
-      "source": "google_news",
-      "kind": "article",
-      "title": "Cavs come home and still can’t beat Knicks",
-      "text": "Cavs come home and still can’t beat Knicks  FOX 8 News",
-      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQVGZ4OGJJZk1DckZyRFAwdWx6ZGhfVGZxS2l6a3FlVFAzTFlMN1BGMDRuelhzM01ZdjEtOFhiYkdCd0NpMWxaOHJxc2VVR2VraTJKXzRoT05yaGt5NkRSclAzaFZ4U3JQa0I2YkladTVNb1lQQlU3NVFMZW9VZGo1ekZPcDc2ZkJCeDR4WUtlRXh5TVnSAZgBQVVfeXFMTjJVZlJjY01Eb1k0cXRHMEEzQktBRmFTbThoR2ROYnJSd1FObmJ6S3VFY2hGejk3eExtSmhyVTFwSWVXaVdveGVxRUFjWWtHWFJudnBIS1JUd1hCZ0R6bWVzLTZsMlBncXQzVkt5a3BRMHVRT0FBek5yN20xTWZnYWJBaWZ5QTJvZGw4ZGE4RVk5dnF5MUNzVDY?oc=5",
-      "author": null,
-      "published": "2026-05-23T11:00:00+00:00",
-      "engagement": 0,
-      "outlet": "FOX 8 News",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
-        "neg": 0.0,
-        "neu": 1.0,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
-      "team": "both",
-      "status": "ok"
-    },
-    {
       "id": "news:459d2d3a5cb3",
       "source": "google_news",
       "kind": "article",
@@ -7142,30 +7683,6 @@
       "status": "ok"
     },
     {
-      "id": "news:ba95f6674942",
-      "source": "google_news",
-      "kind": "article",
-      "title": "ASK IRA: Are East finals potentially swaying Donovan Mitchell’s future (and Heat hopes)?",
-      "text": "ASK IRA: Are East finals potentially swaying Donovan Mitchell’s future (and Heat hopes)?  Sun Sentinel",
-      "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPME52dWxUVHVQMUNKWW1MVUVfTUJUZjV4SzFqMVFLSG9hWHduMWhIZ3plTHlKSkhUeHotRjFlMUFoaWZXTFludW9WQVB4a0g4bU5oSm91Wnl5b1czT2ZvcEszVGpjRVVmMjZtTEJVZDRYNDROZXJMV0ZFLW5oZm94ZFJ6SlhCWGJ1VVRkU2xON2w5WjBnLUo0S01KbjlLQVpNRkItRl9UcEtGYWVyZlBCYkJwUWZOa0o5QzBzeWdMWHIwQQ?oc=5",
-      "author": null,
-      "published": "2026-05-23T10:06:28+00:00",
-      "engagement": 0,
-      "outlet": "Sun Sentinel",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
-        "neg": 0.0,
-        "neu": 1.0,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
-      "team": "general",
-      "status": "partial",
-      "imported_via": "repair"
-    },
-    {
       "id": "news:17ab2daf808b",
       "source": "google_news",
       "kind": "article",
@@ -7185,6 +7702,29 @@
         "toxicity": 0.0
       },
       "sentiment_label": "negative",
+      "team": "both",
+      "status": "ok"
+    },
+    {
+      "id": "news:a608dfb64e8a",
+      "source": "google_news",
+      "kind": "article",
+      "title": "Knicks vs. Cavaliers (May 25, 2026) Pregame",
+      "text": "Knicks vs. Cavaliers (May 25, 2026) Pregame  ESPN",
+      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5adkxuUUJxMnI5QUl0ZGVWU09ROV85NUh1cFMtQ01Td2lxQjhqYUowUjNjX0V3dTJBUE4wZDdnaUF0RUVaSWhZdEpvcS1uSDR1blJXWVl0Qm4wN005OEtXMg?oc=5",
+      "author": null,
+      "published": "2026-05-23T07:00:00+00:00",
+      "engagement": 0,
+      "outlet": "ESPN",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
       "team": "both",
       "status": "ok"
     },
@@ -7329,29 +7869,6 @@
       "imported_via": "repair"
     },
     {
-      "id": "news:a993c656101a",
-      "source": "google_news",
-      "kind": "article",
-      "title": "Knicks vs. Cavs Game 2 takeaways: Jalen Brunson, Knicks finding ways to win",
-      "text": "Knicks vs. Cavs Game 2 takeaways: Jalen Brunson, Knicks finding ways to win  USA Today",
-      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQZnhQQ05FS1BwYVVsMHpVSHptUHhmTGpNcEY3U1pJaEZQcUllOWhFR181eVJpaFFnVkxoU2Z0cDB0VzlmZmYtbnI1eXpDQ0RkRGR0Q1JYclRjZEFYNmhOOE54MUx6a3dzWGt6WjM0VGJCUTlJS3pNemgtdWNDd2tMZ3owOHVuX2c1LVBuMHJXSWtSbnVVSFA5bmRjWE1vVjFieEsyWTZSRzd2UQ?oc=5",
-      "author": null,
-      "published": "2026-05-23T00:52:00+00:00",
-      "engagement": 0,
-      "outlet": "USA Today",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.802,
-        "pos": 0.1781,
-        "neg": 0.0,
-        "neu": 0.8219,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "positive",
-      "team": "both",
-      "status": "ok"
-    },
-    {
       "id": "news:8d1cb49630a7",
       "source": "google_news",
       "kind": "article",
@@ -7372,29 +7889,6 @@
       },
       "sentiment_label": "neutral",
       "team": "away",
-      "status": "ok"
-    },
-    {
-      "id": "news:d6e4c702b001",
-      "source": "google_news",
-      "kind": "article",
-      "title": "Watch NBA Mini: Eastern Conference Finals (Game 2): Cleveland Cavaliers vs New York Knicks",
-      "text": "Watch NBA Mini: Eastern Conference Finals (Game 2): Cleveland Cavaliers vs New York Knicks  Disney Plus",
-      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOY3pUaHUzV2JKdlhfNVJGNWNTUjJLVEx3UjZaeDdPejlZQmF6WDZiclJMbTZCNXNwc00wQTB5Y3dJY09sLU9XcEgydk1pVzdGQ1Q3V2M0TzFLT0ZqM3RiQlNWS25ieVNQWThieGliYkE3VlAzeS1tR2dtRVg4dF9DODdlbndaVW9QckN3?oc=5",
-      "author": null,
-      "published": "2026-05-22T23:22:47+00:00",
-      "engagement": 0,
-      "outlet": "Disney Plus",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
-        "neg": 0.0,
-        "neu": 1.0,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
-      "team": "both",
       "status": "ok"
     },
     {
@@ -7470,6 +7964,29 @@
       "imported_via": "repair"
     },
     {
+      "id": "news:b894ae1afb2e",
+      "source": "google_news",
+      "kind": "article",
+      "title": "How Landry Shamet became the Knicks’ unlikeliest hero",
+      "text": "How Landry Shamet became the Knicks’ unlikeliest hero  Posting and Toasting",
+      "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQcGF5MW53QUhVejR0TUpLS3oxY3Ruem9qcnBfYmprTEYxYUhpNDBXSkRqMktCc3Z5Q1poUVhKaVk2YXBhVXNXRG9rSVdIb0gzUWJYWmk2ZTF4ekkwaHp3VlZkVnBHWEg3SU9ZTHpjRWpRVWpTZkduY084RDUyRFI2M0ktMEZqT2UzSHhKcXBtbFhWYTF5MzVxTzR0REotTWJTV0dBb3RMcTdmMDlmOVdkLWNNcDA5LXQxWWVTdUFncw?oc=5",
+      "author": null,
+      "published": "2026-05-22T20:35:44+00:00",
+      "engagement": 0,
+      "outlet": "Posting and Toasting",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "away",
+      "status": "ok"
+    },
+    {
       "id": "news:9fd67c7ccf59",
       "source": "google_news",
       "kind": "article",
@@ -7493,16 +8010,16 @@
       "status": "ok"
     },
     {
-      "id": "news:c1711aaa1f19",
+      "id": "news:71de5de57234",
       "source": "google_news",
       "kind": "article",
-      "title": "Knicks vs. Cavaliers Expert Predictions, Picks & Odds: NBA Playoffs Game 3, 5/23",
-      "text": "Knicks vs. Cavaliers Expert Predictions, Picks & Odds: NBA Playoffs Game 3, 5/23  Fantasy Alarm",
-      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPV0JpRDIxSjVQcVBlZmpvY2Q1X0tFeHY4UEtGVW40VEtTWmJCQUtPLU1vaWgzNGxOeFB1VThFd1lfa0JMNGlxV2t6Nm4xUEU0Sm1OcWZGYWtRZm1fYm9UcGt4T0hSTExELU5ZUDRSallQYnd4TmpydW5LcDltaU8tZzN3S2hUa01lQzhoaXRfelE2Y1l3NkRFdWs4Z0VvREF2U0pNWno2VElaZWhHNFhzb01CV2w1QUxYcXNkV3Jn?oc=5",
+      "title": "How to buy Cavaliers vs Knicks 2026 NBA playoff tickets in Cleveland.",
+      "text": "How to buy Cavaliers vs Knicks 2026 NBA playoff tickets in Cleveland.  Ventura County Star",
+      "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxPYll0QjQ5SjNMM01RbDIxUmJmR0JsaFMxUHZKRDB2Tk9PS21sR3czeFVzWG44UnNpVnVnZ3pOYTZfOHUxcTZUdUs3X056NHh6MHV2VW9uUmNmV0I2VVpDWFdQd05DZDZDLWpaT1dhOTRIaUZtSTd0TEhqWTRaaUFGem85Nk5YQ3NiYnRQTVA2VjlqUTNSV09SM0VOSHhmbzVLOFBTM0xXYnFEM2o4b3pubjhrY2twTXpZdndZNl9zQ2ExdXNmWnoxbjVaODVCSnZqNjZHN0x1RVhjb3Ft?oc=5",
       "author": null,
-      "published": "2026-05-22T18:10:40+00:00",
+      "published": "2026-05-22T18:22:00+00:00",
       "engagement": 0,
-      "outlet": "Fantasy Alarm",
+      "outlet": "Ventura County Star",
       "team_hint": null,
       "sentiment": {
         "compound": 0.0,
@@ -7538,29 +8055,6 @@
       "team": "general",
       "status": "partial",
       "imported_via": "repair"
-    },
-    {
-      "id": "news:ccd4207634f3",
-      "source": "google_news",
-      "kind": "article",
-      "title": "Knicks vs. Cavaliers: 3 keys for New York in Game 3 of Eastern Conference Finals",
-      "text": "Knicks vs. Cavaliers: 3 keys for New York in Game 3 of Eastern Conference Finals  SNY",
-      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBKZncwRnBrZVRUVmstak83ejRWSi1CbnpDT19XQ29Sa1o0MzVpNmJMV0ZUTWlOUWZ4anIxMUp4NDdVdWhpRmNpUG9zeHMxNFhac19WSUQydURvSVZlYkRZemF1azc?oc=5",
-      "author": null,
-      "published": "2026-05-22T16:47:32+00:00",
-      "engagement": 0,
-      "outlet": "SNY",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
-        "neg": 0.0,
-        "neu": 1.0,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
-      "team": "both",
-      "status": "ok"
     },
     {
       "id": "news:9fac12c7e43f",
@@ -7957,29 +8451,6 @@
       "status": "ok"
     },
     {
-      "id": "news:ad586f8ba5e6",
-      "source": "google_news",
-      "kind": "article",
-      "title": "Donovan Mitchell, James Harden React to 'Adversity' of Cavs' 2-0 Series Deficit vs. Knicks",
-      "text": "Donovan Mitchell, James Harden React to 'Adversity' of Cavs' 2-0 Series Deficit vs. Knicks  Bleacher Report",
-      "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPVmNkUFF6bGZDaTFhNXU3ZHFtZGlHdEZVWWtESUIxS2laQktybWVYSnJHR3RDemFrWktaZTNuWWNZa1VDeGFWRFo5R3RkWlNIbG9EeGw4cnMzdHV0UDZ2Rk5vNzRUQjdqcmJKNE40NjRYb1lOUVU0WWdnaUFHZHJ0YVY3OExqVXAyYm5jeGtxY3ZkbVRtdkRBM1ZVOVh0WTdDY204S0wtalcxU1VEcTg1MXJfaU4ya3B6MlhHdTBXeHJvUQ?oc=5",
-      "author": null,
-      "published": "2026-05-22T12:10:37+00:00",
-      "engagement": 0,
-      "outlet": "Bleacher Report",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
-        "neg": 0.0,
-        "neu": 1.0,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
-      "team": "both",
-      "status": "ok"
-    },
-    {
       "id": "news:bf54bd7be319",
       "source": "google_news",
       "kind": "article",
@@ -8049,27 +8520,28 @@
       "status": "ok"
     },
     {
-      "id": "news:b0069fb604b2",
-      "source": "google_news",
+      "id": "news:8378cac3b5a5",
+      "source": "espn_news",
       "kind": "article",
-      "title": "Cavs-Knicks East Finals Game 1 most watched since 2018",
-      "text": "Cavs-Knicks East Finals Game 1 most watched since 2018  NBA",
-      "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTFAtRTAtSzROckZkWXotUGFNa0UzTjR0bmtvLXY0NzRuT2RWR1BZSXVUMl8wRlFLVGJxYlNURGtZeWVWTlNzUW5fZUVHb0liZGpDTkNVLV9uaGtvYmpHLThLZXF1UGkxOFcwZHdVTzV3?oc=5",
+      "title": "NBA draft asset tiers: Why OKC and San Antonio are...",
+      "text": "The NBA's two best teams are also members of a group of franchises that control much of the next eight drafts.",
+      "url": "https://www.espn.com/nba/story/_/id/48809706/nba-draft-2026-asset-rankings-30-teams-spurs-thunder-nets-hornets",
       "author": null,
-      "published": "2026-05-22T08:21:34+00:00",
+      "published": "2026-05-22T09:59:50-05:00",
       "engagement": 0,
-      "outlet": "NBA",
+      "outlet": "Unknown",
       "team_hint": null,
       "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
+        "compound": 0.6369,
+        "pos": 0.0964,
         "neg": 0.0,
-        "neu": 1.0,
+        "neu": 0.9036,
         "toxicity": 0.0
       },
-      "sentiment_label": "neutral",
-      "team": "both",
-      "status": "ok"
+      "sentiment_label": "positive",
+      "team": "general",
+      "status": "partial",
+      "imported_via": "repair"
     },
     {
       "id": "news:fd44c91bd6d7",
@@ -8210,29 +8682,6 @@
       "status": "ok"
     },
     {
-      "id": "news:58c0a496057a",
-      "source": "google_news",
-      "kind": "article",
-      "title": "Jalen Brunson adjusts to play a different — and important — Knicks role in Game 2 win",
-      "text": "Jalen Brunson adjusts to play a different — and important — Knicks role in Game 2 win  Yahoo Sports",
-      "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNdzRvZXFKQ1REdzk4X1ZsM09sc0JxdFdUc3c3VDFxd2piN1dFOFhLd3E1VXpDODFGWHFXbG9sYzRPYVBLZ0RwUThvc2pfYzBSM2dKU1NpaUsyQ0xSZVFuNmZKQzJQNFJRVkpRZExwSnJIMWhaOHlYRGtOeFhsLTBkTmFWZUlCbUNQRURlYzB3?oc=5",
-      "author": null,
-      "published": "2026-05-22T05:03:00+00:00",
-      "engagement": 0,
-      "outlet": "Yahoo Sports",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.802,
-        "pos": 0.1566,
-        "neg": 0.0,
-        "neu": 0.8434,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "positive",
-      "team": "away",
-      "status": "ok"
-    },
-    {
       "id": "news:d6823baa8d63",
       "source": "google_news",
       "kind": "article",
@@ -8252,29 +8701,6 @@
         "toxicity": 0.0
       },
       "sentiment_label": "neutral",
-      "team": "both",
-      "status": "ok"
-    },
-    {
-      "id": "news:65c7a2563b88",
-      "source": "google_news",
-      "kind": "article",
-      "title": "WWE's Danhausen Reacts to Knicks' Game 2 Win with Jalen Brunson Photo After Cursing Cavs Before ECF",
-      "text": "WWE's Danhausen Reacts to Knicks' Game 2 Win with Jalen Brunson Photo After Cursing Cavs Before ECF  Bleacher Report",
-      "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPX21PdUNMZEhYZkJXTExFN0w0bm1mUUY5azZoTFNuWWpzWXA5SVRtMWh6cXlkUklYalBZOWVCOXM3c255UWR6U0QxaVFRZE0wM3pfbUhEYnRUMHRzTmx0YW9yMlNHSk5oRUl5ZmpXZ0lEZlFWOFZyQWFWQ045eVZBZkhwUThYWGVod0pMS1VONGx3UHN2dlZtNDhKbG15OTRQUUFBWWQ2ZFZyUFBtcHhwMVBNWkNhTHRKb004dWhaZ1o2NnJzVWc?oc=5",
-      "author": null,
-      "published": "2026-05-22T04:53:38+00:00",
-      "engagement": 0,
-      "outlet": "Bleacher Report",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.802,
-        "pos": 0.1398,
-        "neg": 0.0,
-        "neu": 0.8602,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "positive",
       "team": "both",
       "status": "ok"
     },
@@ -8299,29 +8725,6 @@
       },
       "sentiment_label": "positive",
       "team": "away",
-      "status": "ok"
-    },
-    {
-      "id": "news:246dabdc8ada",
-      "source": "google_news",
-      "kind": "article",
-      "title": "Donovan Mitchell sends strong message to Knicks after Cavaliers' Game 2 loss",
-      "text": "Donovan Mitchell sends strong message to Knicks after Cavaliers' Game 2 loss  Yardbarker",
-      "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOUkx5Y25SYzhhR1N2eE1WdW5TVC1LSXlNc2xqRzVZOWpPcndfOGZKZTVCVF9xZERuX1ZlMnh4dTI1T1N5ZWhiZF92ZXdOMTZvRldaQm54dzZ4cnA4blNieUhjSkRRR2pHQmJydGxqdHk1MUJLYmVRQzNVbDl0b0RjTU5pNEZ0YXRPeVMxZzRJbjJUakh2NE1WaGlHY3Ytd2ozeGJOblFsSV9DUjN6Q19UZFJkS194MjR1bW1zMEc5c1hiWUUzQXpURkR4elMtQQ?oc=5",
-      "author": null,
-      "published": "2026-05-22T04:11:15+00:00",
-      "engagement": 0,
-      "outlet": "Yardbarker",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.0,
-        "pos": 0.1481,
-        "neg": 0.1481,
-        "neu": 0.7037,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
-      "team": "both",
       "status": "ok"
     },
     {
@@ -8391,6 +8794,29 @@
       },
       "sentiment_label": "negative",
       "team": "home",
+      "status": "ok"
+    },
+    {
+      "id": "news:0a0528f78e9a",
+      "source": "google_news",
+      "kind": "article",
+      "title": "Knicks rock The Garden, take down Cavs to grab 2-0 series lead",
+      "text": "Knicks rock The Garden, take down Cavs to grab 2-0 series lead  Bergen Record",
+      "url": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxNa2ZhcVVvbnQtRTR3Y0djdlA1ckgtRXpTTWlOTWU3RzlqVmlRWU5LcVo2NVNnVjVEd2N2VmdZcTVabnVtelR3YklLRjlCOGZ5R090RTVoWW55ZjA5QUVDaDJ3WXFnZ3JwNEZzN0xQSFl0V3N0TS1UZGM2amZnd25OZHd3X1RRMEFHemRkcDlSYTd5UW9ob0FMWmtiaDRxMkJWMm5WdHE4WmhZdWdWUlVKNG82LTUwa2dGajFhRW5IcFJvY1l0R01SdTJJVUgwTUw4Z2J2czc5TkJ1c0dsb3Zqb1V2aXQ3blA1RlIw?oc=5",
+      "author": null,
+      "published": "2026-05-22T03:23:00+00:00",
+      "engagement": 0,
+      "outlet": "Bergen Record",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "both",
       "status": "ok"
     },
     {
@@ -8578,29 +9004,6 @@
       "status": "ok"
     },
     {
-      "id": "news:9a62c1b524c7",
-      "source": "google_news",
-      "kind": "article",
-      "title": "Cavaliers can't keep up with New York Knicks in 109-93 loss; Cleveland falls behind 2-0 in Eastern Conference finals",
-      "text": "Cavaliers can't keep up with New York Knicks in 109-93 loss; Cleveland falls behind 2-0 in Eastern Conference finals  WKYC",
-      "url": "https://news.google.com/rss/articles/CBMihgJBVV95cUxOYy1Jc0o5cl85Q1JZNThzVnMwLVRPcnptZGFsWDUyLTlKVmdodnZzR0pqX2h1VUlQY0NCYl95Snlqc0ROU3FfN3MzVHV0UlNPeXhKSzNjX2RGaUROX3dPbmxoZHVLYmJ5MW1CSWowSTlZaUlpeVJNUFQ3T1VFUTVtMGRrNFBPekRmUmxVSVk1V0NTRGg4dDdCUG94RkRqYVZvR2dQLW5aREQwVnF0Z2U3RFFIa28zWjNmV2ZlTzdtMFROUGg4OVRYVEkwNGZkWWljYWZFRjVXMnZiQThSSnlHT3ozV3FUQlQzcXFXMGR6UUgyVm16cEdwMXdRazd5WXhERk0tZTln?oc=5",
-      "author": null,
-      "published": "2026-05-22T02:45:00+00:00",
-      "engagement": 0,
-      "outlet": "WKYC",
-      "team_hint": null,
-      "sentiment": {
-        "compound": -0.7184,
-        "pos": 0.0,
-        "neg": 0.1026,
-        "neu": 0.8974,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "negative",
-      "team": "both",
-      "status": "ok"
-    },
-    {
       "id": "news:5ece4fc22bec",
       "source": "google_news",
       "kind": "article",
@@ -8643,29 +9046,6 @@
         "toxicity": 0.0
       },
       "sentiment_label": "neutral",
-      "team": "both",
-      "status": "ok"
-    },
-    {
-      "id": "news:5baf4c695e9d",
-      "source": "google_news",
-      "kind": "article",
-      "title": "Cavs vs Knicks predictions. Who wins Game 2 of conference finals?",
-      "text": "Cavs vs Knicks predictions. Who wins Game 2 of conference finals?  Akron Beacon Journal",
-      "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNemtJdU1lNVZOXzNpNy1SaGxmaENkbVFHclBnMDBwamZNSTdYbURDbkcwSUR0SjdOdFRkUGotZ3pRb1pkV1M4anpVdnFiLXBnWU9ZdWx4dG5OMnhMZ0dMd3htQzc3eTZtR3ZsdDRWaXNzdFlxVURhMnZOMnkzOEd3eDdsSy1vV3FwUnBtS3F6c2dIOHFZdW5nUHNMck9Ua2p2U2xMZ09SLWc3RmdCMXdkYmhJSGR4SGsxaXNBNzRMVjBNa3M?oc=5",
-      "author": null,
-      "published": "2026-05-21T23:37:00+00:00",
-      "engagement": 0,
-      "outlet": "Akron Beacon Journal",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.7998,
-        "pos": 0.186,
-        "neg": 0.0,
-        "neu": 0.814,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "positive",
       "team": "both",
       "status": "ok"
     },
@@ -8770,29 +9150,6 @@
       "url": "https://news.google.com/rss/articles/CBMikgJBVV95cUxQajFOQ1plV0JlMC1uR2dJMFZCSnJBWnlmTmcxUGxNdC02RXNxNzVtT1Azc3MwX1VscjlJSmJUNnZvbTJJbWNNYlhZWVBzNEZUejctdWlpb3Z3QmpRU2pZYk9UczB3anRhRENrLU9tN19BRkRqZ3VmTzRNdFFqMWc2c3l4UjFyb0FPdWo4dUNpTlZIaVV3Q1J2SWVKdkFlUGgtRzNBM1UwQkxSYWVPQk5oRFVvemZxLWl6b2Rnd0VHQ1FNMDQwaEZrVFg0ZFJlbVgzaGhYaDh5aE5uS1BMeEtqNW9mQ1NIeERLSkhTOVFGZEpxMVFhY2JTQnVOTFNWaVhKU1lRZEVHeHh4eGptd0FqOW93?oc=5",
       "author": null,
       "published": "2026-05-21T21:15:33+00:00",
-      "engagement": 0,
-      "outlet": "Yahoo Sports",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
-        "neg": 0.0,
-        "neu": 1.0,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
-      "team": "both",
-      "status": "ok"
-    },
-    {
-      "id": "news:e05ba3a6cd97",
-      "source": "google_news",
-      "kind": "article",
-      "title": "Cavaliers vs Knicks Prediction, Picks & Odds for Tonight's NBA Playoffs Game 2",
-      "text": "Cavaliers vs Knicks Prediction, Picks & Odds for Tonight's NBA Playoffs Game 2  Yahoo Sports",
-      "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNUENXcGdKTzJCTXFPN1RyTXJGbkJ3UWoxMEdtYlpRdHQ3N2RSNFlYd0JJQVJBeHczYzJXTEhsa09nUV8wd2cxMG1vQktrbTM5ampHbkhSa0hkYXpsUHRIY1hJNWFlTTRnTzBnNlpRSGlGNFhyQ1UxWmVWZmtmbmxFRFdYb2s5QWc3WFhUd3Nn?oc=5",
-      "author": null,
-      "published": "2026-05-21T21:00:00+00:00",
       "engagement": 0,
       "outlet": "Yahoo Sports",
       "team_hint": null,
@@ -8970,30 +9327,6 @@
       "status": "ok"
     },
     {
-      "id": "news:5749da8e3183",
-      "source": "cbs_news",
-      "kind": "article",
-      "title": "Thunder vs. Spurs is turning into a war of attrition, which favors OKC ... and the East",
-      "text": "The 2026 Western Conference Finals have exceeded the hype through two games, but injuries have been a big part of the series",
-      "url": "\n                                                https://www.cbssports.com/nba/news/thunder-spurs-war-of-attrition/\n                    ",
-      "author": null,
-      "published": "2026-05-21T15:08:57+00:00",
-      "engagement": 0,
-      "outlet": "Unknown",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
-        "neg": 0.0,
-        "neu": 1.0,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
-      "team": "general",
-      "status": "partial",
-      "imported_via": "repair"
-    },
-    {
       "id": "news:3d0782b63357",
       "source": "cbs_news",
       "kind": "article",
@@ -9016,29 +9349,6 @@
       "team": "general",
       "status": "partial",
       "imported_via": "repair"
-    },
-    {
-      "id": "news:d81e977b788c",
-      "source": "cbs_news",
-      "kind": "article",
-      "title": "Knicks vs. Cavaliers: Five questions for Game 2 as Cleveland tries to rebound from historic collapse",
-      "text": "New York is three wins away from the NBA Finals after a miraculous Game 1 comeback ... so what does Game 2 have in store?",
-      "url": "\n                                                https://www.cbssports.com/nba/news/knicks-cavaliers-five-questions-game-2/\n                    ",
-      "author": null,
-      "published": "2026-05-21T14:37:01+00:00",
-      "engagement": 0,
-      "outlet": "Unknown",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0619,
-        "neg": 0.0619,
-        "neu": 0.8763,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
-      "team": "both",
-      "status": "ok"
     },
     {
       "id": "news:400027ef0312",
@@ -9110,28 +9420,27 @@
       "status": "ok"
     },
     {
-      "id": "news:abf852f3c7e4",
-      "source": "cbs_news",
+      "id": "news:f60fd5b2f4a6",
+      "source": "google_news",
       "kind": "article",
-      "title": "Shai Gilgeous-Alexander delivers MVP response; Ed Orgeron rejoins LSU staff",
-      "text": "Plus, what's with all the shirtless fans showing up in MLB stands?",
-      "url": "\n                                                https://www.cbssports.com/nba/news/shai-gilgeous-alexander-delivers-mvp-response-ed-orgeron-rejoins-lsu-staff/\n                    ",
+      "title": "Knicks vs. Cavaliers: Five questions for Game 2 as Cleveland tries to rebound from historic collapse",
+      "text": "Knicks vs. Cavaliers: Five questions for Game 2 as Cleveland tries to rebound from historic collapse  CBS Sports",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5NYU9xRUZEOWszX3Y3YlR4TVloUlFNUmlXa2V6QkFIYlJ2dzJFOFQ2ejNmOGI3SlhvdkxfWTJibEVYd29tWnlsa1BTZDB5SWVKeVpQeTNwdy1keVdFWVBDWkhHOUtPQlFJR1VPNTRxYVVXT2k1a05LNnA5OVRkS1k?oc=5",
       "author": null,
-      "published": "2026-05-21T13:01:15+00:00",
+      "published": "2026-05-21T13:28:00+00:00",
       "engagement": 0,
-      "outlet": "Unknown",
+      "outlet": "CBS Sports",
       "team_hint": null,
       "sentiment": {
-        "compound": 0.6841,
-        "pos": 0.1475,
-        "neg": 0.0,
-        "neu": 0.8525,
+        "compound": -0.7783,
+        "pos": 0.0,
+        "neg": 0.1379,
+        "neu": 0.8621,
         "toxicity": 0.0
       },
-      "sentiment_label": "positive",
-      "team": "general",
-      "status": "partial",
-      "imported_via": "repair"
+      "sentiment_label": "negative",
+      "team": "both",
+      "status": "ok"
     },
     {
       "id": "news:b6e0f835981e",
@@ -9295,30 +9604,6 @@
       "status": "ok"
     },
     {
-      "id": "news:1fd794435ada",
-      "source": "cbs_news",
-      "kind": "article",
-      "title": "Thunder even series vs. Spurs: Shai Gilgeous-Alexander's MVP response, San Antonio turnovers among Game 2 keys",
-      "text": "Also, a huge shoutout to Isaiah Hartenstein for a monster effort against Victor Wembanyama in Wednesday's victory",
-      "url": "\n                                                https://www.cbssports.com/nba/news/thunder-spurs-game-2-shai-gilgeous-alexander-victor-wembanyama-isaiah-hartenstein-stephon-castle/\n                    ",
-      "author": null,
-      "published": "2026-05-21T05:30:24+00:00",
-      "engagement": 0,
-      "outlet": "Unknown",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.7865,
-        "pos": 0.1742,
-        "neg": 0.0406,
-        "neu": 0.7852,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "positive",
-      "team": "general",
-      "status": "partial",
-      "imported_via": "repair"
-    },
-    {
       "id": "news:596a7d42c404",
       "source": "google_news",
       "kind": "article",
@@ -9384,29 +9669,6 @@
         "toxicity": 0.0
       },
       "sentiment_label": "negative",
-      "team": "both",
-      "status": "ok"
-    },
-    {
-      "id": "news:5b71abd00757",
-      "source": "google_news",
-      "kind": "article",
-      "title": "Knicks Notes: Jalen Brunson, Josh Hart on needing to start stronger; making adjustments for Game 2 vs. Cavaliers",
-      "text": "Knicks Notes: Jalen Brunson, Josh Hart on needing to start stronger; making adjustments for Game 2 vs. Cavaliers  SNY",
-      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQZHk4aVZHY1hhejhmSmd5VHVQaGhCWDhXbjROTXMycUxDMWlCbmdmLVR1Y1U1OGxubV9CaWh6TFlKRkxfSWNZV3h6UzFPMjRldlVaSWxpeEtpd3JDX1paTl9jZjk3UHJ6b096Q0xHWUt3Rm1aajktc2pFOGt1cDlncWM4YUs3UEtOc0ZXWWtYRDNRQTlTUl9OemozWFRMbVp6VnQxRQ?oc=5",
-      "author": null,
-      "published": "2026-05-20T20:47:18+00:00",
-      "engagement": 0,
-      "outlet": "SNY",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
-        "neg": 0.0,
-        "neu": 1.0,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
       "team": "both",
       "status": "ok"
     },
@@ -9516,10 +9778,10 @@
       "outlet": "Bleacher Report",
       "team_hint": null,
       "sentiment": {
-        "compound": 0.802,
-        "pos": 0.1477,
+        "compound": 0.9325,
+        "pos": 0.2778,
         "neg": 0.0,
-        "neu": 0.8523,
+        "neu": 0.7222,
         "toxicity": 0.0
       },
       "sentiment_label": "positive",
@@ -9537,29 +9799,6 @@
       "published": "2026-05-20T13:11:52+00:00",
       "engagement": 0,
       "outlet": "AP News",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
-        "neg": 0.0,
-        "neu": 1.0,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "neutral",
-      "team": "both",
-      "status": "ok"
-    },
-    {
-      "id": "news:4f1e3b1c05b8",
-      "source": "google_news",
-      "kind": "article",
-      "title": "ESPN presents the 2026 NBA Eastern Conference Finals: Cleveland Cavaliers vs. New York Knicks exclusively on ESPN networks",
-      "text": "ESPN presents the 2026 NBA Eastern Conference Finals: Cleveland Cavaliers vs. New York Knicks exclusively on ESPN networks  ESPN Press Room",
-      "url": "https://news.google.com/rss/articles/CBMigwJBVV95cUxQNEFSTkdZWWN4cDAxQ1lBNkQ3WDRfUmhNWWZERi1LWDczLXRNWjBFSWlXeWxLOTFfZ0ZqNkZaZkFodTdnVzBWSzRWUUlvV3RCemFwN3dLaVVDV0FNbjdJdkxFWkd1UFpscUVVdjRwSmRxMkpoNFVucWVIMzdRS1RmTHlKeUFKUkxUandQaUFST19jRWpUTDBWSlBXS21KUEd3eUxsMFZnaVdrNFVDRW8wNWNOUkRyYTdLeXRPXy10TzRyeWVPekdNMnM5aFd0QjRFaFN3Yzg5YTFvQVJ4YnJ5bFJVNzdYQzdtUFFDZFNtU2N3bDV5QjF6UmVteDdUMzVPdGMw?oc=5",
-      "author": null,
-      "published": "2026-05-20T12:27:43+00:00",
-      "engagement": 0,
-      "outlet": "ESPN Press Room",
       "team_hint": null,
       "sentiment": {
         "compound": 0.0,
@@ -9593,6 +9832,52 @@
       },
       "sentiment_label": "neutral",
       "team": "away",
+      "status": "ok"
+    },
+    {
+      "id": "news:4f1e3b1c05b8",
+      "source": "google_news",
+      "kind": "article",
+      "title": "ESPN presents the 2026 NBA Eastern Conference Finals: Cleveland Cavaliers vs. New York Knicks exclusively on ESPN networks",
+      "text": "ESPN presents the 2026 NBA Eastern Conference Finals: Cleveland Cavaliers vs. New York Knicks exclusively on ESPN networks  ESPN Press Room",
+      "url": "https://news.google.com/rss/articles/CBMigwJBVV95cUxQNEFSTkdZWWN4cDAxQ1lBNkQ3WDRfUmhNWWZERi1LWDczLXRNWjBFSWlXeWxLOTFfZ0ZqNkZaZkFodTdnVzBWSzRWUUlvV3RCemFwN3dLaVVDV0FNbjdJdkxFWkd1UFpscUVVdjRwSmRxMkpoNFVucWVIMzdRS1RmTHlKeUFKUkxUandQaUFST19jRWpUTDBWSlBXS21KUEd3eUxsMFZnaVdrNFVDRW8wNWNOUkRyYTdLeXRPXy10TzRyeWVPekdNMnM5aFd0QjRFaFN3Yzg5YTFvQVJ4YnJ5bFJVNzdYQzdtUFFDZFNtU2N3bDV5QjF6UmVteDdUMzVPdGMw?oc=5",
+      "author": null,
+      "published": "2026-05-20T10:53:56+00:00",
+      "engagement": 0,
+      "outlet": "ESPN Press Room",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "both",
+      "status": "ok"
+    },
+    {
+      "id": "news:a06021229316",
+      "source": "google_news",
+      "kind": "article",
+      "title": "Donovan Mitchell Breaks Silence After Cavaliers Blow Massive Lead to Knicks",
+      "text": "Donovan Mitchell Breaks Silence After Cavaliers Blow Massive Lead to Knicks  heavy.com",
+      "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNWnk5c2lWNTBfM190US1Tb055S3Zaa2hfZFNYb3pJTXAzMEZyb3JxWXhHLVlWMG5TM0pTZ1VQd0tnYXRZdXJvMFZaYjBFQzVScDM3LVdZdGctWnBJLUEtMnpXd01sQXhWSlAydVpFVkRta0dFWDZzN2lOZ2kxRTlzTW5SNnNjVXRDZ2gtRFY0bWpYNlp2?oc=5",
+      "author": null,
+      "published": "2026-05-20T10:46:05+00:00",
+      "engagement": 0,
+      "outlet": "heavy.com",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "both",
       "status": "ok"
     },
     {
@@ -9642,26 +9927,26 @@
       "status": "ok"
     },
     {
-      "id": "news:af4423205706",
+      "id": "news:fc8c98b7c171",
       "source": "google_news",
       "kind": "article",
-      "title": "Jalen Brunson just taught the Cavaliers what Knicks fans already knew",
-      "text": "Jalen Brunson just taught the Cavaliers what Knicks fans already knew  Daily Knicks",
-      "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE44bXdDUF9wcEczZTA3dlU3dF9TRDZ3U3ZNa2pOVUVvdXRWSWt2SkJWNWZacW5MVVh0dFpCMU90WDFob0dmMU81V3dSaFlLQjEzUnQ4cnBNbnFOUmdPaW9SZmlodS15ZThzYk5sYWh1OFp3VW04WWRLU2pOcE5EQQ?oc=5",
+      "title": "James Harden, Donovan Mitchell versus the red-hot Knicks: Who will win, and why? - The Athletic",
+      "text": "James Harden, Donovan Mitchell versus the red-hot Knicks: Who will win, and why? - The Athletic  The New York Times",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQV1l3bm1QdElSWGJtY29ucWJJRVJxOUg2MDhUY2ZzUTkzbUtxT053YXVOUzRDUlUwOEQxNnFSbl8xOHNHa3pPRXFzdFRnbVZ0aGcxejliSm5iSk9vdmNuVHd4aWdUWVhZaUZYbUpDeE5iQU9vRFc3NFpXOXJIRjdUZVJJVmNIbEVlczdWWW5RRXBoV1NmMUw4Q2NyRkhhaVAycmlQNlQ2aHNkQUk?oc=5",
       "author": null,
-      "published": "2026-05-20T08:01:28+00:00",
+      "published": "2026-05-20T07:00:00+00:00",
       "engagement": 0,
-      "outlet": "Daily Knicks",
+      "outlet": "The New York Times",
       "team_hint": null,
       "sentiment": {
-        "compound": 0.0,
-        "pos": 0.0,
+        "compound": 0.8205,
+        "pos": 0.1327,
         "neg": 0.0,
-        "neu": 1.0,
+        "neu": 0.8673,
         "toxicity": 0.0
       },
-      "sentiment_label": "neutral",
-      "team": "both",
+      "sentiment_label": "positive",
+      "team": "away",
       "status": "ok"
     },
     {
@@ -9685,29 +9970,6 @@
       },
       "sentiment_label": "neutral",
       "team": "both",
-      "status": "ok"
-    },
-    {
-      "id": "news:fc8c98b7c171",
-      "source": "google_news",
-      "kind": "article",
-      "title": "James Harden, Donovan Mitchell versus the red-hot Knicks: Who will win, and why? - The Athletic",
-      "text": "James Harden, Donovan Mitchell versus the red-hot Knicks: Who will win, and why? - The Athletic  The New York Times",
-      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQV1l3bm1QdElSWGJtY29ucWJJRVJxOUg2MDhUY2ZzUTkzbUtxT053YXVOUzRDUlUwOEQxNnFSbl8xOHNHa3pPRXFzdFRnbVZ0aGcxejliSm5iSk9vdmNuVHd4aWdUWVhZaUZYbUpDeE5iQU9vRFc3NFpXOXJIRjdUZVJJVmNIbEVlczdWWW5RRXBoV1NmMUw4Q2NyRkhhaVAycmlQNlQ2aHNkQUk?oc=5",
-      "author": null,
-      "published": "2026-05-20T07:00:00+00:00",
-      "engagement": 0,
-      "outlet": "The New York Times",
-      "team_hint": null,
-      "sentiment": {
-        "compound": 0.8205,
-        "pos": 0.1327,
-        "neg": 0.0,
-        "neu": 0.8673,
-        "toxicity": 0.0
-      },
-      "sentiment_label": "positive",
-      "team": "away",
       "status": "ok"
     },
     {
@@ -10010,16 +10272,16 @@
       "status": "ok"
     },
     {
-      "id": "news:751e58a0bbc8",
+      "id": "news:26b3382ff8fc",
       "source": "google_news",
       "kind": "article",
-      "title": "Full Game Highlights: New York Knicks vs. Cleveland Cavaliers | Eastern Conference Finals ‑ Game 1",
-      "text": "Full Game Highlights: New York Knicks vs. Cleveland Cavaliers | Eastern Conference Finals ‑ Game 1  NBA",
-      "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxPaGF0ZFlTU2lZdjFDRTdobTdTQzVGa3FmSkJmRTN5MTdWY0R6enNOYWV3Ul8xTmU3MGU5XzNnUXRvdHhuUjZPR3VQMEZPMFh3MEdqbGVTdC1naklNN21kSU1xQUpjZmZQYUNYZFlHdUlkWElfa3BQSV9nOURMWGJoTUNTRWF3RlJ5dV8ySzFacHJ6LVdFS3dMQXpYbmdmZDhBTmwtYkE0akNvRUlOUXMta3pZVy1Sd1BkX1BzRFlnMDk5UDhI?oc=5",
+      "title": "Pacer Setter: Jalen Brunson Exposes James Harden in Knicks Stunning Comeback",
+      "text": "Pacer Setter: Jalen Brunson Exposes James Harden in Knicks Stunning Comeback  Sports Illustrated",
+      "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOZ0JvY1o1c3JMbm50TzdXNkZjODM2cUZOcGV0cmhWTTRaelZvRmdzTnh6V0ZZTTJZc191cGZqbF93SW1CLWZDc1ZJT2tnendIX0k4ZHF4NU5yYmstenl1cjZkZmFJdDMyQzVHcEhYWHRJUlhxOFdRNHVtUldlaDEwRTNaT3pfZ1dKdTVMX0QzMnZIcWUyelVYY2gxNnVDQjJJQV9tbnhlMFB4Y2s0NXh0RnQtX01WWXI0VjRpMUN6eVg?oc=5",
       "author": null,
-      "published": "2026-05-20T03:33:14+00:00",
+      "published": "2026-05-20T03:55:26+00:00",
       "engagement": 0,
-      "outlet": "NBA",
+      "outlet": "Sports Illustrated",
       "team_hint": null,
       "sentiment": {
         "compound": 0.0,
@@ -10029,7 +10291,30 @@
         "toxicity": 0.0
       },
       "sentiment_label": "neutral",
-      "team": "both",
+      "team": "away",
+      "status": "ok"
+    },
+    {
+      "id": "news:ccbb01cf28b9",
+      "source": "google_news",
+      "kind": "article",
+      "title": "Jalen Brunson leads Knicks with 38 points in comeback win",
+      "text": "Jalen Brunson leads Knicks with 38 points in comeback win  NBA",
+      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNTHRHZ0xtaDcwVkpXSzNDQ0g1d091cF9OclRiUlA0SmZvMnU3dHF4UzhzV2tqaGFKZnVmMGFxMXBYWnAyLTVzdmhlVHdHUEtaYVRMNmw5Tk5ySjlBaWpOLXFOczBzN29YX0dUdktZVEFoem1kTC1WVlFiM2xYbzFuNTQ4dnJFeFo3QUFzQnFQM0NPQXM?oc=5",
+      "author": null,
+      "published": "2026-05-20T03:42:00+00:00",
+      "engagement": 0,
+      "outlet": "NBA",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.802,
+        "pos": 0.2342,
+        "neg": 0.0,
+        "neu": 0.7658,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "positive",
+      "team": "away",
       "status": "ok"
     },
     {
@@ -10169,6 +10454,30 @@
       "sentiment_label": "negative",
       "team": "both",
       "status": "ok"
+    },
+    {
+      "id": "news:e6176ed72440",
+      "source": "espn_news",
+      "kind": "article",
+      "title": "Offseason guides: Draft, free agency, trade target...",
+      "text": "What lies ahead for the Magic, Celtics, Nuggets, Warriors and every eliminated team?",
+      "url": "https://www.espn.com/nba/story/_/id/48432907/nba-offseason-2026-draft-free-agency-trade-targets-30-teams",
+      "author": null,
+      "published": "2026-05-20T00:07:39-05:00",
+      "engagement": 0,
+      "outlet": "Unknown",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "general",
+      "status": "partial",
+      "imported_via": "repair"
     },
     {
       "id": "news:ffdc4c6f7d10",
@@ -10792,6 +11101,29 @@
       },
       "sentiment_label": "neutral",
       "team": "home",
+      "status": "ok"
+    },
+    {
+      "id": "news:fc5fec9e8cc0",
+      "source": "google_news",
+      "kind": "article",
+      "title": "NBA reveals Cavs vs. Knicks Eastern Conference Finals schedule",
+      "text": "NBA reveals Cavs vs. Knicks Eastern Conference Finals schedule  Fear The Sword",
+      "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxPbm1NVnIySi0tUGZCN1dyZ1NQVmR1VnBTR1NhUVMtM2MwRnNLZWx6eHg5NWx3OTQ3NjRGemE4N1ZNb3pEYzBTYmdmNnE1WVBPLTd0UUVPekR2YnVQQ1h6QkNoRGdZWHVmZFc0SWJZRTJPNWtuaHpUdjMzdEFVSExVaWNlb1BFYlMwREdXSHhIbS1tZEh3dklBYzJmclRzVXVlT0xiaTlYcGhXcmRyMkxQaGFTTU1NSmdkSW9IS1hpYWJJVjhDSXQ5b3I0aFJ1OVFZZmRJQg?oc=5",
+      "author": null,
+      "published": "2026-05-17T07:00:00+00:00",
+      "engagement": 0,
+      "outlet": "Fear The Sword",
+      "team_hint": null,
+      "sentiment": {
+        "compound": 0.0,
+        "pos": 0.0,
+        "neg": 0.0,
+        "neu": 1.0,
+        "toxicity": 0.0
+      },
+      "sentiment_label": "neutral",
+      "team": "both",
       "status": "ok"
     },
     {
@@ -11926,37 +12258,37 @@
   "social": [],
   "mood": {
     "overall": {
-      "heat": 81.5,
-      "hype": 43.0,
-      "toxicity": 11.0,
-      "volume": 426,
+      "heat": 81.8,
+      "hype": 43.3,
+      "toxicity": 11.5,
+      "volume": 430,
       "engagement": 0,
-      "mean_sentiment": 0.018,
-      "sentiment_variance": 0.2171
+      "mean_sentiment": 0.0136,
+      "sentiment_variance": 0.2219
     },
     "home": {
-      "heat": 74.7,
-      "hype": 37.0,
-      "toxicity": 13.0,
-      "volume": 344,
+      "heat": 74.6,
+      "hype": 36.4,
+      "toxicity": 13.7,
+      "volume": 343,
       "engagement": 0,
-      "mean_sentiment": -0.031,
-      "sentiment_variance": 0.2141
+      "mean_sentiment": -0.0445,
+      "sentiment_variance": 0.2149
     },
     "away": {
-      "heat": 77.0,
-      "hype": 42.8,
-      "toxicity": 11.3,
-      "volume": 368,
+      "heat": 77.3,
+      "hype": 43.2,
+      "toxicity": 11.8,
+      "volume": 372,
       "engagement": 0,
-      "mean_sentiment": 0.03,
-      "sentiment_variance": 0.2281
+      "mean_sentiment": 0.0256,
+      "sentiment_variance": 0.2338
     },
     "team_sentiment": {
-      "home": -0.0253,
-      "away": 0.195,
+      "home": -0.0251,
+      "away": 0.2323,
       "count_home": 58,
-      "count_away": 82
+      "count_away": 87
     },
     "timeline": [
       {
@@ -12077,7 +12409,7 @@
       {
         "date": "2026-05-17",
         "mean_sentiment": 0.0,
-        "volume": 1
+        "volume": 2
       },
       {
         "date": "2026-05-18",
@@ -12091,64 +12423,64 @@
       },
       {
         "date": "2026-05-20",
-        "mean_sentiment": 0.0862,
+        "mean_sentiment": 0.1136,
         "volume": 34
       },
       {
         "date": "2026-05-21",
-        "mean_sentiment": -0.0296,
-        "volume": 28
+        "mean_sentiment": -0.0926,
+        "volume": 26
       },
       {
         "date": "2026-05-22",
-        "mean_sentiment": 0.1327,
-        "volume": 46
+        "mean_sentiment": 0.1304,
+        "volume": 40
       },
       {
         "date": "2026-05-23",
-        "mean_sentiment": -0.0042,
-        "volume": 65
+        "mean_sentiment": -0.0168,
+        "volume": 64
       },
       {
         "date": "2026-05-24",
-        "mean_sentiment": 0.0839,
-        "volume": 117
+        "mean_sentiment": 0.0484,
+        "volume": 106
       },
       {
         "date": "2026-05-25",
-        "mean_sentiment": 0.1355,
-        "volume": 64
+        "mean_sentiment": 0.1596,
+        "volume": 87
       }
     ],
     "emotions": {
-      "joy": 0.2031,
+      "joy": 0.2004,
       "anger": 0.0164,
-      "fear": 0.031,
-      "sadness": 0.398,
-      "anticipation": 0.3515
+      "fear": 0.0364,
+      "sadness": 0.3925,
+      "anticipation": 0.3543
     }
   },
   "players": [
     {
       "name": "Donovan Mitchell",
       "team": "home",
-      "mentions": 71,
-      "mean_sentiment": -0.0667,
-      "buzz": 71.0
+      "mentions": 70,
+      "mean_sentiment": -0.0831,
+      "buzz": 70.0
     },
     {
       "name": "Jalen Brunson",
       "team": "away",
-      "mentions": 64,
-      "mean_sentiment": 0.2767,
-      "buzz": 64.0
+      "mentions": 60,
+      "mean_sentiment": 0.2859,
+      "buzz": 60.0
     },
     {
       "name": "OG Anunoby",
       "team": "away",
-      "mentions": 11,
-      "mean_sentiment": -0.2837,
-      "buzz": 11.0
+      "mentions": 10,
+      "mean_sentiment": -0.3839,
+      "buzz": 10.0
     },
     {
       "name": "Karl-Anthony Towns",
@@ -12160,9 +12492,9 @@
     {
       "name": "Josh Hart",
       "team": "away",
-      "mentions": 8,
-      "mean_sentiment": -0.172,
-      "buzz": 8.0
+      "mentions": 7,
+      "mean_sentiment": -0.1966,
+      "buzz": 7.0
     },
     {
       "name": "Jarrett Allen",
@@ -12172,17 +12504,17 @@
       "buzz": 5.0
     },
     {
+      "name": "Evan Mobley",
+      "team": "home",
+      "mentions": 3,
+      "mean_sentiment": -0.4778,
+      "buzz": 3.0
+    },
+    {
       "name": "Darius Garland",
       "team": "home",
       "mentions": 2,
       "mean_sentiment": -0.3574,
-      "buzz": 2.0
-    },
-    {
-      "name": "Evan Mobley",
-      "team": "home",
-      "mentions": 2,
-      "mean_sentiment": -0.7167,
       "buzz": 2.0
     },
     {
@@ -12216,22 +12548,22 @@
     {
       "term": "comeback",
       "count": 13,
-      "mean_sentiment": 0.2529
-    },
-    {
-      "term": "mvp",
-      "count": 6,
-      "mean_sentiment": 0.7816
+      "mean_sentiment": 0.3146
     },
     {
       "term": "sweep",
-      "count": 5,
-      "mean_sentiment": 0.5018
+      "count": 6,
+      "mean_sentiment": 0.5265
+    },
+    {
+      "term": "mvp",
+      "count": 4,
+      "mean_sentiment": 0.8217
     },
     {
       "term": "collapse",
       "count": 4,
-      "mean_sentiment": -0.4046
+      "mean_sentiment": -0.5992
     },
     {
       "term": "injured",
@@ -12241,7 +12573,7 @@
     {
       "term": "dominant",
       "count": 2,
-      "mean_sentiment": 0.6797
+      "mean_sentiment": 0.7116
     },
     {
       "term": "robbed",
@@ -12254,6 +12586,36 @@
       "mean_sentiment": 0.4215
     }
   ],
+  "narrative_meta": {
+    "concentration": 0.4272,
+    "polarity": {
+      "positive": 0.2,
+      "negative": 0.1907,
+      "neutral": 0.6093
+    },
+    "outlets": [
+      {
+        "source": "google_news",
+        "count": 424,
+        "mean_sentiment": 0.0118
+      },
+      {
+        "source": "yahoo_news",
+        "count": 44,
+        "mean_sentiment": 0.1018
+      },
+      {
+        "source": "cbs_news",
+        "count": 30,
+        "mean_sentiment": 0.2935
+      },
+      {
+        "source": "espn_news",
+        "count": 16,
+        "mean_sentiment": 0.1147
+      }
+    ]
+  },
   "prediction": {
     "market": {
       "home": 0.43650793650793646,
@@ -12274,25 +12636,25 @@
       "home": 0.408,
       "away": 0.592
     },
-    "sentiment_delta": -0.0191,
+    "sentiment_delta": -0.0221,
     "ensemble": {
-      "home": 0.4104,
-      "away": 0.5896,
+      "home": 0.4074,
+      "away": 0.5926,
       "components": {
         "market": 0.4365,
         "elo": 0.4427,
         "espn": 0.408,
-        "sentiment_delta": -0.0191
+        "sentiment_delta": -0.0221
       }
     },
     "confidence": 90.3,
     "value_bet": {
       "side": "away",
-      "edge_pct": 2.61,
-      "model_prob": 0.5896,
+      "edge_pct": 2.91,
+      "model_prob": 0.5926,
       "market_prob": 0.5635,
       "moneyline": -142,
-      "expected_value": 0.0048,
+      "expected_value": 0.0099,
       "has_value": true
     },
     "series": {
@@ -12303,7 +12665,7 @@
         {
           "game": 4,
           "venue": "CLE",
-          "leader_win": 0.5896
+          "leader_win": 0.5926
         },
         {
           "game": 5,
@@ -12323,42 +12685,226 @@
       ]
     }
   },
+  "advanced": {
+    "monte_carlo_game": {
+      "trials": 4000,
+      "implied_mean_margin": -2.81,
+      "home_win_prob_sim": 0.4025,
+      "median_margin": -3.03,
+      "p10_margin": -18.39,
+      "p90_margin": 12.53,
+      "stdev_margin": 12.03,
+      "cover_minus_3": 0.314,
+      "cover_plus_3": 0.4988,
+      "histogram": [
+        {
+          "low": -40,
+          "high": -35,
+          "count": 4
+        },
+        {
+          "low": -35,
+          "high": -30,
+          "count": 31
+        },
+        {
+          "low": -30,
+          "high": -25,
+          "count": 92
+        },
+        {
+          "low": -25,
+          "high": -20,
+          "count": 169
+        },
+        {
+          "low": -20,
+          "high": -15,
+          "count": 335
+        },
+        {
+          "low": -15,
+          "high": -10,
+          "count": 474
+        },
+        {
+          "low": -10,
+          "high": -5,
+          "count": 614
+        },
+        {
+          "low": -5,
+          "high": 0,
+          "count": 666
+        },
+        {
+          "low": 0,
+          "high": 5,
+          "count": 581
+        },
+        {
+          "low": 5,
+          "high": 10,
+          "count": 463
+        },
+        {
+          "low": 10,
+          "high": 15,
+          "count": 286
+        },
+        {
+          "low": 15,
+          "high": 20,
+          "count": 167
+        },
+        {
+          "low": 20,
+          "high": 25,
+          "count": 69
+        },
+        {
+          "low": 25,
+          "high": 30,
+          "count": 26
+        },
+        {
+          "low": 30,
+          "high": 35,
+          "count": 13
+        },
+        {
+          "low": 35,
+          "high": 40,
+          "count": 3
+        }
+      ]
+    },
+    "monte_carlo_series": {
+      "trials": 8000,
+      "leader_clinch_prob": 0.993125,
+      "expected_games": 4.531,
+      "ends_in": {
+        "4": 0.5871,
+        "5": 0.3302,
+        "6": 0.0473,
+        "7": 0.0354
+      }
+    },
+    "glicko": {
+      "home_rating": 1552.0,
+      "home_rd": 60.0,
+      "away_rating": 1692.0,
+      "away_rd": 60.0,
+      "home_win_prob": 0.3754
+    },
+    "kelly": {
+      "side": "away",
+      "decimal": 1.704,
+      "full": 0.0141,
+      "quarter": 0.0035,
+      "ev": 0.0099
+    },
+    "injuries": {
+      "home": 0.28,
+      "away": 0.35,
+      "players_flagged": [
+        {
+          "name": "Donovan Mitchell",
+          "team": "home",
+          "share": 0.28,
+          "net_signal": 20
+        },
+        {
+          "name": "OG Anunoby",
+          "team": "away",
+          "share": 0.14,
+          "net_signal": 12
+        },
+        {
+          "name": "Jalen Brunson",
+          "team": "away",
+          "share": 0.27,
+          "net_signal": 8
+        },
+        {
+          "name": "Karl-Anthony Towns",
+          "team": "away",
+          "share": 0.2,
+          "net_signal": 12
+        },
+        {
+          "name": "Josh Hart",
+          "team": "away",
+          "share": 0.1,
+          "net_signal": 6
+        }
+      ],
+      "adjustment": {
+        "base_prob": 0.4074,
+        "adjusted_prob": 0.4578,
+        "margin_shift": 1.54,
+        "delta": 0.0504
+      }
+    },
+    "history_movement": {
+      "ewma_ens_home": [
+        0.4086
+      ],
+      "ens_drift_per_run": 0.0,
+      "ens_r2": 0.0,
+      "ens_autocorr_lag1": 0.0,
+      "pearson_ens_vs_market": 0.0,
+      "pearson_ens_vs_sentiment": 0.0
+    },
+    "what_if_star_out_home": {
+      "lost_share": 0.2,
+      "estimated_margin_shift": -4.4,
+      "new_home_win_prob": 0.2608,
+      "delta_win_prob": -0.1466
+    },
+    "what_if_star_out_away": {
+      "lost_share": 0.2,
+      "estimated_margin_shift": -4.4,
+      "new_home_win_prob": 0.4502,
+      "delta_win_prob": -0.1424
+    }
+  },
   "import_stats": {
-    "ok": 426,
-    "partial": 74,
+    "ok": 430,
+    "partial": 84,
     "error": 0,
-    "repaired": 74,
+    "repaired": 84,
     "dropped": 0
   },
   "history": [
     {
-      "ts": "2026-05-25T13:12:23.789803+00:00",
+      "ts": "2026-05-25T14:46:21.630548+00:00",
       "mode": "pre",
-      "ens_home": 0.4116,
-      "ens_away": 0.5884,
+      "ens_home": 0.4086,
+      "ens_away": 0.5914,
       "market_home": 0.43650793650793646,
       "elo_home": 0.4427,
       "confidence": 90.3,
-      "heat": 81.7,
-      "hype": 43.4,
-      "toxicity": 10.8,
-      "sent_home": -0.0107,
-      "sent_away": 0.195,
+      "heat": 81.4,
+      "hype": 43.0,
+      "toxicity": 10.9,
+      "sent_home": -0.0225,
+      "sent_away": 0.2204,
       "clinch": 0.9927
     },
     {
-      "ts": "2026-05-25T13:12:25.178877+00:00",
+      "ts": "2026-05-25T14:51:18.686347+00:00",
       "mode": "pre",
-      "ens_home": 0.4104,
-      "ens_away": 0.5896,
+      "ens_home": 0.4074,
+      "ens_away": 0.5926,
       "market_home": 0.43650793650793646,
       "elo_home": 0.4427,
       "confidence": 90.3,
-      "heat": 81.5,
-      "hype": 43.0,
-      "toxicity": 11.0,
-      "sent_home": -0.0253,
-      "sent_away": 0.195,
+      "heat": 81.8,
+      "hype": 43.3,
+      "toxicity": 11.5,
+      "sent_home": -0.0251,
+      "sent_away": 0.2323,
       "clinch": 0.9927
     }
   ]

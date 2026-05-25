@@ -12,6 +12,10 @@ Several independent formulas, then an ensemble:
   8. Series-clinch probability given the 3-0 lead
 
 Everything is pure Python (math/statistics only).
+
+Heavier-weight math (Monte Carlo, Glicko-2, regression, Kelly, four factors,
+bootstrap, KL/JS, Markov chains) lives in `advanced_math.py` and is composed
+on top of these primitives by `pipeline.py`.
 """
 
 import datetime as _dt
@@ -25,12 +29,21 @@ def recency_weight(published, half_life_days=2.0, now=None):
     """Exponential time-decay weight in (0, 1] for a record's timestamp.
 
     Recent items count more. Missing/unparseable timestamps get a neutral 0.5.
+    Accepts ISO8601 timestamps, plain date strings ("2026-05-25") and None.
     """
     if not published:
         return 0.5
-    try:
-        t = _dt.datetime.fromisoformat(str(published).replace("Z", "+00:00"))
-    except (ValueError, TypeError):
+    s = str(published).strip().replace("Z", "+00:00")
+    t = None
+    for parser in (_dt.datetime.fromisoformat,
+                   lambda x: _dt.datetime.combine(_dt.date.fromisoformat(x),
+                                                  _dt.time(0, 0))):
+        try:
+            t = parser(s)
+            break
+        except (ValueError, TypeError):
+            continue
+    if t is None:
         return 0.5
     if t.tzinfo is None:
         t = t.replace(tzinfo=_dt.timezone.utc)
