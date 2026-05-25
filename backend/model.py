@@ -152,13 +152,18 @@ def mood_meters(records):
     mean_tox = statistics.fmean(toxes) if toxes else 0.0
 
     # Heat = how much is being said + emotional spread (engagement + variance).
-    heat = _saturate(volume + engagement / 200.0 + var_comp * 60.0, scale=60.0)
+    # Scale chosen so a heavily-covered marquee game sits in the 70-90 band
+    # rather than pinning at 100, keeping the meter discriminative.
+    heat = _saturate(volume + engagement / 200.0 + var_comp * 60.0, scale=260.0)
 
-    # Hype = positive emotional energy, engagement-weighted.
+    # Hype = mean positive emotional energy per item, with a bounded volume
+    # bonus, so it reflects intensity rather than raw article count.
+    n = len(records)
     pos_energy = sum(max(0.0, r["sentiment"]["compound"]) *
                      (1 + max(0, r.get("engagement", 0)) / 100.0)
                      for r in records if "sentiment" in r)
-    hype = _saturate(pos_energy, scale=12.0)
+    mean_pos = pos_energy / n if n else 0.0
+    hype = min(100.0, mean_pos * 130.0 + _saturate(volume, scale=400.0) * 0.35)
 
     # Toxicity = mean toxicity boosted by negative-sentiment density.
     neg_density = sum(1 for c in comps if c <= -0.35) / max(1, len(comps))

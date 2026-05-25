@@ -209,3 +209,44 @@ def label(compound):
     if compound <= -0.35:
         return "negative"
     return "neutral"
+
+
+# --- Emotion classification (lightweight, lexicon-based) -------------------
+EMOTION_LEXICON = {
+    "joy": {"win", "won", "clutch", "amazing", "love", "loved", "happy",
+            "hype", "beautiful", "dominant", "mvp", "celebrate", "dub", "lit",
+            "ecstatic", "thrilled", "goat", "splash", "dagger", "incredible",
+            "unstoppable", "elite", "cooking", "buckets", "proud"},
+    "anger": {"rigged", "refball", "robbed", "scam", "fraud", "hate", "hated",
+              "trash", "garbage", "mad", "furious", "angry", "disgrace",
+              "clown", "clowns", "corrupt", "fix", "fixed", "soft", "flop",
+              "flopping", "bum", "bums", "embarrassing"},
+    "fear": {"nervous", "worried", "scared", "panic", "choke", "choked",
+             "choking", "collapse", "collapsed", "blow", "blown", "anxiety",
+             "doubt", "concern", "concerned", "shaky", "scary"},
+    "sadness": {"lost", "loss", "sad", "heartbroken", "disappointing",
+                "disappointed", "eliminated", "devastated", "hurt", "injury",
+                "injured", "depressing", "done", "over"},
+    "anticipation": {"tonight", "gameday", "tipoff", "preview", "prediction",
+                     "matchup", "series", "clinch", "decider", "showdown",
+                     "must", "closeout", "swing", "pivotal", "huge"},
+}
+
+
+def emotions(text):
+    """Return a normalised emotion distribution for a piece of text.
+
+    Keys: joy, anger, fear, sadness, anticipation. Values sum to 1.0 when any
+    emotion word is present, otherwise all zero.
+    """
+    base = {k: 0 for k in EMOTION_LEXICON}
+    if not text:
+        return {k: 0.0 for k in base}
+    words = {w.lower() for w in _tokenize(text)}
+    for emo, lex in EMOTION_LEXICON.items():
+        base[emo] = len(words & lex)
+    total = sum(base.values())
+    if total == 0:
+        return {k: 0.0 for k in base}
+    return {k: round(v / total, 4) for k, v in base.items()}
+

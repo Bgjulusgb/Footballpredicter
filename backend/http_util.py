@@ -10,6 +10,7 @@ import json
 import time
 import urllib.error
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 
 from . import config
 
@@ -96,3 +97,22 @@ def fetch_json(url, headers=None, timeout=None, retries=None):
         res.ok = False
         res.error = f"JSON parse error: {e}"
         return None, res
+
+
+def run_parallel(tasks, max_workers=6):
+    """Run {name: callable} concurrently. Returns {name: result_or_Exception}.
+
+    Each callable is run in its own thread so independent sources/feeds are
+    fetched at the same time. Exceptions are captured, never raised, so one
+    failing task cannot abort the others.
+    """
+    results = {}
+    with ThreadPoolExecutor(max_workers=max_workers) as pool:
+        futures = {pool.submit(fn): name for name, fn in tasks.items()}
+        for fut in futures:
+            name = futures[fut]
+            try:
+                results[name] = fut.result()
+            except Exception as e:  # noqa: BLE001 - isolate per-task failures
+                results[name] = e
+    return results

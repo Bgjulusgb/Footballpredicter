@@ -9,8 +9,10 @@ import datetime as dt
 import json
 import os
 
-from . import config, enrich, model
+from . import analysis, config, enrich, history, model
+from .http_util import run_parallel
 from .sources import espn, google_news, reddit, basketball_reference
+from .sources.base import SourceResult, STATUS_ERROR
 
 
 def _now_iso():
@@ -86,11 +88,24 @@ def _resolve_market(game):
 
 
 def build_snapshot():
-    # --- 1. Fetch every source in isolation -------------------------------
-    espn_res = espn.fetch_game()
-    news_res = google_news.fetch_press_review()
-    reddit_res = reddit.fetch_social()
-    bref_res = basketball_reference.fetch_history()
+    # --- 1. Fetch every source CONCURRENTLY, each fully isolated ----------
+    fetched = run_parallel({
+        "espn": espn.fetch_game,
+        "press": google_news.fetch_press_review,
+        "reddit": reddit.fetch_social,
+        "bref": basketball_reference.fetch_history,
+    })
+
+    def _safe(name, source_name):
+        r = fetched.get(name)
+        if isinstance(r, Exception):
+            return SourceResult(source_name, STATUS_ERROR, error=str(r))
+        return r
+
+    espn_res = _safe("espn", "espn")
+    news_res = _safe("press", "press_review")
+    reddit_res = _safe("reddit", "reddit")
+    bref_res = _safe("bref", "basketball_reference")
 
     sources = [espn_res, news_res, reddit_res, bref_res]
 
@@ -113,7 +128,12 @@ def build_snapshot():
         "away": model.mood_meters(away_recs),
         "team_sentiment": model.team_sentiment(relevant),
         "timeline": _sentiment_timeline(relevant),
+        "emotions": analysis.emotion_profile(relevant),
     }
+
+    # --- 3b. Deeper analysis: players, narratives -------------------------
+    players = analysis.player_sentiment(imported)
+    narratives = analysis.narratives(imported)
 
     # --- 4. Prediction math -----------------------------------------------
     game = espn_res.meta.get("game") if espn_res.meta else None
@@ -132,6 +152,8 @@ def build_snapshot():
     per_game = _per_game_series_probs(ratings, ens["away"])
     clinch = model.series_clinch([g["leader_win"] for g in per_game])
 
+    value = analysis.value_bet(market, ens, game.get("odds") if game else None)
+
     prediction = {
         "market": market,
         "elo": {
@@ -142,6 +164,7 @@ def build_snapshot():
         "sentiment_delta": round(delta, 4),
         "ensemble": ens,
         "confidence": conf,
+        "value_bet": value,
         "series": {
             "leader": config.GAME["series"]["leader"],
             "lead": config.GAME["series"]["lead"],
@@ -166,9 +189,14 @@ def build_snapshot():
         "social": sorted(social, key=lambda r: r.get("engagement", 0),
                          reverse=True),
         "mood": mood,
+        "players": players,
+        "narratives": narratives,
         "prediction": prediction,
         "import_stats": import_stats,
     }
+    # Append to the rolling history, then attach the recent tail for trends.
+    history.append(snapshot)
+    snapshot["history"] = history.load_recent()
     return snapshot
 
 
