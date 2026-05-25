@@ -34,6 +34,7 @@ GAME = {
 
 # --- Source endpoints ------------------------------------------------------
 ESPN_SCOREBOARD = "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard"
+ESPN_SUMMARY = "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary"
 ESPN_NEWS_RSS = "https://www.espn.com/espn/rss/nba/news"
 
 # Google News RSS search queries (English, US edition).

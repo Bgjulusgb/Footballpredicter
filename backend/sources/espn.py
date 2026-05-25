@@ -148,3 +148,60 @@ def _to_int(v):
         return int(v)
     except (TypeError, ValueError):
         return None
+
+
+def fetch_summary(game_id, home=None, away=None):
+    """Fetch ESPN's matchup summary: predictor, recent form, season series.
+
+    Returns a SourceResult whose meta holds {predictor, form, season_series}.
+    Best-effort enrichment on top of the scoreboard; never fatal.
+    """
+    home = home or config.GAME["home"]
+    away = away or config.GAME["away"]
+    url = f"{config.ESPN_SUMMARY}?event={game_id}"
+    data, res = fetch_json(url)
+    if not res.ok or data is None:
+        return SourceResult("espn_summary", STATUS_PARTIAL, error=res.error)
+
+    meta = {}
+
+    pred = data.get("predictor") or {}
+    if pred:
+        ht = pred.get("homeTeam", {})
+        at = pred.get("awayTeam", {})
+        meta["predictor"] = {
+            "home": _pct(ht.get("gameProjection")),
+            "away": _pct(at.get("gameProjection")),
+        }
+
+    form = {}
+    for block in data.get("lastFiveGames", []) or []:
+        abbr = block.get("team", {}).get("abbreviation")
+        side = "home" if abbr == home.get("espn_abbr") or abbr == home.get("abbr") \
+            else "away" if abbr == away.get("espn_abbr") or abbr == away.get("abbr") \
+            else None
+        if side is None:
+            continue
+        results = [e.get("gameResult") for e in block.get("events", [])
+                   if e.get("gameResult")]
+        form[side] = {"abbr": abbr, "results": results,
+                      "wins": results.count("W"), "losses": results.count("L")}
+    if form:
+        meta["form"] = form
+
+    series = data.get("seasonseries") or []
+    if series:
+        meta["season_series"] = {
+            "summary": series[0].get("summary"),
+            "title": series[0].get("title"),
+        }
+
+    status = STATUS_OK if "predictor" in meta else STATUS_PARTIAL
+    return SourceResult("espn_summary", status, meta=meta)
+
+
+def _pct(v):
+    try:
+        return round(float(v) / 100.0, 4)
+    except (TypeError, ValueError):
+        return None

@@ -64,6 +64,31 @@ NBA_LEXICON = {
 
 LEXICON = {**GENERAL_LEXICON, **NBA_LEXICON}
 
+# Multi-word phrases scored as a unit (matched before single words).
+PHRASE_LEXICON = {
+    "buzzer beater": 2.6, "game winner": 2.6, "game-winner": 2.6,
+    "on fire": 2.2, "ice cold": -1.8, "triple double": 1.9,
+    "double double": 1.2, "career high": 2.1, "dagger three": 2.5,
+    "blown lead": -2.4, "blew the lead": -2.5, "must win": -0.4,
+    "must-win": -0.4, "no answer": -1.3, "foul trouble": -1.4,
+    "season ending": -2.6, "bad call": -1.9, "missed call": -1.7,
+    "bounce back": 1.0, "load management": -0.8, "garbage time": -0.7,
+}
+
+# A few emoji with sports-fan valence.
+EMOJI_LEXICON = {
+    "🔥": 1.6, "🐐": 2.5, "💯": 1.6, "🙌": 1.6, "❤": 1.5, "👏": 1.2,
+    "😤": 0.5, "💀": -0.4, "🤡": -2.2, "😭": -1.2, "🚮": -2.0, "👎": -1.5,
+    "😡": -2.0, "🤬": -2.4,
+}
+
+CONTRAST_WORDS = {"but", "however", "although", "though", "yet"}
+
+_PHRASE_RE = re.compile(
+    "|".join(re.escape(p) for p in sorted(PHRASE_LEXICON, key=len, reverse=True)),
+    re.IGNORECASE,
+)
+
 # Referee/conspiracy/insult terms that drive a "toxicity" reading.
 TOXICITY_TERMS = {
     "rigged", "refball", "robbed", "scam", "fraud", "trash", "garbage",
@@ -109,14 +134,30 @@ def score_text(text):
         return {"compound": 0.0, "pos": 0.0, "neg": 0.0, "neu": 1.0,
                 "toxicity": 0.0}
 
+    # Multi-word phrases are scored as a unit, then removed so their component
+    # words are not double-counted by the single-word pass below.
+    phrase_valences = []
+    def _take_phrase(m):
+        phrase_valences.append(PHRASE_LEXICON[m.group(0).lower()])
+        return " "
+    text = _PHRASE_RE.sub(_take_phrase, text)
+
+    # Emoji valences (searched on the raw text).
+    emoji_valences = [v * text.count(e) for e, v in EMOJI_LEXICON.items()
+                      if e in text]
+    emoji_valences = [v for v in emoji_valences if v]
+
     tokens = _tokenize(text)
     words_lower = [t.lower() for t in tokens]
     exclamations = text.count("!")
     questions = text.count("?")
     # Caps emphasis only matters when the whole text isn't shouting.
     mostly_caps = sum(1 for t in tokens if _is_allcaps(t)) > len(tokens) * 0.6
+    # Position of the first contrastive word, for "but"-style re-weighting.
+    contrast_at = next((i for i, w in enumerate(words_lower)
+                        if w in CONTRAST_WORDS), None)
 
-    valences = []
+    valences = []          # (valence, token_index)
     tox_hits = 0
     content_words = 0
 
@@ -159,13 +200,23 @@ def score_text(text):
         if negated:
             valence *= N_SCALAR
 
-        valences.append(valence)
+        valences.append((valence, i))
 
-    if not valences:
+    # Apply "but"-style contrast: de-emphasise clauses before the contrast
+    # word, emphasise those after it (mirrors VADER).
+    weighted = []
+    for v, idx in valences:
+        if contrast_at is not None:
+            v *= 0.5 if idx < contrast_at else 1.5
+        weighted.append(v)
+    # Phrase and emoji valences carry full weight.
+    weighted.extend(phrase_valences)
+    weighted.extend(emoji_valences)
+
+    if not weighted:
         compound = 0.0
-        total = 0.0
     else:
-        total = sum(valences)
+        total = sum(weighted)
         # Punctuation emphasis pushes magnitude away from zero.
         punct_emph = _punct_emphasis(exclamations, questions)
         if total > 0:
@@ -175,8 +226,8 @@ def score_text(text):
         compound = total / math.sqrt(total * total + ALPHA)
         compound = max(-1.0, min(1.0, compound))
 
-    pos_sum = sum(v for v in valences if v > 0)
-    neg_sum = sum(-v for v in valences if v < 0)
+    pos_sum = sum(v for v in weighted if v > 0)
+    neg_sum = sum(-v for v in weighted if v < 0)
     neu_count = max(0, content_words - len(valences))
     norm = pos_sum + neg_sum + neu_count
     if norm == 0:

@@ -28,6 +28,11 @@ def _hash_id(prefix, *parts):
     return f"{prefix}:{h.hexdigest()[:12]}"
 
 
+def _norm_title(title):
+    """Normalise a headline for cross-outlet duplicate detection."""
+    return re.sub(r"[^a-z0-9 ]", "", (title or "").lower()).strip()
+
+
 def _parse_rss(xml_text, source_name):
     """Parse an RSS document into article records."""
     records = []
@@ -99,6 +104,7 @@ def fetch_press_review(queries=None):
     fetched = run_parallel(tasks)
 
     all_records = {}
+    seen_titles = set()
     errors = []
     ok_any = False
     for i, (url, name) in enumerate(feeds):
@@ -108,7 +114,14 @@ def fetch_press_review(queries=None):
             continue
         try:
             for rec in _parse_rss(res.body, name):
-                all_records[rec["id"]] = rec  # de-dup by id
+                if rec["id"] in all_records:
+                    continue
+                # Also drop the same story syndicated across outlets.
+                norm = _norm_title(rec["title"])
+                if norm and norm in seen_titles:
+                    continue
+                seen_titles.add(norm)
+                all_records[rec["id"]] = rec
             ok_any = True
         except ET.ParseError as e:
             errors.append(f"{name}: parse error {e}")

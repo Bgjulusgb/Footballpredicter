@@ -63,6 +63,13 @@ class TestElo(unittest.TestCase):
         self.assertAlmostEqual(model.log5(0.6, 0.6), 0.5, places=6)
         self.assertGreater(model.log5(0.7, 0.5), 0.5)
 
+    def test_form_adjustment(self):
+        base = {"home": 1600.0, "away": 1600.0}
+        form = {"home": {"wins": 1, "losses": 4}, "away": {"wins": 5, "losses": 0}}
+        adj = model.elo_adjust_for_form(base, form)
+        self.assertLess(adj["home"], base["home"])     # cold team drops
+        self.assertGreater(adj["away"], base["away"])   # hot team rises
+
 
 class TestLive(unittest.TestCase):
     def test_run_detection(self):
@@ -93,16 +100,60 @@ class TestSeries(unittest.TestCase):
 
 
 class TestEnsemble(unittest.TestCase):
-    def test_market_dominates(self):
-        ens = model.ensemble(0.7, 0.5, 0.0)
+    def test_market_weighted(self):
+        ens = model.ensemble({"market": 0.7, "elo": 0.5}, 0.0)
         self.assertTrue(0.6 < ens["home"] < 0.7)   # weighted toward market
 
+    def test_three_models(self):
+        ens = model.ensemble({"market": 0.6, "elo": 0.5, "espn": 0.55}, 0.0)
+        self.assertTrue(0.5 < ens["home"] < 0.6)
+        self.assertIn("espn", ens["components"])
+
     def test_sentiment_bounded(self):
-        # Even an extreme differential cannot move the result more than the cap.
-        base = model.ensemble(0.5, 0.5, 0.0)["home"]
-        nudged = model.ensemble(0.5, 0.5, model.sentiment_delta(
+        base = model.ensemble({"market": 0.5, "elo": 0.5}, 0.0)["home"]
+        nudged = model.ensemble({"market": 0.5, "elo": 0.5}, model.sentiment_delta(
             {"home": 1.0, "away": -1.0}))["home"]
         self.assertLessEqual(nudged - base, model.SENT_MAX_DELTA + 1e-9)
+
+    def test_confidence_agreement(self):
+        agree = model.confidence({"market": 0.6, "elo": 0.6}, 40)
+        disagree = model.confidence({"market": 0.6, "elo": 0.2}, 40)
+        self.assertGreater(agree, disagree)
+
+
+class TestLiveWinProb(unittest.TestCase):
+    def test_anchors_to_pregame_early(self):
+        # Tied at tip-off -> close to the pre-game prior.
+        wp = model.live_win_probability(0, 1, "12:00", pregame_home=0.6)
+        self.assertTrue(0.5 < wp < 0.7)
+
+    def test_big_late_lead(self):
+        wp = model.live_win_probability(18, 4, "1:00", pregame_home=0.5)
+        self.assertGreater(wp, 0.95)
+
+    def test_monotonic_in_margin(self):
+        a = model.live_win_probability(5, 3, "6:00", 0.5)
+        b = model.live_win_probability(-5, 3, "6:00", 0.5)
+        self.assertGreater(a, b)
+
+    def test_seconds_remaining(self):
+        self.assertAlmostEqual(model.seconds_remaining(1, "12:00"), 2880, delta=1)
+        self.assertAlmostEqual(model.seconds_remaining(4, "0:00"), 0, delta=1)
+
+
+class TestBacktest(unittest.TestCase):
+    def test_perfect_predictions(self):
+        from . import backtest
+        preds = [{"prob_home": 0.99, "home_won": 1},
+                 {"prob_home": 0.01, "home_won": 0}]
+        m = backtest.evaluate(preds)
+        self.assertEqual(m["accuracy"], 1.0)
+        self.assertLess(m["brier"], 0.01)
+        self.assertGreater(m["skill_score"], 0.9)
+
+    def test_empty(self):
+        from . import backtest
+        self.assertEqual(backtest.evaluate([])["n"], 0)
 
 
 class TestImportRule(unittest.TestCase):
@@ -137,6 +188,19 @@ class TestEmotions(unittest.TestCase):
 
     def test_empty_is_zero(self):
         self.assertEqual(sum(sentiment.emotions("the a of to").values()), 0.0)
+
+
+class TestSentimentAdvanced(unittest.TestCase):
+    def test_phrase(self):
+        self.assertGreater(sentiment.score_text("what a buzzer beater")["compound"], 0.3)
+
+    def test_emoji(self):
+        self.assertGreater(sentiment.score_text("Brunson is on fire 🔥🐐")["compound"], 0.3)
+        self.assertLess(sentiment.score_text("the refs 🤡🤡 robbed us")["compound"], 0)
+
+    def test_contrast_but(self):
+        s = sentiment.score_text("they played well but it was a terrible collapse")
+        self.assertLess(s["compound"], 0)
 
 
 class TestAnalysis(unittest.TestCase):
@@ -176,6 +240,25 @@ class TestAnalysis(unittest.TestCase):
 
     def test_value_bet_none_without_market(self):
         self.assertIsNone(analysis.value_bet(None, {"home": 0.5, "away": 0.5}, {}))
+
+
+class TestAttribution(unittest.TestCase):
+    def test_word_boundary_no_false_match(self):
+        # "ny" must not match inside "company"; this is general, not the Knicks.
+        self.assertEqual(enrich._attribute_team("the company announced", None), None)
+
+    def test_team_match(self):
+        self.assertEqual(enrich._attribute_team("Knicks roll on", None), "away")
+        self.assertEqual(enrich._attribute_team("Cavaliers respond", None), "home")
+        self.assertEqual(enrich._attribute_team("Cavaliers host the Knicks", None), "both")
+
+    def test_recency_weight(self):
+        import datetime as dt
+        now = dt.datetime(2026, 5, 25, tzinfo=dt.timezone.utc)
+        fresh = model.recency_weight("2026-05-25T00:00:00+00:00", now=now)
+        old = model.recency_weight("2026-05-19T00:00:00+00:00", now=now)
+        self.assertGreater(fresh, old)
+        self.assertAlmostEqual(model.recency_weight(None), 0.5)
 
 
 class TestHistory(unittest.TestCase):

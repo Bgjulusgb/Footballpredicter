@@ -8,18 +8,33 @@ and assigns a status. Then imports them with the rule the user asked for:
     "error" records are dropped.
 """
 
+import re
+
 from . import config
 from . import sentiment
 from .sources.base import STATUS_OK, STATUS_PARTIAL, STATUS_ERROR
 
 
+def _build_team_regex(side):
+    aliases = sorted(config.GAME[side]["aliases"], key=len, reverse=True)
+    return re.compile(r"\b(?:" + "|".join(re.escape(a) for a in aliases) + r")\b",
+                      re.IGNORECASE)
+
+
+_HOME_RE = _build_team_regex("home")
+_AWAY_RE = _build_team_regex("away")
+
+
 def _attribute_team(text, team_hint):
-    """Return 'home' | 'away' | 'both' | None based on alias mentions."""
+    """Return 'home' | 'away' | 'both' | None based on alias mentions.
+
+    Uses word-boundary matching so short aliases like "ny"/"cle" don't
+    false-match substrings (e.g. "ny" inside "company"/"many").
+    """
     if team_hint in ("home", "away"):
         return team_hint
-    low = text.lower()
-    home_hit = any(a in low for a in config.GAME["home"]["aliases"])
-    away_hit = any(a in low for a in config.GAME["away"]["aliases"])
+    home_hit = bool(_HOME_RE.search(text))
+    away_hit = bool(_AWAY_RE.search(text))
     if home_hit and away_hit:
         return "both"
     if home_hit:
