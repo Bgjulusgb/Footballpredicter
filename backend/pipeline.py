@@ -9,11 +9,14 @@ import datetime as dt
 import json
 import os
 
-from . import (advanced_math, analysis, config, enrich, history,
-               injury_impact, model, simulation, streaks)
+from . import (advanced_math, aggregator, analysis, categorizer, config,
+               enrich, history, injury_impact, lineup_analyzer, model,
+               simulation, streaks)
 from .http_util import run_parallel
-from .sources import espn, google_news, reddit, basketball_reference
-from .sources.base import SourceResult, STATUS_ERROR
+from .sources import (basketball_reference, espn, flashscore, google_news,
+                      nba_stats, reddit, rotowire, sofascore, teamrankings,
+                      thescore)
+from .sources.base import SourceResult, STATUS_ERROR, STATUS_PARTIAL
 
 
 def _now_iso():
@@ -90,12 +93,25 @@ def _resolve_market(game):
 
 def build_snapshot():
     # --- 1. Fetch every source CONCURRENTLY, each fully isolated ----------
+    # 4 "core" sources we always pull, plus the new "depth" sources from
+    # Sofascore / Flashscore / TheScore / NBA stats / Rotowire / TeamRankings.
     fetched = run_parallel({
+        # Core (already in v1).
         "espn": espn.fetch_game,
         "press": google_news.fetch_press_review,
         "reddit": reddit.fetch_social,
         "bref": basketball_reference.fetch_history,
-    })
+        # New scrapers — each is best-effort, failure isolated.
+        "sofascore_bundle": sofascore.fetch_all,
+        "flashscore": flashscore.fetch_game,
+        "thescore": thescore.fetch_game,
+        "nba_standings": nba_stats.fetch_standings,
+        "rotowire_lineups": rotowire.fetch_lineups,
+        "rotowire_injuries": rotowire.fetch_injuries,
+        "teamrankings_power": teamrankings.fetch_power_ratings,
+        "teamrankings_ats": teamrankings.fetch_ats_trends,
+        "teamrankings_ou": teamrankings.fetch_ou_trends,
+    }, max_workers=10)
 
     def _safe(name, source_name):
         r = fetched.get(name)
@@ -107,15 +123,40 @@ def build_snapshot():
     news_res = _safe("press", "press_review")
     reddit_res = _safe("reddit", "reddit")
     bref_res = _safe("bref", "basketball_reference")
+    flash_res = _safe("flashscore", "flashscore")
+    score_res = _safe("thescore", "thescore")
+    nba_stand = _safe("nba_standings", "nba_stats_standings")
+    rw_line = _safe("rotowire_lineups", "rotowire_lineups")
+    rw_inj = _safe("rotowire_injuries", "rotowire_injuries")
+    tr_power = _safe("teamrankings_power", "teamrankings_power")
+    tr_ats = _safe("teamrankings_ats", "teamrankings_ats")
+    tr_ou = _safe("teamrankings_ou", "teamrankings_ou")
 
-    sources = [espn_res, news_res, reddit_res, bref_res]
+    # Sofascore bundle is a dict of SourceResult; flatten it for the source list.
+    sofa_bundle = fetched.get("sofascore_bundle")
+    if isinstance(sofa_bundle, Exception):
+        sofa_bundle = {"discover": SourceResult("sofascore",
+                                                  STATUS_ERROR,
+                                                  error=str(sofa_bundle))}
+    sofa_bundle = sofa_bundle or {}
+
+    sources = [espn_res, news_res, reddit_res, bref_res, flash_res, score_res,
+               nba_stand, rw_line, rw_inj, tr_power, tr_ats, tr_ou]
+    sources.extend(sofa_bundle.values())
 
     # --- 2. Enrich + import (ok bypasses re-filter) -----------------------
-    raw = list(news_res.records) + list(reddit_res.records)
+    # Now also include Rotowire injuries + lineups so they get sentiment-scored
+    # and team-attributed alongside news.
+    raw = (list(news_res.records) + list(reddit_res.records)
+           + list(rw_line.records) + list(rw_inj.records))
     imported, import_stats = enrich.enrich_and_import(raw)
+    categorizer.categorize_records(imported)
 
     press_review = [r for r in imported if r["kind"] == "article"]
     social = [r for r in imported if r["kind"] == "social"]
+    lineups_raw = [r for r in imported if r["kind"] == "lineup"]
+    injuries_raw = [r for r in imported if r["kind"] == "injury"]
+    category_summary = categorizer.category_breakdown(imported)
 
     # --- 3. Mood meters + per-team sentiment ------------------------------
     # Only matchup-relevant records feed the mood; "general" NBA news is kept
@@ -141,6 +182,82 @@ def build_snapshot():
         "outlets": analysis.top_outlets(press_review),
     }
 
+    # --- 3c. Cross-source unification (scores, odds, lineups, source health)
+    sofa_game = (sofa_bundle.get("game").meta.get("game")
+                  if (sofa_bundle.get("game")
+                      and sofa_bundle["game"].meta) else None)
+    flash_game = flash_res.meta.get("game") if flash_res.meta else None
+    score_game = score_res.meta.get("game") if score_res.meta else None
+    espn_game_for_merge = (espn_res.meta.get("game") if espn_res.meta else None)
+
+    scores_unified = aggregator.merge_scores({
+        "espn": espn_game_for_merge,
+        "sofascore": sofa_game,
+        "flashscore": flash_game,
+        "thescore": score_game,
+    })
+
+    sofa_lineups = (sofa_bundle.get("lineups").meta.get("lineups")
+                     if (sofa_bundle.get("lineups")
+                         and sofa_bundle["lineups"].meta) else None)
+    lineups_unified = aggregator.pick_lineup(sofa_lineups)
+    lineup_meta = None
+    if lineups_unified:
+        lineup_meta = {
+            "starting_advantage": lineup_analyzer.starting_advantage(
+                lineups_unified.get("home"), lineups_unified.get("away")),
+            "home_missing": lineup_analyzer.missing_players_impact(
+                lineups_unified.get("home")),
+            "away_missing": lineup_analyzer.missing_players_impact(
+                lineups_unified.get("away")),
+            "home_box_total": lineup_analyzer.box_score_summary(
+                lineups_unified.get("home")),
+            "away_box_total": lineup_analyzer.box_score_summary(
+                lineups_unified.get("away")),
+            "home_top_minutes": lineup_analyzer.top_minutes_players(
+                lineups_unified.get("home"), n=5),
+            "away_top_minutes": lineup_analyzer.top_minutes_players(
+                lineups_unified.get("away"), n=5),
+        }
+
+    sofa_odds_block = (sofa_bundle.get("odds").meta.get("odds")
+                        if (sofa_bundle.get("odds")
+                            and sofa_bundle["odds"].meta) else None)
+    espn_odds_block = (espn_game_for_merge or {}).get("odds")
+    odds_unified = aggregator.merge_odds_books(espn_odds_block, sofa_odds_block)
+
+    # Sofascore stats / form / h2h / featured / graph passthroughs.
+    sofa_stats = (sofa_bundle.get("stats").meta.get("stats")
+                   if (sofa_bundle.get("stats")
+                       and sofa_bundle["stats"].meta) else None)
+    sofa_form = (sofa_bundle.get("form").meta.get("form")
+                  if (sofa_bundle.get("form")
+                      and sofa_bundle["form"].meta) else None)
+    sofa_h2h = (sofa_bundle.get("h2h").meta.get("h2h")
+                 if (sofa_bundle.get("h2h")
+                     and sofa_bundle["h2h"].meta) else None)
+    sofa_graph = (sofa_bundle.get("graph").meta.get("points")
+                   if (sofa_bundle.get("graph")
+                       and sofa_bundle["graph"].meta) else None)
+    sofa_featured = (sofa_bundle.get("featured").meta.get("featured")
+                      if (sofa_bundle.get("featured")
+                          and sofa_bundle["featured"].meta) else None)
+    sofa_incidents = (sofa_bundle.get("incidents").records
+                       if sofa_bundle.get("incidents") else None)
+
+    # Team rankings + standings passthroughs.
+    teamrank = {
+        "power": (tr_power.meta or {}).get("rankings"),
+        "ats": (tr_ats.meta or {}).get("trends"),
+        "ou": (tr_ou.meta or {}).get("trends"),
+    }
+    standings = (nba_stand.meta or {}).get("standings")
+    if standings:
+        standings_target = nba_stats.standings_for_teams(
+            config.GAME["home"]["abbr"], config.GAME["away"]["abbr"], standings)
+    else:
+        standings_target = None
+
     # --- 4. Prediction math -----------------------------------------------
     game = espn_res.meta.get("game") if espn_res.meta else None
     market = _resolve_market(game)
@@ -154,15 +271,24 @@ def build_snapshot():
     espn_pred = summary_meta.get("predictor")
 
     ratings = model.elo_from_history(bref_res.meta if bref_res.meta else None)
+    # Form first from ESPN, then refined by Sofascore (more recent).
     ratings = model.elo_adjust_for_form(ratings, summary_meta.get("form"))
+    if sofa_form:
+        ratings = model.elo_adjust_for_form(ratings, sofa_form)
     p_elo_home = model.elo_expected(ratings["home"], ratings["away"])
     ts = mood["team_sentiment"]
     delta = model.sentiment_delta(ts)
+
+    # Power-rating signal from TeamRankings, if available.
+    tr_prob = _power_rating_prob(teamrank.get("power"),
+                                  config.GAME["home"]["name"],
+                                  config.GAME["away"]["name"])
 
     model_probs = {
         "market": market["home"] if market else None,
         "elo": p_elo_home,
         "espn": espn_pred["home"] if espn_pred else None,
+        "power": tr_prob,
     }
     ens = model.ensemble(model_probs, delta)
     conf = model.confidence(model_probs, ts["count_home"] + ts["count_away"])
@@ -210,6 +336,7 @@ def build_snapshot():
         "label": config.GAME["label"],
         "teams": {"home": config.GAME["home"], "away": config.GAME["away"]},
         "sources": [s.to_dict() for s in sources],
+        "source_health": aggregator.source_health([s.to_dict() for s in sources]),
         "press_review": sorted(press_review,
                                key=lambda r: r.get("published") or "",
                                reverse=True),
@@ -219,14 +346,56 @@ def build_snapshot():
         "players": players,
         "narratives": narratives_list,
         "narrative_meta": narrative_meta,
+        "categories": category_summary,
         "prediction": prediction,
         "advanced": advanced,
+        # New top-level blocks fed by the additional scrapers.
+        "scores_unified": scores_unified,
+        "lineups_unified": lineups_unified,
+        "lineup_meta": lineup_meta,
+        "odds_unified": odds_unified,
+        "sofascore": {
+            "stats": sofa_stats,
+            "form": sofa_form,
+            "h2h": sofa_h2h,
+            "graph": sofa_graph,
+            "featured": sofa_featured,
+            "incidents": sofa_incidents,
+        },
+        "teamrankings": teamrank,
+        "standings": standings_target,
+        "lineups_records": lineups_raw,
+        "injuries_records": injuries_raw,
         "import_stats": import_stats,
     }
     # Append to the rolling history, then attach the recent tail for trends.
     history.append(snapshot)
     snapshot["history"] = history.load_recent()
     return snapshot
+
+
+def _power_rating_prob(rankings, home_name: str, away_name: str) -> float | None:
+    """Translate TeamRankings power ratings into a home win probability.
+
+    Looks up both teams by name, takes the rating difference and turns it
+    into a probability via the same Elo-style logistic mapping we already use.
+    """
+    if not rankings:
+        return None
+    h = a = None
+    for row in rankings:
+        team = (row.get("team") or "").lower()
+        if not team:
+            continue
+        if home_name.lower().split()[-1] in team:
+            h = row.get("rating")
+        if away_name.lower().split()[-1] in team:
+            a = row.get("rating")
+    if h is None or a is None:
+        return None
+    diff = (h + 3.0) - a    # +3 power points ~= home court
+    # 8 power points ~= one win expectancy unit.
+    return round(1.0 / (1.0 + 10 ** (-diff / 8.0)), 4)
 
 
 def write_snapshot(path=None):

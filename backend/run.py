@@ -141,6 +141,46 @@ def _cmd_advanced(_args):
     return 0
 
 
+def _cmd_api(args):
+    """Run the stdlib HTTP API + static dashboard server."""
+    from . import api_server
+    api_server.serve(port=args.port, bind=args.bind)
+    return 0
+
+
+def _cmd_sources(_args):
+    """List every configured scraper + reachability dry-run."""
+    from .sources import (basketball_reference, espn, flashscore, google_news,
+                          nba_cdn, nba_stats, reddit, rotowire, sofascore,
+                          teamrankings, thescore)
+    print("Configured scrapers:")
+    for name, fn in [
+        ("espn",                 espn.fetch_game),
+        ("google_news",          google_news.fetch_press_review),
+        ("reddit",               reddit.fetch_social),
+        ("basketball_reference", basketball_reference.fetch_history),
+        ("sofascore",            lambda: sofascore.discover_event_id()[1]),
+        ("flashscore",           flashscore.fetch_game),
+        ("thescore",             thescore.fetch_game),
+        ("nba_cdn",              nba_cdn.fetch_playbyplay),
+        ("nba_stats_standings",  nba_stats.fetch_standings),
+        ("rotowire_lineups",     rotowire.fetch_lineups),
+        ("rotowire_injuries",    rotowire.fetch_injuries),
+        ("teamrankings_power",   teamrankings.fetch_power_ratings),
+        ("teamrankings_ats",     teamrankings.fetch_ats_trends),
+        ("teamrankings_ou",      teamrankings.fetch_ou_trends),
+    ]:
+        try:
+            res = fn()
+            count = len(getattr(res, "records", []) or [])
+            meta_keys = list((getattr(res, "meta", None) or {}).keys())
+            print(f"  {name:24} {res.status:8} records={count:<4} "
+                  f"meta={meta_keys}  err={res.error or ''}")
+        except Exception as e:                       # noqa: BLE001
+            print(f"  {name:24} EXC {type(e).__name__}: {e}")
+    return 0
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description="NBA Mood Mirror backend")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -184,11 +224,19 @@ def main(argv=None):
 
     sub.add_parser("advanced", help="pretty-print snapshot.advanced")
 
+    p_api = sub.add_parser("api", help="stdlib HTTP API + static dashboard")
+    p_api.add_argument("--port", type=int, default=8000)
+    p_api.add_argument("--bind", default="127.0.0.1",
+                        help="listen address (default 127.0.0.1; use 0.0.0.0 to expose)")
+
+    sub.add_parser("sources", help="dry-run every scraper, show reachability")
+
     args = parser.parse_args(argv)
     return {"snapshot": _cmd_snapshot, "live": _cmd_live, "auto": _cmd_auto,
             "evaluate": _cmd_evaluate, "dashboard": _cmd_dashboard,
             "tui": _cmd_tui, "simulate": _cmd_simulate,
-            "advanced": _cmd_advanced}[args.command](args)
+            "advanced": _cmd_advanced, "api": _cmd_api,
+            "sources": _cmd_sources}[args.command](args)
 
 
 if __name__ == "__main__":

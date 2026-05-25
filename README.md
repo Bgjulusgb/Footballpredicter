@@ -4,12 +4,20 @@
 > multi-model **win-probability prediction** for an NBA game — built entirely on
 > **free, keyless** data sources. No API keys, no paid services, no build step.
 
-![Python](https://img.shields.io/badge/python-3.8%2B-blue)
+![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![Dependencies](https://img.shields.io/badge/backend-stdlib%20only-informational)
 ![API keys](https://img.shields.io/badge/API%20keys-none-success)
 ![Cost](https://img.shields.io/badge/cost-%240-success)
-![Tests](https://img.shields.io/badge/tests-39%20passing-brightgreen)
+![Tests](https://img.shields.io/badge/tests-130%20passing-brightgreen)
+![Scrapers](https://img.shields.io/badge/scrapers-14%20sources-blueviolet)
 ![Language](https://img.shields.io/badge/language-English-lightgrey)
+
+> **v2 highlights:** Sofascore + Flashscore + TheScore + NBA-stats + Rotowire
+> + TeamRankings + OddsPortal + ActionNetwork scrapers · 6 Math modules
+> (Monte Carlo, Glicko-2, Bayesian, Kelly, Four Factors, …) · ANSI CLI +
+> curses TUI + React web dashboard · stdlib HTTP **REST API** at `/api/*` ·
+> rule-based **category** classifier · cross-source **score consensus** +
+> **multi-book odds** + **lineup analysis** + **composite momentum**.
 
 It blends **analyst & press coverage**, **fan social sentiment**, **betting
 odds** and **historical team strength** into one live mood picture and a
@@ -119,27 +127,54 @@ is included so a Node-only setup remains a one-command option.
 ## Quick start
 
 ```bash
-# 1) Build the pre-game snapshot (fetches sources, runs the analysis + math)
+# 1) Build the pre-game snapshot (fetches every source in parallel, runs the math)
 python3 -m backend.run snapshot
 
-# 2) Serve the dashboard (pick one), then open http://localhost:8000/
-python3 -m http.server 8000
-#   or:  node server.js
+# 2) Serve the dashboard + JSON REST API (Python OR Node — pick one)
+python3 -m backend.run api               # http://localhost:8000/ + /api/*
+node server.js                           # same, but Node-only
+python3 -m http.server 8000              # legacy: static-only
 
-# 3) During the game, run live mode in another terminal
-python3 -m backend.run live                                  # polls every 25s
-python3 -m backend.run live --once                           # single update
-python3 -m backend.run live --fixture data/fixture_pbp.json  # demo it right now
+# 3) Live mode (during the game)
+python3 -m backend.run live              # polls every 25s
+python3 -m backend.run live --once
+python3 -m backend.run live --fixture data/fixture_pbp.json
+python3 -m backend.run auto              # snapshot + auto-live if game is on
 
-# auto: snapshot, then start live mode automatically if the game is on
-python3 -m backend.run auto
+# 4) Native UIs
+python3 -m backend.run dashboard         # ANSI CLI (--watch for auto-refresh)
+python3 -m backend.run dashboard --tab categories
+python3 -m backend.run tui               # interactive curses TUI
 
-# score predictions vs. outcomes (calibration)
+# 5) Math + sources tools
+python3 -m backend.run simulate --home-win-prob 0.55 --decimal-odds 2.1
+python3 -m backend.run advanced          # pretty-print snapshot.advanced
+python3 -m backend.run sources           # dry-run every scraper
+
+# 6) Calibration + tests
 python3 -m backend.run evaluate --results data/results_sample.json
-
-# tests
-python3 -m unittest backend.tests
+python3 -m unittest backend.tests backend.tests_advanced backend.tests_v2
 ```
+
+### REST API (served by `backend.run api` or `node server.js`)
+
+| Endpoint                       | Returns                                   |
+|--------------------------------|--------------------------------------------|
+| `GET /api/health`              | overall status + source-uptime counters    |
+| `GET /api/snapshot`            | full snapshot JSON                         |
+| `GET /api/snapshot/<section>`  | one top-level section (e.g. `mood`)        |
+| `GET /api/live`                | latest live snapshot                       |
+| `GET /api/categories`          | category counts + mean sentiment           |
+| `GET /api/category/<name>`     | records filtered to one category           |
+| `GET /api/players?team=home`   | per-player buzz/sentiment leaderboard      |
+| `GET /api/odds`                | aggregated multi-book odds                 |
+| `GET /api/lineups`             | unified lineup payload                     |
+| `GET /api/sources`             | per-source health grid                     |
+| `GET /api/advanced`            | Monte Carlo, Glicko-2, Kelly, injuries     |
+| `GET /api/narratives`          | trending narrative terms + meta            |
+| `GET /api/momentum`            | composite live momentum (needs live data)  |
+| `GET /api/simulate?p=0.55`     | on-demand Monte Carlo (no snapshot needed) |
+| `GET /api/refresh`             | kicks off a snapshot rebuild in background |
 
 ---
 
@@ -150,6 +185,14 @@ python3 -m unittest backend.tests
 | Live + Odds | **ESPN** hidden scoreboard | score, status, leaders, moneyline/spread/total | ✅ solid |
 | Press review | **Google News**, **Yahoo**, **CBS**, ESPN RSS | headlines + outlet + time | ✅ solid |
 | Historical / Elo | **Basketball Reference** | season record + SRS → Elo seed | ✅ works |
+| Live + stats + odds + lineups | **Sofascore** (`api.sofascore.com`) | score, PBP incidents, team stats, lineups, multi-book odds, form, h2h, scoring graph, featured players | ✅ rich |
+| Live scores | **Flashscore** live feed | cross-check of score + status | ⚠️ best-effort* |
+| Live scores | **TheScore** API | cross-check of score + status | ⚠️ best-effort* |
+| Standings | **NBA.com Stats** (`stats.nba.com`) | league standings, win%, PF/PA, streak | ⚠️ best-effort* |
+| Lineups + injuries | **Rotowire** HTML | projected starters, injury report rows | ⚠️ best-effort* |
+| Power rating + ATS / O/U | **TeamRankings** HTML | power ratings, ATS trends, over/under trends | ✅ works |
+| Multi-book odds | **OddsPortal** HTML | listing-page best prices | ⚠️ best-effort* |
+| Public betting | **Action Network** | bet/money percentages (sharp signal) | ⚠️ best-effort* |
 | Fan sentiment | **Reddit** `.json` (r/nba, team subs, r/sportsbook) | posts, upvotes, comments | ⚠️ best-effort* |
 | Live play-by-play | **NBA.com** live CDN | scoring events for run detection | ⚠️ best-effort* |
 
