@@ -51,6 +51,9 @@ NBA_LEXICON = {
     "poster": 1.9, "dunk": 1.6, "swish": 1.7, "sweep": 1.5, "closeout": 1.0,
     "hustle": 1.4, "killer": 1.9, "cold-blooded": 2.4, "dagger": 2.3,
     "heater": 1.8, "unguardable": 2.5, "carry": 1.6, "carried": 1.2,
+    "buzzer": 1.5, "and-one": 1.6, "clutchness": 2.6, "sniper": 2.0,
+    "scorching": 2.2, "leveled": 1.4, "ballin": 1.8, "balling": 1.8,
+    "money": 1.7, "automatic": 2.0, "flame": 1.6, "ascendant": 2.0,
     "washed": -2.6, "rigged": -2.9, "choke": -2.8, "choked": -2.8,
     "choking": -2.7, "bum": -2.4, "bums": -2.4, "robbed": -2.6, "rob": -2.0,
     "scam": -2.5, "fraud": -2.6, "fraudulent": -2.6, "bust": -2.3,
@@ -60,6 +63,9 @@ NBA_LEXICON = {
     "flopping": -1.6, "flop": -1.5, "blowout": -0.8, "benched": -1.3,
     "softer": -1.5, "soft": -1.4, "exposed": -1.8, "overrated": -1.8,
     "tanking": -1.6, "blew": -2.1, "blowing": -1.8, "refball": -2.2,
+    "yikes": -1.4, "atrocious": -2.8, "abysmal": -2.7, "imploded": -2.3,
+    "imploding": -2.3, "embarrassed": -2.4, "frustrated": -1.4,
+    "frustration": -1.3, "stinker": -2.0,
 }
 
 LEXICON = {**GENERAL_LEXICON, **NBA_LEXICON}
@@ -73,6 +79,11 @@ PHRASE_LEXICON = {
     "must-win": -0.4, "no answer": -1.3, "foul trouble": -1.4,
     "season ending": -2.6, "bad call": -1.9, "missed call": -1.7,
     "bounce back": 1.0, "load management": -0.8, "garbage time": -0.7,
+    "play of the year": 2.6, "rising star": 2.1, "stomped on": -1.8,
+    "in their bag": 2.0, "going off": 2.0, "running away": 1.6,
+    "made history": 2.4, "writing himself": 2.0, "shutting down": 1.6,
+    "no chance": -1.6, "wave the white flag": -2.2, "no contest": 1.0,
+    "season high": 2.1, "season low": -1.6, "career low": -2.0,
 }
 
 # A few emoji with sports-fan valence.

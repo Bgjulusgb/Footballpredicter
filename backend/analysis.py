@@ -148,3 +148,52 @@ def value_bet(market, ensemble, odds):
         "expected_value": ev,
         "has_value": edge > 0.01,
     }
+
+
+# ---------------------------------------------------------------------------
+# Narrative dispersion: how spread out is the conversation? A single dominant
+# storyline differs from a fragmented one — useful as a "noise" indicator.
+# ---------------------------------------------------------------------------
+def narrative_concentration(narratives_list):
+    """Herfindahl index over narrative counts: 1 = single story, 0 = uniform."""
+    if not narratives_list:
+        return 0.0
+    total = sum(n["count"] for n in narratives_list)
+    if total == 0:
+        return 0.0
+    return round(sum((n["count"] / total) ** 2 for n in narratives_list), 4)
+
+
+def sentiment_polarity(records):
+    """Share of records that are clearly positive / negative / neutral."""
+    if not records:
+        return {"positive": 0.0, "negative": 0.0, "neutral": 0.0}
+    pos = sum(1 for r in records
+              if r.get("sentiment", {}).get("compound", 0) >= 0.35)
+    neg = sum(1 for r in records
+              if r.get("sentiment", {}).get("compound", 0) <= -0.35)
+    n = len(records)
+    return {
+        "positive": round(pos / n, 4),
+        "negative": round(neg / n, 4),
+        "neutral": round(1 - (pos + neg) / n, 4),
+    }
+
+
+def top_outlets(records, top=8):
+    """Press outlet leaderboard by article count + mean sentiment."""
+    by_outlet = {}
+    for r in records:
+        src = r.get("source", "unknown")
+        d = by_outlet.setdefault(src, {"count": 0, "comps": []})
+        d["count"] += 1
+        d["comps"].append(r.get("sentiment", {}).get("compound", 0))
+    out = []
+    for src, d in by_outlet.items():
+        out.append({
+            "source": src,
+            "count": d["count"],
+            "mean_sentiment": round(sum(d["comps"]) / len(d["comps"]), 4),
+        })
+    out.sort(key=lambda x: x["count"], reverse=True)
+    return out[:top]

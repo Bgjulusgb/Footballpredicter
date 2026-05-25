@@ -6,13 +6,18 @@ Usage:
     python -m backend.run live --once       # one live iteration
     python -m backend.run live --fixture data/fixture_pbp.json   # test live
     python -m backend.run auto              # snapshot, then live if game is on
+    python -m backend.run dashboard         # colourised CLI dashboard
+    python -m backend.run dashboard --watch # auto-refresh dashboard
+    python -m backend.run tui               # interactive curses UI
+    python -m backend.run simulate          # Monte Carlo, Glicko, Kelly
+    python -m backend.run evaluate ...      # calibration metrics
 """
 
 import argparse
 import json
 import sys
 
-from . import config, live, pipeline
+from . import cli_dashboard, config, live, pipeline
 from .sources import espn
 
 
@@ -76,6 +81,66 @@ def _cmd_auto(args):
     return 0
 
 
+def _cmd_dashboard(args):
+    return cli_dashboard.show(tab=args.tab, watch=args.watch,
+                              interval=args.interval)
+
+
+def _cmd_tui(_args):
+    from . import tui
+    return tui.main()
+
+
+def _cmd_simulate(args):
+    from . import advanced_math, simulation
+    simulation.seed(args.seed)
+    home_wp = args.home_win_prob
+    print(f"Simulating with home_win_prob={home_wp}, trials={args.trials}")
+    game = simulation.simulate_game(home_wp, trials=args.trials)
+    print("\n[Monte Carlo - game]")
+    for k, v in game.items():
+        if k == "histogram":
+            continue
+        print(f"  {k:24} {v}")
+
+    series = simulation.simulate_series(
+        [home_wp] * 4, leader_wins=3, trailer_wins=0, trials=args.trials)
+    print("\n[Monte Carlo - series remainder]")
+    for k, v in series.items():
+        print(f"  {k:24} {v}")
+
+    alt = simulation.simulate_alt_lines(home_wp, trials=args.trials)
+    print("\n[Alternate lines]")
+    for k, v in alt.items():
+        print(f"  {k:24} {v}")
+
+    poss = simulation.simulate_possession(possessions=100, trials=args.trials // 4)
+    print("\n[Possession-by-possession]")
+    for k, v in poss.items():
+        print(f"  {k:24} {v}")
+
+    if args.decimal_odds:
+        kf = advanced_math.kelly_fraction(home_wp, args.decimal_odds)
+        ev = advanced_math.expected_value(home_wp, args.decimal_odds)
+        print("\n[Kelly]")
+        print(f"  full Kelly    {kf*100:.3f}%")
+        print(f"  1/4 Kelly     {kf*25:.3f}%")
+        print(f"  EV per unit   {ev:+.4f}")
+    return 0
+
+
+def _cmd_advanced(_args):
+    """Pretty-print the 'advanced' block from snapshot.json (no recomputation)."""
+    try:
+        with open(config.SNAPSHOT_PATH, encoding="utf-8") as f:
+            snap = json.load(f)
+    except (OSError, ValueError) as e:
+        print(f"Couldn't read snapshot: {e}", file=sys.stderr)
+        return 1
+    print(json.dumps(snap.get("advanced", {}), indent=2))
+    return 0
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description="NBA Mood Mirror backend")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -96,9 +161,34 @@ def main(argv=None):
     p_eval.add_argument("--results", required=True,
                         help="JSON list of {prob_home, home_won}")
 
+    p_dash = sub.add_parser("dashboard", help="ANSI-coloured CLI dashboard")
+    p_dash.add_argument("--tab", default="all",
+                        choices=list(cli_dashboard.TABS.keys()),
+                        help="which view to show (default: all)")
+    p_dash.add_argument("--watch", action="store_true",
+                        help="auto-refresh every --interval seconds")
+    p_dash.add_argument("--interval", type=int, default=5,
+                        help="watch refresh interval in seconds")
+
+    sub.add_parser("tui", help="interactive curses dashboard (TTY required)")
+
+    p_sim = sub.add_parser("simulate", help="run Monte Carlo simulations")
+    p_sim.add_argument("--home-win-prob", type=float, default=0.6,
+                        dest="home_win_prob",
+                        help="seed home win probability (default 0.60)")
+    p_sim.add_argument("--trials", type=int, default=8000)
+    p_sim.add_argument("--seed", type=int, default=42)
+    p_sim.add_argument("--decimal-odds", type=float, default=None,
+                        dest="decimal_odds",
+                        help="decimal odds for Kelly + EV calculation")
+
+    sub.add_parser("advanced", help="pretty-print snapshot.advanced")
+
     args = parser.parse_args(argv)
     return {"snapshot": _cmd_snapshot, "live": _cmd_live, "auto": _cmd_auto,
-            "evaluate": _cmd_evaluate}[args.command](args)
+            "evaluate": _cmd_evaluate, "dashboard": _cmd_dashboard,
+            "tui": _cmd_tui, "simulate": _cmd_simulate,
+            "advanced": _cmd_advanced}[args.command](args)
 
 
 if __name__ == "__main__":
