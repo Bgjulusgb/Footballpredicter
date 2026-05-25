@@ -41,10 +41,46 @@ GOOGLE_NEWS_QUERIES = [
     "Knicks Cavaliers",
     "New York Knicks Eastern Conference Finals",
     "Cleveland Cavaliers Eastern Conference Finals",
+    "Knicks Cavaliers Game 4",
+    "Knicks Cavaliers injury report",
+    "Jalen Brunson Knicks",
+    "Donovan Mitchell Cavaliers",
 ]
 GOOGLE_NEWS_RSS = (
     "https://news.google.com/rss/search?q={query}&hl=en-US&gl=US&ceid=US:en"
 )
+
+# Additional free, keyless press RSS feeds (general NBA, used for the press
+# review + narrative tracking). Tagged "general" unless a team is mentioned.
+EXTRA_PRESS_FEEDS = [
+    ("https://www.espn.com/espn/rss/nba/news", "espn_news"),
+    ("https://sports.yahoo.com/nba/rss.xml", "yahoo_news"),
+    ("https://www.cbssports.com/rss/headlines/nba/", "cbs_news"),
+]
+
+# --- Team rosters (for player-level sentiment) -----------------------------
+# name -> match aliases (lower-cased, matched as whole-ish tokens downstream).
+ROSTERS = {
+    "home": {  # Cleveland Cavaliers
+        "Donovan Mitchell": ["donovan mitchell", "mitchell", "spida"],
+        "Darius Garland": ["darius garland", "garland"],
+        "Evan Mobley": ["evan mobley", "mobley"],
+        "Jarrett Allen": ["jarrett allen", "allen"],
+        "Max Strus": ["max strus", "strus"],
+        "De'Andre Hunter": ["de'andre hunter", "deandre hunter", "hunter"],
+        "Ty Jerome": ["ty jerome", "jerome"],
+    },
+    "away": {  # New York Knicks
+        "Jalen Brunson": ["jalen brunson", "brunson"],
+        "Karl-Anthony Towns": ["karl-anthony towns", "karl anthony towns",
+                               "towns", "kat"],
+        "OG Anunoby": ["og anunoby", "anunoby"],
+        "Josh Hart": ["josh hart", "hart"],
+        "Mikal Bridges": ["mikal bridges", "bridges"],
+        "Mitchell Robinson": ["mitchell robinson", "robinson"],
+        "Miles McBride": ["miles mcbride", "mcbride", "deuce"],
+    },
+}
 
 # Reddit (best-effort, keyless .json). Requires a descriptive User-Agent.
 REDDIT_SUBREDDITS = ["nba", "NYKnicks", "clevelandcavs", "sportsbook"]

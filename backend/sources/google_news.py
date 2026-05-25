@@ -11,7 +11,7 @@ from email.utils import parsedate_to_datetime
 from urllib.parse import quote
 
 from .. import config
-from ..http_util import fetch
+from ..http_util import fetch, run_parallel
 from .base import SourceResult, STATUS_OK, STATUS_PARTIAL, STATUS_ERROR
 
 _TAG_RE = re.compile(r"<[^>]+>")
@@ -85,20 +85,26 @@ def _strip_outlet(title, outlet):
 
 
 def fetch_press_review(queries=None):
-    """Aggregate Google News searches + ESPN NBA RSS, de-duplicated."""
+    """Aggregate Google News searches + extra NBA RSS feeds, de-duplicated.
+
+    All feeds are fetched concurrently; a broken feed is skipped, not fatal.
+    """
     queries = queries or config.GOOGLE_NEWS_QUERIES
+    feeds = [(config.GOOGLE_NEWS_RSS.format(query=quote(q)), "google_news")
+             for q in queries]
+    feeds += list(config.EXTRA_PRESS_FEEDS)
+
+    tasks = {f"{name}#{i}": (lambda u=url: fetch(u))
+             for i, (url, name) in enumerate(feeds)}
+    fetched = run_parallel(tasks)
+
     all_records = {}
     errors = []
     ok_any = False
-
-    feeds = [(config.GOOGLE_NEWS_RSS.format(query=quote(q)), "google_news")
-             for q in queries]
-    feeds.append((config.ESPN_NEWS_RSS, "espn_news"))
-
-    for url, name in feeds:
-        res = fetch(url)
-        if not res.ok:
-            errors.append(f"{name}: {res.error}")
+    for i, (url, name) in enumerate(feeds):
+        res = fetched.get(f"{name}#{i}")
+        if isinstance(res, Exception) or res is None or not getattr(res, "ok", False):
+            errors.append(f"{name}: {getattr(res, 'error', res)}")
             continue
         try:
             for rec in _parse_rss(res.body, name):

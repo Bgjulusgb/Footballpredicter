@@ -4,9 +4,11 @@ Run:  python3 -m unittest backend.tests   (or)   python3 -m backend.tests
 Pure stdlib, no network — safe to run anywhere.
 """
 
+import os
+import tempfile
 import unittest
 
-from . import model, sentiment, enrich
+from . import analysis, history, model, sentiment, enrich
 from .sources.base import STATUS_OK
 
 
@@ -125,6 +127,74 @@ class TestImportRule(unittest.TestCase):
         imported, stats = enrich.enrich_and_import(records)
         self.assertEqual(stats["repaired"], 1)
         self.assertEqual(imported[0]["imported_via"], "repair")
+
+
+class TestEmotions(unittest.TestCase):
+    def test_distribution_sums_to_one(self):
+        e = sentiment.emotions("clutch win, but the injury is devastating tonight")
+        self.assertAlmostEqual(sum(e.values()), 1.0, places=4)
+        self.assertGreater(e["joy"] + e["sadness"] + e["anticipation"], 0)
+
+    def test_empty_is_zero(self):
+        self.assertEqual(sum(sentiment.emotions("the a of to").values()), 0.0)
+
+
+class TestAnalysis(unittest.TestCase):
+    def _recs(self):
+        return [
+            {"title": "Jalen Brunson clutch as Knicks win", "text": "MVP chants",
+             "engagement": 50, "sentiment": sentiment.score_text(
+                 "Jalen Brunson clutch as Knicks win MVP chants")},
+            {"title": "Donovan Mitchell struggles, injury concern", "text": "",
+             "engagement": 10, "sentiment": sentiment.score_text(
+                 "Donovan Mitchell struggles, injury concern")},
+            {"title": "Mitchell Robinson returns for the Knicks", "text": "",
+             "engagement": 5, "sentiment": sentiment.score_text(
+                 "Mitchell Robinson returns for the Knicks")},
+        ]
+
+    def test_player_sentiment_attribution(self):
+        players = {p["name"]: p for p in analysis.player_sentiment(self._recs())}
+        self.assertIn("Jalen Brunson", players)
+        self.assertGreater(players["Jalen Brunson"]["mean_sentiment"], 0)
+        # "Mitchell Robinson" must not be double-counted as Donovan Mitchell.
+        self.assertIn("Mitchell Robinson", players)
+
+    def test_narratives(self):
+        terms = {n["term"]: n for n in analysis.narratives(self._recs())}
+        self.assertIn("injury", terms)
+        self.assertIn("clutch", terms)
+
+    def test_value_bet_edge(self):
+        market = {"home": 0.45, "away": 0.55}
+        ens = {"home": 0.52, "away": 0.48}
+        vb = analysis.value_bet(market, ens, {"home_moneyline": 120,
+                                              "away_moneyline": -140})
+        self.assertEqual(vb["side"], "home")
+        self.assertTrue(vb["has_value"])
+        self.assertAlmostEqual(vb["edge_pct"], 7.0, places=1)
+
+    def test_value_bet_none_without_market(self):
+        self.assertIsNone(analysis.value_bet(None, {"home": 0.5, "away": 0.5}, {}))
+
+
+class TestHistory(unittest.TestCase):
+    def test_append_and_load_roundtrip(self):
+        snap = {"generated_at": "2026-05-25T00:00:00+00:00", "mode": "pre",
+                "prediction": {"ensemble": {"home": 0.5, "away": 0.5},
+                               "market": {"home": 0.48}, "elo": {"home": 0.6},
+                               "confidence": 50,
+                               "series": {"leader_clinch_probability": 0.96}},
+                "mood": {"overall": {"heat": 90, "hype": 80, "toxicity": 5},
+                         "team_sentiment": {"home": 0.1, "away": 0.2}}}
+        with tempfile.TemporaryDirectory() as d:
+            path = os.path.join(d, "h.jsonl")
+            history.append(snap, path=path)
+            history.append(snap, path=path)
+            rows = history.load_recent(path=path)
+            self.assertEqual(len(rows), 2)
+            self.assertEqual(rows[0]["ens_home"], 0.5)
+            self.assertEqual(rows[0]["clinch"], 0.96)
 
 
 if __name__ == "__main__":

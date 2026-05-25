@@ -295,6 +295,84 @@ function MoodTab({ snap }) {
                     </ResponsiveContainer>
                 </div>
             )}
+            <NarrativeChips narratives={snap.narratives} />
+            <div className="stats-grid">
+                <EmotionsCard emotions={mood.emotions} />
+                <PlayersCard players={snap.players} teams={snap.teams} />
+            </div>
+        </div>
+    );
+}
+
+// ---- Emotion breakdown ----------------------------------------------------
+function EmotionsCard({ emotions }) {
+    if (!emotions) return null;
+    const colors = { joy: '#28a745', anger: '#dc3545', fear: '#fd7e14',
+        sadness: '#6c757d', anticipation: '#00b8d9' };
+    const data = Object.keys(emotions).map(k => ({
+        emotion: k, value: +(emotions[k] * 100).toFixed(1) }));
+    return (
+        <div className="stat-card">
+            <h3><i className="fas fa-theater-masks"></i> Emotion breakdown</h3>
+            <ResponsiveContainer width="100%" height={220}>
+                <BarChart data={data} layout="vertical"
+                    margin={{ left: 20 }}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis type="number" domain={[0, 100]} />
+                    <YAxis type="category" dataKey="emotion" width={90} />
+                    <Tooltip formatter={v => v + '%'} />
+                    <Bar dataKey="value">
+                        {data.map((e, i) => <Cell key={i} fill={colors[e.emotion]} />)}
+                    </Bar>
+                </BarChart>
+            </ResponsiveContainer>
+        </div>
+    );
+}
+
+// ---- Player sentiment -----------------------------------------------------
+function PlayersCard({ players, teams }) {
+    if (!players || players.length === 0) return null;
+    const teamName = t => t === 'home' ? teams.home.abbr : teams.away.abbr;
+    return (
+        <div className="stat-card">
+            <h3><i className="fas fa-users"></i> Player buzz &amp; sentiment</h3>
+            <table style={{ boxShadow: 'none', marginTop: '4px' }}>
+                <thead><tr>
+                    <th>Player</th><th>Team</th><th>Mentions</th><th>Sentiment</th>
+                </tr></thead>
+                <tbody>
+                    {players.slice(0, 8).map(p => (
+                        <tr key={p.name}>
+                            <td>{p.name}</td>
+                            <td>{teamName(p.team)}</td>
+                            <td>{p.mentions}</td>
+                            <td><span className="sent-badge"
+                                style={{ background: sentimentColor(p.mean_sentiment) }}>
+                                {p.mean_sentiment.toFixed(2)}</span></td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+}
+
+// ---- Narrative tracker ----------------------------------------------------
+function NarrativeChips({ narratives }) {
+    if (!narratives || narratives.length === 0) return null;
+    return (
+        <div className="chart-container">
+            <h2><i className="fas fa-hashtag"></i> Trending narratives</h2>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                {narratives.map(n => (
+                    <span key={n.term} className="badge"
+                        style={{ background: sentimentColor(n.mean_sentiment),
+                            color: 'white', fontSize: '0.9rem', padding: '6px 12px' }}>
+                        {n.term} · {n.count}
+                    </span>
+                ))}
+            </div>
         </div>
     );
 }
@@ -416,6 +494,7 @@ function PredictionTab({ snap }) {
                         <div>{series.leader} win the series</div>
                     </div>
                 </div>
+                <ValueBetCard vb={p.value_bet} teams={snap.teams} />
             </div>
             <div className="chart-container">
                 <h2>Model Comparison (win %)</h2>
@@ -441,12 +520,63 @@ function PredictionTab({ snap }) {
                     </ResponsiveContainer>
                 </div>
             )}
+            <HistoryChart history={snap.history} teams={snap.teams} />
         </div>
     );
 }
 function W(ens, key) {
     const v = ens.components && ens.components[key];
     return v != null ? (v * 100).toFixed(0) + '%' : 'n/a';
+}
+
+// ---- Value bet card -------------------------------------------------------
+function ValueBetCard({ vb, teams }) {
+    if (!vb) return <div className="stat-card"><h3>Value vs. market</h3>
+        <p>No odds available.</p></div>;
+    const sideName = vb.side === 'home' ? teams.home.abbr : teams.away.abbr;
+    const color = vb.has_value ? '#28a745' : '#6c757d';
+    return (
+        <div className="stat-card">
+            <h3><i className="fas fa-coins"></i> Value vs. market</h3>
+            <div style={{ textAlign: 'center' }}>
+                <span className="big-number" style={{ color }}>
+                    {vb.edge_pct > 0 ? '+' : ''}{vb.edge_pct}%</span>
+                <div>model edge on <strong>{sideName}</strong>
+                    {vb.moneyline != null && ' (' + (vb.moneyline > 0 ? '+' : '') + vb.moneyline + ')'}</div>
+            </div>
+            {vb.expected_value != null &&
+                <p style={{ color: '#888', fontSize: '0.85rem', marginTop: '8px' }}>
+                    expected value: {vb.expected_value > 0 ? '+' : ''}
+                    {(vb.expected_value * 100).toFixed(1)}% per unit ·
+                    {vb.has_value ? ' value detected' : ' no clear edge'}</p>}
+        </div>
+    );
+}
+
+// ---- History trend (win prob, odds, mood across runs) --------------------
+function HistoryChart({ history, teams }) {
+    if (!history || history.length < 2) return null;
+    const data = history.map((h, i) => ({
+        i: i + 1,
+        'Ensemble (home)': h.ens_home != null ? +(h.ens_home * 100).toFixed(1) : null,
+        'Market (home)': h.market_home != null ? +(h.market_home * 100).toFixed(1) : null,
+        'Clinch': h.clinch != null ? +(h.clinch * 100).toFixed(1) : null,
+    }));
+    return (
+        <div className="chart-container">
+            <h2><i className="fas fa-chart-line"></i> Movement across runs ({teams.home.abbr} win % &amp; clinch)</h2>
+            <ResponsiveContainer width="100%" height={260}>
+                <LineChart data={data}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="i" /><YAxis domain={[0, 100]} />
+                    <Tooltip /> <Legend />
+                    <Line type="monotone" dataKey="Ensemble (home)" stroke="#6610f2" strokeWidth={2} dot={false} />
+                    <Line type="monotone" dataKey="Market (home)" stroke="#00b8d9" strokeWidth={2} dot={false} />
+                    <Line type="monotone" dataKey="Clinch" stroke="#28a745" strokeWidth={2} dot={false} />
+                </LineChart>
+            </ResponsiveContainer>
+        </div>
+    );
 }
 
 // ---- Live tab -------------------------------------------------------------
