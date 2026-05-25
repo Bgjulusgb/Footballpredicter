@@ -10,163 +10,168 @@
     <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/recharts/2.2.0/Recharts.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
+        /* Monochrome brutalist theme: black + white, hard edges, no curves. */
         :root {
-            --primary-color: #6610f2;
-            --accent-color: #00b8d9;
-            --secondary-color: #6c757d;
-            --success-color: #28a745;
-            --danger-color: #dc3545;
-            --warning-color: #ffc107;
-            --info-color: #17a2b8;
-            --light-color: #f8f9fa;
-            --dark-color: #1d2330;
-            --card-shadow: 0 4px 14px rgba(0,0,0,0.10);
-            --transition-speed: 0.3s;
+            --ink:#0a0a0a; --paper:#ffffff; --paper2:#f2f2f2;
+            --line:#0a0a0a; --muted:#6a6a6a; --hair:#d6d6d6;
+            --shadow:6px 6px 0 #0a0a0a;
+            --mono:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;
+            --sans:'Arial Black','Helvetica Neue',Helvetica,Arial,sans-serif;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing:border-box; margin:0; padding:0; }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6; background-color: #eef1f6; color: #2a2f3a;
+            font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+            line-height:1.55; background:var(--paper); color:var(--ink);
+            -webkit-font-smoothing:antialiased;
         }
-        .App { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .App { max-width:1180px; margin:0 auto; padding:22px; }
         .header {
-            text-align: center; margin-bottom: 20px; padding: 24px;
-            background: linear-gradient(135deg, var(--primary-color), #3a0ca3);
-            color: white; border-radius: 12px; box-shadow: var(--card-shadow);
+            margin-bottom:18px; padding:30px 26px; background:var(--ink);
+            color:var(--paper); border:3px solid var(--ink); box-shadow:var(--shadow);
         }
-        .header h1 { margin-bottom: 6px; font-size: 2.2rem; }
-        .header p { font-size: 1.05rem; opacity: 0.92; }
-        .toolbar { display:flex; justify-content:center; align-items:center;
-            gap:16px; margin-top:16px; flex-wrap:wrap; }
-        .pill { background: rgba(255,255,255,0.16); padding: 5px 12px;
-            border-radius: 20px; font-size: 0.85rem; }
-        .stat-card {
-            background: white; padding: 22px; border-radius: 12px;
-            box-shadow: var(--card-shadow); transition: transform var(--transition-speed);
-        }
-        .stat-card:hover { transform: translateY(-3px); }
-        .stat-card h3 { color: var(--secondary-color); margin-bottom: 14px;
-            border-bottom: 1px solid #eee; padding-bottom: 8px; font-size: 1rem; }
-        .stats-grid { display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 18px; margin: 18px 0; }
-        .chart-container { background: white; padding: 22px; border-radius: 12px;
-            margin: 18px 0; box-shadow: var(--card-shadow); overflow: hidden; }
-        .chart-container h2 { margin-bottom: 16px; color: var(--dark-color);
-            border-bottom: 1px solid #eee; padding-bottom: 10px; font-size: 1.2rem; }
-        .match-header { margin-bottom: 18px; background: white; padding: 20px;
-            border-radius: 12px; box-shadow: var(--card-shadow);
-            display:flex; justify-content:space-between; align-items:center; }
-        .match-teams { display:flex; align-items:center; gap: 18px; }
-        .team-logo { width: 54px; height: 54px; border-radius: 50%;
+        .header h1 { font-family:var(--sans); font-size:2.5rem; line-height:1.05;
+            text-transform:uppercase; letter-spacing:-1px; }
+        .header p { font-size:1rem; opacity:0.85; margin-top:8px;
+            text-transform:uppercase; letter-spacing:2px; font-size:0.8rem; }
+        .toolbar { display:flex; justify-content:flex-start; align-items:center;
+            gap:10px; margin-top:18px; flex-wrap:wrap; }
+        .pill { background:transparent; color:var(--paper); padding:5px 12px;
+            border:2px solid var(--paper); font-size:0.72rem; font-weight:700;
+            text-transform:uppercase; letter-spacing:1px; }
+        .stat-card { background:var(--paper); padding:20px; border:3px solid var(--line);
+            box-shadow:var(--shadow); transition:transform .15s, box-shadow .15s; }
+        .stat-card:hover { transform:translate(-2px,-2px); box-shadow:8px 8px 0 #0a0a0a; }
+        .stat-card h3 { font-family:var(--sans); margin-bottom:14px;
+            border-bottom:3px solid var(--ink); padding-bottom:8px; font-size:0.95rem;
+            text-transform:uppercase; letter-spacing:0.5px; }
+        .stats-grid { display:grid;
+            grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+            gap:18px; margin:18px 0; }
+        .chart-container { background:var(--paper); padding:20px; border:3px solid var(--line);
+            margin:18px 0; box-shadow:var(--shadow); overflow:hidden; }
+        .chart-container h2 { margin-bottom:16px; font-family:var(--sans);
+            border-bottom:3px solid var(--ink); padding-bottom:10px; font-size:1.05rem;
+            text-transform:uppercase; letter-spacing:0.5px; }
+        .match-header { margin-bottom:18px; background:var(--paper); padding:20px;
+            border:3px solid var(--line); box-shadow:var(--shadow);
+            display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+        .match-teams { display:flex; align-items:center; gap:18px; }
+        .team-logo { width:56px; height:56px; border:3px solid var(--ink);
             display:flex; align-items:center; justify-content:center;
-            font-weight:bold; font-size:1.1rem; color:white; }
-        .logo-home { background:#860038; }
-        .logo-away { background:#006bb6; }
+            font-family:var(--sans); font-size:1rem; }
+        .logo-home { background:var(--ink); color:var(--paper); }
+        .logo-away { background:var(--paper); color:var(--ink); }
         .team-block { text-align:center; }
-        .team-score { font-size:1.8rem; font-weight:bold; }
-        .vs { font-size:1.1rem; color: var(--secondary-color); }
+        .team-score { font-family:var(--mono); font-size:1.8rem; font-weight:700; }
+        .vs { font-family:var(--mono); font-size:0.85rem; color:var(--muted);
+            text-transform:uppercase; letter-spacing:1px; }
         .match-info { text-align:right; }
-        .match-date { font-weight:bold; color: var(--primary-color); }
-        .tabs { display:flex; margin-bottom: 18px; border-radius: 8px;
-            overflow:hidden; box-shadow: var(--card-shadow); }
-        .tab { padding: 14px 18px; cursor:pointer; background:#fff; border:none;
-            flex:1; text-align:center; transition: all var(--transition-speed);
-            font-weight:600; color: var(--secondary-color); font-size:0.95rem; }
-        .tab:hover { background:#f0ecff; }
-        .tab.active { background: var(--primary-color); color:white; }
+        .match-date { font-weight:700; text-transform:uppercase; letter-spacing:0.5px; }
+        .tabs { display:flex; margin-bottom:18px; border:3px solid var(--line);
+            box-shadow:var(--shadow); }
+        .tab { padding:15px 16px; cursor:pointer; background:var(--paper); border:none;
+            border-right:3px solid var(--line); flex:1; text-align:center;
+            transition:all .12s; font-weight:800; color:var(--ink); font-size:0.82rem;
+            text-transform:uppercase; letter-spacing:1px; }
+        .tab:last-child { border-right:none; }
+        .tab:hover { background:var(--paper2); }
+        .tab.active { background:var(--ink); color:var(--paper); }
         .tab .badge-dot { display:inline-block; width:8px; height:8px;
-            background: var(--danger-color); border-radius:50%; margin-left:6px;
-            animation: pulse 1.2s infinite; }
-        @keyframes pulse { 0%{opacity:1;} 50%{opacity:0.3;} 100%{opacity:1;} }
+            background:var(--paper); border:1px solid var(--paper); border-radius:0;
+            margin-left:6px; animation:pulse 1.1s infinite; }
+        @keyframes pulse { 0%{opacity:1;} 50%{opacity:0.2;} 100%{opacity:1;} }
         .tab-content { display:none; }
-        .tab-content.active { display:block; animation: fadeIn 0.4s; }
-        @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
-        /* Meters */
-        .meter { margin: 14px 0; }
-        .meter-label { display:flex; justify-content:space-between;
-            font-weight:600; margin-bottom:5px; }
-        .meter-track { height:14px; border-radius:7px; background:#e9ecef;
-            overflow:hidden; }
-        .meter-fill { height:100%; border-radius:7px; transition: width 0.6s; }
-        .big-number { font-size:2.4rem; font-weight:bold; }
-        .prob-bar { display:flex; height:40px; border-radius:8px; overflow:hidden;
-            margin:12px 0; font-weight:bold; color:white; }
-        .prob-home { background:#860038; display:flex; align-items:center;
-            justify-content:flex-start; padding-left:12px; }
-        .prob-away { background:#006bb6; display:flex; align-items:center;
-            justify-content:flex-end; padding-right:12px; }
-        /* Articles */
-        .article { background:white; border-radius:10px; padding:14px 16px;
-            margin-bottom:10px; box-shadow: var(--card-shadow);
-            border-left:5px solid var(--secondary-color); }
-        .article a { color: var(--dark-color); text-decoration:none;
-            font-weight:600; }
-        .article a:hover { color: var(--primary-color); }
-        .article-meta { font-size:0.82rem; color: var(--secondary-color);
-            margin-top:6px; display:flex; gap:12px; flex-wrap:wrap; }
-        .sent-badge { padding:2px 9px; border-radius:12px; font-size:0.75rem;
-            font-weight:bold; color:white; }
-        .badge { display:inline-block; padding:3px 9px; border-radius:12px;
-            font-size:0.78rem; font-weight:bold; margin-right:5px;
-            background: var(--light-color); color: var(--dark-color); }
-        .form-pill { display:inline-block; width:22px; height:22px;
-            border-radius:50%; color:white; text-align:center; line-height:22px;
-            font-weight:bold; margin-right:4px; font-size:0.8rem; }
-        .pill-w { background: var(--success-color); }
-        .pill-l { background: var(--danger-color); }
-        /* Alerts */
-        .alert-banner { padding:14px 18px; border-radius:10px; margin-bottom:10px;
-            color:white; font-weight:600; display:flex; align-items:center; gap:10px; }
-        .alert-high { background: var(--danger-color); }
-        .alert-medium { background: var(--warning-color); color:#3a2f00; }
+        .tab-content.active { display:block; animation:fadeIn .3s; }
+        @keyframes fadeIn { from {opacity:0; transform:translateY(4px);} to {opacity:1;} }
+        .meter { margin:14px 0; }
+        .meter-label { display:flex; justify-content:space-between; font-weight:700;
+            margin-bottom:5px; font-size:0.82rem; text-transform:uppercase;
+            letter-spacing:0.5px; font-family:var(--mono); }
+        .meter-track { height:16px; background:var(--paper2);
+            border:2px solid var(--ink); overflow:hidden; }
+        .meter-fill { height:100%; background:var(--ink); transition:width .5s; }
+        .big-number { font-family:var(--mono); font-size:2.4rem; font-weight:700;
+            letter-spacing:-1px; }
+        .prob-bar { display:flex; height:46px; border:3px solid var(--ink); overflow:hidden;
+            margin:12px 0; font-weight:800; font-family:var(--mono); }
+        .prob-home { background:var(--ink); color:var(--paper); display:flex;
+            align-items:center; justify-content:flex-start; padding-left:14px; }
+        .prob-away { background:var(--paper); color:var(--ink); display:flex;
+            align-items:center; justify-content:flex-end; padding-right:14px;
+            border-left:3px solid var(--ink); }
+        .article { background:var(--paper); padding:14px 16px; margin-bottom:12px;
+            border:2px solid var(--ink); border-left:8px solid var(--ink); }
+        .article a { color:var(--ink); text-decoration:none; font-weight:700; }
+        .article a:hover { text-decoration:underline; }
+        .article-meta { font-size:0.78rem; color:var(--muted); margin-top:8px;
+            display:flex; gap:12px; flex-wrap:wrap; align-items:center;
+            font-family:var(--mono); text-transform:uppercase; letter-spacing:0.5px; }
+        .sent-badge { padding:2px 9px; font-size:0.72rem; font-weight:800;
+            border:2px solid var(--ink); font-family:var(--mono); }
+        .badge { display:inline-block; padding:3px 9px; font-size:0.72rem;
+            font-weight:800; margin-right:5px; background:var(--paper);
+            border:2px solid var(--ink); color:var(--ink); text-transform:uppercase;
+            font-family:var(--mono); }
+        .form-pill { display:inline-block; width:24px; height:24px; border:2px solid var(--ink);
+            text-align:center; line-height:21px; font-weight:800; margin-right:4px;
+            font-size:0.78rem; font-family:var(--mono); }
+        .pill-w { background:var(--ink); color:var(--paper); }
+        .pill-l { background:var(--paper); color:var(--ink); }
+        .alert-banner { padding:14px 18px; margin-bottom:10px; font-weight:800;
+            display:flex; align-items:center; gap:10px; border:3px solid var(--ink);
+            text-transform:uppercase; letter-spacing:0.5px; }
+        .alert-high { background:var(--ink); color:var(--paper); }
+        .alert-medium { background:var(--paper); color:var(--ink);
+            background-image:repeating-linear-gradient(45deg,#0a0a0a 0 8px,transparent 8px 16px);
+            background-blend-mode:normal; }
+        .alert-medium { background:var(--paper2); }
+        table { width:100%; border-collapse:collapse; font-family:var(--mono);
+            font-size:0.85rem; margin-top:6px; }
+        th, td { padding:8px 10px; text-align:left; border-bottom:2px solid var(--ink); }
+        th { font-family:var(--sans); text-transform:uppercase; font-size:0.72rem;
+            letter-spacing:0.5px; border-bottom:3px solid var(--ink); }
         .filters { margin-bottom:16px; display:flex; gap:12px; flex-wrap:wrap; }
-        .filter-select, .search-bar { padding:10px 14px; border-radius:6px;
-            border:1px solid #ddd; background:#fff; font-size:0.95rem;
-            color: var(--dark-color); }
+        .filter-select, .search-bar { padding:11px 14px; border:3px solid var(--ink);
+            background:var(--paper); font-size:0.9rem; color:var(--ink);
+            font-family:var(--mono); }
         .search-bar { flex:1; min-width:200px; }
-        .switch { position:relative; display:inline-block; width:52px; height:28px; }
+        .switch { position:relative; display:inline-block; width:54px; height:28px; }
         .switch input { opacity:0; width:0; height:0; }
-        .slider { position:absolute; cursor:pointer; inset:0; background:#ccc;
-            transition:.4s; border-radius:28px; }
-        .slider:before { position:absolute; content:""; height:20px; width:20px;
-            left:4px; bottom:4px; background:white; transition:.4s; border-radius:50%; }
-        input:checked + .slider { background: var(--accent-color); }
-        input:checked + .slider:before { transform: translateX(24px); }
-        .loading-container { display:flex; justify-content:center;
-            align-items:center; min-height:240px; flex-direction:column; gap:14px; }
-        .loading-spinner { border:4px solid rgba(0,0,0,0.1); border-radius:50%;
-            border-top:4px solid var(--primary-color); width:46px; height:46px;
-            animation: spin 1s linear infinite; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        .error-box { background:#fff3f3; border:1px solid var(--danger-color);
-            color:#a4282f; padding:20px; border-radius:10px; }
-        .error-box code { background:#2a2f3a; color:#fff; padding:2px 6px;
-            border-radius:4px; }
-        .source-chip { display:inline-block; padding:4px 10px; border-radius:14px;
-            font-size:0.78rem; font-weight:600; margin:3px; }
-        .src-ok { background:#d4f7dd; color:#176b2c; }
-        .src-partial { background:#fff4d6; color:#7a5b00; }
-        .src-error { background:#fde0e0; color:#a4282f; }
-        .section-title { margin: 24px 0 12px; color: var(--dark-color);
-            border-left:4px solid var(--primary-color); padding-left:10px; }
-        .live-score { font-size:3rem; font-weight:bold; }
-        /* Dark mode */
-        .dark-mode { background:#10131a; color:#e6e8ee; }
-        .dark-mode .stat-card, .dark-mode .chart-container,
-        .dark-mode .match-header, .dark-mode .article { background:#1d2330; color:#e6e8ee; }
-        .dark-mode .tab { background:#1d2330; color:#aab; }
-        .dark-mode .tab:hover { background:#2a3142; }
-        .dark-mode .tab.active { background: var(--primary-color); color:#fff; }
-        .dark-mode .filter-select, .dark-mode .search-bar { background:#2a3142;
-            color:#e6e8ee; border-color:#3a4254; }
-        .dark-mode h2, .dark-mode h3, .dark-mode .section-title { color:#e6e8ee; }
-        .dark-mode .article a { color:#e6e8ee; }
-        .dark-mode .meter-track { background:#2a3142; }
+        .slider { position:absolute; cursor:pointer; inset:0; background:transparent;
+            border:2px solid var(--paper); transition:.3s; }
+        .slider:before { position:absolute; content:""; height:18px; width:18px;
+            left:3px; bottom:3px; background:var(--paper); transition:.3s; }
+        input:checked + .slider:before { transform:translateX(26px); }
+        .loading-container { display:flex; justify-content:center; align-items:center;
+            min-height:240px; flex-direction:column; gap:14px; }
+        .loading-spinner { border:5px solid var(--paper2); border-top:5px solid var(--ink);
+            width:46px; height:46px; animation:spin 0.9s linear infinite; }
+        @keyframes spin { 100% { transform:rotate(360deg); } }
+        .error-box { background:var(--paper); border:3px solid var(--ink);
+            color:var(--ink); padding:22px; box-shadow:var(--shadow); }
+        .error-box code { background:var(--ink); color:var(--paper); padding:2px 6px;
+            font-family:var(--mono); }
+        .source-chip { display:inline-block; padding:4px 9px; font-size:0.7rem;
+            font-weight:800; margin:3px; border:2px solid var(--ink);
+            font-family:var(--mono); text-transform:uppercase; }
+        .src-ok { background:var(--ink); color:var(--paper); }
+        .src-partial { background:var(--paper2); color:var(--ink); }
+        .src-error { background:var(--paper); color:var(--ink);
+            border-style:dashed; }
+        .section-title { margin:24px 0 12px; font-family:var(--sans);
+            border-left:8px solid var(--ink); padding-left:12px; text-transform:uppercase; }
+        .live-score { font-family:var(--mono); font-size:3rem; font-weight:700; }
+        /* Dark mode = full invert: flip the palette variables, the base
+           body rule (background:var(--paper); color:var(--ink)) does the rest. */
+        .dark-mode { --ink:#ffffff; --paper:#0a0a0a; --paper2:#1c1c1c;
+            --line:#ffffff; --muted:#9a9a9a; --hair:#333; --shadow:6px 6px 0 #ffffff;
+            background:var(--paper); color:var(--ink); }
         @media (max-width: 768px) {
-            .tabs { flex-direction: column; }
-            .match-header { flex-direction: column; gap: 12px; text-align:center; }
+            .tabs { flex-direction:column; }
+            .tab { border-right:none; border-bottom:3px solid var(--line); }
+            .match-header { flex-direction:column; text-align:center; }
             .match-info { text-align:center; }
+            .header h1 { font-size:1.8rem; }
         }
     </style>
 </head>
@@ -179,22 +184,30 @@ const { LineChart, Line, BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip,
 const SNAPSHOT_REFRESH_MS = 60000;
 const LIVE_REFRESH_MS = 20000;
 
-// ---- helpers --------------------------------------------------------------
+// ---- helpers (monochrome, theme-aware) ------------------------------------
+let CURRENT_DARK = false;                       // set by App() each render
+function ink() { return CURRENT_DARK ? '#ffffff' : '#0a0a0a'; }
+function paper() { return CURRENT_DARK ? '#0a0a0a' : '#ffffff'; }
+function mute() { return CURRENT_DARK ? '#9a9a9a' : '#6a6a6a'; }
+function awayTone() { return '#9a9a9a'; }       // mid-gray, visible on both bgs
+
+// Sentiment is encoded by ink intensity: dark = positive, faint = negative.
 function sentimentColor(c) {
-    if (c >= 0.35) return '#28a745';
-    if (c <= -0.35) return '#dc3545';
-    return '#ffc107';
+    if (c >= 0.35) return ink();
+    if (c <= -0.35) return CURRENT_DARK ? '#3a3a3a' : '#cccccc';
+    return CURRENT_DARK ? '#7d7d7d' : '#808080';
+}
+function inkOn(hex) {                            // pick readable text color
+    const n = parseInt(hex.slice(1), 16);
+    const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+    return (0.299 * r + 0.587 * g + 0.114 * b) > 140 ? '#0a0a0a' : '#ffffff';
 }
 function sentimentLabel(c) {
     if (c >= 0.35) return 'positive';
     if (c <= -0.35) return 'negative';
     return 'neutral';
 }
-function meterColor(kind, v) {
-    if (kind === 'toxicity') return v > 50 ? '#dc3545' : v > 25 ? '#ffc107' : '#28a745';
-    if (kind === 'hype') return '#00b8d9';
-    return '#6610f2';
-}
+function meterColor() { return ink(); }
 function fmtPct(p) { return (p * 100).toFixed(1) + '%'; }
 function fmtDate(s) {
     if (!s) return '';
@@ -295,7 +308,7 @@ function MoodTab({ snap }) {
                             <XAxis dataKey="date" /><YAxis domain={[-1, 1]} />
                             <Tooltip /> <Legend />
                             <Line type="monotone" dataKey="sentiment" name="Mean sentiment"
-                                stroke="#6610f2" strokeWidth={2} />
+                                stroke={ink()} strokeWidth={2} />
                         </LineChart>
                     </ResponsiveContainer>
                 </div>
@@ -312,8 +325,9 @@ function MoodTab({ snap }) {
 // ---- Emotion breakdown ----------------------------------------------------
 function EmotionsCard({ emotions }) {
     if (!emotions) return null;
-    const colors = { joy: '#28a745', anger: '#dc3545', fear: '#fd7e14',
-        sadness: '#6c757d', anticipation: '#00b8d9' };
+    // Monochrome ramp so the five emotions stay distinguishable in B/W.
+    const shades = { joy: ink(), anticipation: '#4a4a4a', fear: '#7a7a7a',
+        sadness: '#a8a8a8', anger: '#cfcfcf' };
     const data = Object.keys(emotions).map(k => ({
         emotion: k, value: +(emotions[k] * 100).toFixed(1) }));
     return (
@@ -327,7 +341,7 @@ function EmotionsCard({ emotions }) {
                     <YAxis type="category" dataKey="emotion" width={90} />
                     <Tooltip formatter={v => v + '%'} />
                     <Bar dataKey="value">
-                        {data.map((e, i) => <Cell key={i} fill={colors[e.emotion]} />)}
+                        {data.map((e, i) => <Cell key={i} fill={shades[e.emotion] || ink()} />)}
                     </Bar>
                 </BarChart>
             </ResponsiveContainer>
@@ -353,7 +367,8 @@ function PlayersCard({ players, teams }) {
                             <td>{teamName(p.team)}</td>
                             <td>{p.mentions}</td>
                             <td><span className="sent-badge"
-                                style={{ background: sentimentColor(p.mean_sentiment) }}>
+                                style={{ background: sentimentColor(p.mean_sentiment),
+                                    color: inkOn(sentimentColor(p.mean_sentiment)) }}>
                                 {p.mean_sentiment.toFixed(2)}</span></td>
                         </tr>
                     ))}
@@ -373,7 +388,8 @@ function NarrativeChips({ narratives }) {
                 {narratives.map(n => (
                     <span key={n.term} className="badge"
                         style={{ background: sentimentColor(n.mean_sentiment),
-                            color: 'white', fontSize: '0.9rem', padding: '6px 12px' }}>
+                            color: inkOn(sentimentColor(n.mean_sentiment)),
+                            fontSize: '0.9rem', padding: '6px 12px' }}>
                         {n.term} · {n.count}
                     </span>
                 ))}
@@ -416,7 +432,8 @@ function PressTab({ snap }) {
                     <a href={a.url} target="_blank" rel="noopener">{a.title}</a>
                     <div className="article-meta">
                         <span className="sent-badge"
-                            style={{ background: sentimentColor(a.sentiment.compound) }}>
+                            style={{ background: sentimentColor(a.sentiment.compound),
+                                color: inkOn(sentimentColor(a.sentiment.compound)) }}>
                             {sentimentLabel(a.sentiment.compound)} ({a.sentiment.compound.toFixed(2)})
                         </span>
                         <span><i className="fas fa-newspaper"></i> {a.outlet || a.source}</span>
@@ -495,7 +512,7 @@ function PredictionTab({ snap }) {
                 <div className="stat-card">
                     <h3>Series ({series.lead})</h3>
                     <div style={{ textAlign: 'center' }}>
-                        <span className="big-number" style={{ color: '#006bb6' }}>
+                        <span className="big-number" style={{ color: ink() }}>
                             {fmtPct(series.leader_clinch_probability || 0)}</span>
                         <div>{series.leader} win the series</div>
                     </div>
@@ -510,8 +527,8 @@ function PredictionTab({ snap }) {
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="model" /><YAxis domain={[0, 100]} />
                         <Tooltip /> <Legend />
-                        <Bar dataKey={home.abbr} fill="#860038" />
-                        <Bar dataKey={away.abbr} fill="#006bb6" />
+                        <Bar dataKey={home.abbr} fill={ink()} />
+                        <Bar dataKey={away.abbr} fill={awayTone()} />
                     </BarChart>
                 </ResponsiveContainer>
             </div>
@@ -522,7 +539,7 @@ function PredictionTab({ snap }) {
                         <BarChart data={perGame}>
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="game" /><YAxis domain={[0, 100]} />
-                            <Tooltip /> <Bar dataKey="Knicks win %" fill="#006bb6" />
+                            <Tooltip /> <Bar dataKey="Knicks win %" fill={ink()} />
                         </BarChart>
                     </ResponsiveContainer>
                 </div>
@@ -541,7 +558,7 @@ function ValueBetCard({ vb, teams }) {
     if (!vb) return <div className="stat-card"><h3>Value vs. market</h3>
         <p>No odds available.</p></div>;
     const sideName = vb.side === 'home' ? teams.home.abbr : teams.away.abbr;
-    const color = vb.has_value ? '#28a745' : '#6c757d';
+    const color = vb.has_value ? ink() : mute();
     return (
         <div className="stat-card">
             <h3><i className="fas fa-coins"></i> Value vs. market</h3>
@@ -607,9 +624,9 @@ function HistoryChart({ history, teams }) {
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="i" /><YAxis domain={[0, 100]} />
                     <Tooltip /> <Legend />
-                    <Line type="monotone" dataKey="Ensemble (home)" stroke="#6610f2" strokeWidth={2} dot={false} />
-                    <Line type="monotone" dataKey="Market (home)" stroke="#00b8d9" strokeWidth={2} dot={false} />
-                    <Line type="monotone" dataKey="Clinch" stroke="#28a745" strokeWidth={2} dot={false} />
+                    <Line type="monotone" dataKey="Ensemble (home)" stroke={ink()} strokeWidth={2.5} dot={false} />
+                    <Line type="monotone" dataKey="Market (home)" stroke={awayTone()} strokeWidth={2} strokeDasharray="6 3" dot={false} />
+                    <Line type="monotone" dataKey="Clinch" stroke={awayTone()} strokeWidth={2} strokeDasharray="2 3" dot={false} />
                 </LineChart>
             </ResponsiveContainer>
         </div>
@@ -643,7 +660,8 @@ function LiveTab({ live }) {
                 </div>
                 <div style={{ textAlign: 'center' }}>
                     <div className="vs">{g.detail || g.state}</div>
-                    <div className="pill" style={{ background: '#6610f2', color: '#fff' }}>
+                    <div className="pill" style={{ background: ink(), color: paper(),
+                        borderColor: ink() }}>
                         {live.mode === 'live' ? 'LIVE' : live.mode}</div>
                 </div>
                 <div className="team-block">
@@ -683,9 +701,8 @@ function LiveTab({ live }) {
                 <div className="stat-card">
                     <h3>Sentiment Spike</h3>
                     <div style={{ textAlign: 'center' }}>
-                        <span className="big-number"
-                            style={{ color: (L.sentiment_spike || 0) < 0 ? '#dc3545' : '#28a745' }}>
-                            {(L.sentiment_spike || 0).toFixed(1)}σ</span>
+                        <span className="big-number" style={{ color: ink() }}>
+                            {(L.sentiment_spike || 0) < 0 ? '▼' : '▲'} {Math.abs(L.sentiment_spike || 0).toFixed(1)}σ</span>
                         <div>{(L.sentiment_spike || 0) <= -1.5 ? 'panic' :
                             (L.sentiment_spike || 0) >= 1.5 ? 'hype surge' : 'stable'}</div>
                     </div>
@@ -708,9 +725,9 @@ function LiveTab({ live }) {
                             <XAxis dataKey="i" /><YAxis />
                             <Tooltip /> <Legend />
                             <Line type="monotone" dataKey={g.home ? g.home.abbr : 'home'}
-                                stroke="#860038" strokeWidth={2} dot={false} />
+                                stroke={ink()} strokeWidth={2.5} dot={false} />
                             <Line type="monotone" dataKey={g.away ? g.away.abbr : 'away'}
-                                stroke="#006bb6" strokeWidth={2} dot={false} />
+                                stroke={awayTone()} strokeWidth={2.5} strokeDasharray="6 3" dot={false} />
                         </LineChart>
                     </ResponsiveContainer>
                 </div>
@@ -735,6 +752,7 @@ function App() {
     const [tab, setTab] = React.useState('mood');
     const [dark, setDark] = React.useState(false);
     const [error, setError] = React.useState(null);
+    CURRENT_DARK = dark;   // theme-aware color helpers read this during render
 
     const loadSnapshot = React.useCallback(() => {
         fetch('data/snapshot.json?t=' + Date.now())
@@ -791,11 +809,13 @@ function App() {
                     <span className="pill">{snap.label}</span>
                     <span className="pill">Series: {snap.series.leader} {snap.series.lead}</span>
                     <span className="pill">Mode: {snap.mode}{isLive ? ' (LIVE)' : ''}</span>
-                    <label className="switch">
+                    <label className="switch" title="Invert theme">
                         <input type="checkbox" checked={dark}
                             onChange={() => setDark(!dark)} />
                         <span className="slider"></span>
                     </label>
+                    <span className="pill" style={{ border: 'none' }}>
+                        {dark ? 'INVERTED' : 'INVERT'}</span>
                 </div>
             </div>
 

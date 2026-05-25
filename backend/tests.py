@@ -242,6 +242,25 @@ class TestAnalysis(unittest.TestCase):
         self.assertIsNone(analysis.value_bet(None, {"home": 0.5, "away": 0.5}, {}))
 
 
+class TestAttribution(unittest.TestCase):
+    def test_word_boundary_no_false_match(self):
+        # "ny" must not match inside "company"; this is general, not the Knicks.
+        self.assertEqual(enrich._attribute_team("the company announced", None), None)
+
+    def test_team_match(self):
+        self.assertEqual(enrich._attribute_team("Knicks roll on", None), "away")
+        self.assertEqual(enrich._attribute_team("Cavaliers respond", None), "home")
+        self.assertEqual(enrich._attribute_team("Cavaliers host the Knicks", None), "both")
+
+    def test_recency_weight(self):
+        import datetime as dt
+        now = dt.datetime(2026, 5, 25, tzinfo=dt.timezone.utc)
+        fresh = model.recency_weight("2026-05-25T00:00:00+00:00", now=now)
+        old = model.recency_weight("2026-05-19T00:00:00+00:00", now=now)
+        self.assertGreater(fresh, old)
+        self.assertAlmostEqual(model.recency_weight(None), 0.5)
+
+
 class TestHistory(unittest.TestCase):
     def test_append_and_load_roundtrip(self):
         snap = {"generated_at": "2026-05-25T00:00:00+00:00", "mode": "pre",

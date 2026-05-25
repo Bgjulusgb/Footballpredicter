@@ -14,10 +14,29 @@ Several independent formulas, then an ensemble:
 Everything is pure Python (math/statistics only).
 """
 
+import datetime as _dt
 import math
 import statistics
 
 from . import config
+
+
+def recency_weight(published, half_life_days=2.0, now=None):
+    """Exponential time-decay weight in (0, 1] for a record's timestamp.
+
+    Recent items count more. Missing/unparseable timestamps get a neutral 0.5.
+    """
+    if not published:
+        return 0.5
+    try:
+        t = _dt.datetime.fromisoformat(str(published).replace("Z", "+00:00"))
+    except (ValueError, TypeError):
+        return 0.5
+    if t.tzinfo is None:
+        t = t.replace(tzinfo=_dt.timezone.utc)
+    now = now or _dt.datetime.now(_dt.timezone.utc)
+    age_days = max(0.0, (now - t).total_seconds() / 86400.0)
+    return 0.5 ** (age_days / half_life_days)
 
 # --- Elo seeds (refined by Basketball Reference SRS when available) --------
 ELO_SEED = {"home": 1600.0, "away": 1612.0}   # CLE / NYK baseline
@@ -203,7 +222,9 @@ def team_sentiment(records):
         if team not in ("home", "away"):
             continue
         comp = r.get("sentiment", {}).get("compound", 0.0)
-        w = 1.0 + max(0, r.get("engagement", 0)) / 100.0
+        # Weight by engagement AND recency so game-day chatter dominates.
+        w = (1.0 + max(0, r.get("engagement", 0)) / 100.0) * \
+            recency_weight(r.get("published"))
         buckets[team].append(comp * w)
         weights[team].append(w)
 
